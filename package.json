@@ -1,0 +1,24 @@
+{
+  "name": "reunion",
+  "version": "1.0.0",
+  "description": "Family reunion app.",
+  "main": "index.js",
+  "repository": "git@github.com:jrrlokken/reunion",
+  "author": "Joshua Lokken",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.6",
+    "csurf": "^1.11.0",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "mongodb": "^4.4.0",
+    "mongoose": "^6.2.4"
+  }
+}
