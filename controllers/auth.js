@@ -1,11 +1,12 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
 
-const User = require("../models/user");
+const User = require('../models/user');
 
 exports.getSignup = (req, res, next) => {
-  res.render("auth/signup", {
-    path: "/signup",
-    pageTitle: "Sign Up",
+  res.render('auth/signup', {
+    path: '/signup',
+    pageTitle: 'Sign Up',
+    errorMessage: [],
   });
 };
 
@@ -14,7 +15,7 @@ exports.postSignup = (req, res, next) => {
   User.findOne({ email: email })
     .then((userDoc) => {
       if (userDoc) {
-        return res.redirect("/signup");
+        return res.redirect('/signup');
       }
       return bcrypt
         .hash(password, 12)
@@ -27,7 +28,7 @@ exports.postSignup = (req, res, next) => {
           return user.save();
         })
         .then((result) => {
-          res.redirect("/login");
+          res.redirect('/login');
         });
     })
 
@@ -35,9 +36,10 @@ exports.postSignup = (req, res, next) => {
 };
 
 exports.getLogin = (req, res, next) => {
-  res.render("auth/login", {
-    path: "/login",
-    pageTitle: "Login",
+  res.render('auth/login', {
+    path: '/login',
+    pageTitle: 'Login',
+    errorMessage: [],
   });
 };
 
@@ -47,7 +49,7 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ email: email })
     .then((user) => {
       if (!user) {
-        return res.redirect("/login");
+        return res.redirect('/login');
       }
 
       bcrypt
@@ -58,14 +60,14 @@ exports.postLogin = (req, res, next) => {
             req.session.user = user;
             return req.session.save((error) => {
               console.log(error);
-              res.redirect("/");
+              res.redirect('/');
             });
           }
-          res.redirect("/login");
+          res.redirect('/login');
         })
         .catch((error) => {
           console.log(error);
-          res.redirect("/login");
+          res.redirect('/login');
         });
     })
     .catch((error) => console.log(error));
@@ -74,6 +76,6 @@ exports.postLogin = (req, res, next) => {
 exports.postLogout = (req, res, next) => {
   req.session.destroy((error) => {
     console.log(error);
-    res.redirect("/");
+    res.redirect('/');
   });
 };

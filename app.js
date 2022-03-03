@@ -24,7 +24,7 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 const reunionRoutes = require('./routes/reunion');
-// const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/auth');
 // const adminRoutes = require('./routes/admin');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -62,7 +62,7 @@ app.use((req, res, next) => {
 
 app.use(reunionRoutes);
 // app.use('/admin', adminRoutes);
-// app.use(authRoutes);
+app.use(authRoutes);
 
 app.use(errorController.get404);
 
