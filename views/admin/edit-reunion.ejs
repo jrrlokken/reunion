@@ -1,0 +1,35 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/reunion.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <form class="reunion-form" action="/admin/<% if (editing) { %>edit-reunion<% } else { %>add-reunion<% } %>" method="POST">
+            <div class="form-control">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" value="<% if (editing) { %><%= reunion.title %><% } %>" />
+            </div>
+            <div class="form-control">
+                <label for="imageUrl">Image URL</label>
+                <input type="text" name="imageUrl" id="imageUrl" value="<% if (editing) { %><%= reunion.imageUrl %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="year">Year</label>
+                <input type="number" name="year" id="year" step="1" value="<% if (editing) { %><%= reunion.year %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" rows="5"><% if (editing) { %><%= reunion.description %><% } %></textarea>
+            </div>
+
+            <button class="btn" type="submit"><% if (editing) { %>Update reunion<% } else { %>Add reunion<% } %> </button>
+            <input type="hidden" name="_csrf" value="<%=  csrfToken %>">
+            <% if (editing) { %>
+              <input type="hidden" name="reunionId" value="<%= reunion._id %>">
+            <% } %>
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>

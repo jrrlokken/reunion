@@ -1,0 +1,27 @@
+.reunion-form {
+  width: 20rem;
+  max-width: 90%;
+  margin: auto;
+  display: block;
+}
+
+.reunion-item {
+  width: 20rem;
+  max-width: 95%;
+  margin: 1rem;
+}
+
+.reunion__title {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.reunion__year {
+  text-align: center;
+  color: #4d4d4d;
+  margin-bottom: 0.5rem;
+}
+
+.reunion__description {
+  text-align: center;
+}

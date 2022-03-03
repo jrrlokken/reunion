@@ -23,9 +23,10 @@ const store = new MongoDBStore({
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+const indexRoute = require('./routes/index');
 const reunionRoutes = require('./routes/reunion');
 const authRoutes = require('./routes/auth');
-// const adminRoutes = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -60,8 +61,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(reunionRoutes);
-// app.use('/admin', adminRoutes);
+app.use(indexRoute);
+app.use('/reunions/', reunionRoutes);
+app.use('/admin', adminRoutes);
 app.use(authRoutes);
 
 app.use(errorController.get404);

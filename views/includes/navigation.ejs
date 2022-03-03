@@ -1,21 +1,32 @@
 <div class="backdrop"></div>
-<header class="main-header">
+<header class="main-header sticky">
   <button id="side-menu-toggle">Menu</button>
   <nav class="main-header__nav">
     <ul class="main-header__item-list">
       <li class="main-header__item">
-        <a class="<%= path === '/' ? 'active' : '' %>" href="/">Landing Page</a>
+        <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
+      </li>
+      <% if (isAuthenticated) { %>
+      <li class="main-header__item">
+        <a
+          class="<%= path === '/admin/add-reunion' ? 'active' : '' %>"
+          href="/admin/add-reunion"
+          >Add Reunion
+        </a>
       </li>
       <li class="main-header__item">
         <a class="<%= path === '/reunions' ? 'active' : '' %>" href="/reunions"
-          >All Reunions</a
+          >Reunions</a
         >
       </li>
       <li class="main-header__item">
-        <a class="<%= path === '/reunions/upcoming' ? 'active' : '' %>" href="/reunions/upcoming"
+        <a
+          class="<%= path === '/reunions/upcoming' ? 'active' : '' %>"
+          href="/reunions/upcoming"
           >Upcoming Reunion</a
         >
       </li>
+      <% } %>
     </ul>
     <ul class="main-header__item-list">
       <% if (!isAuthenticated) { %>
@@ -44,11 +55,11 @@
 <nav class="mobile-nav">
   <ul class="mobile-nav__item-list">
     <li class="mobile-nav__item">
-      <a class="<%= path === '/' ? 'active' : '' %>" href="/">Landing Page</a>
+      <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
     </li>
     <li class="mobile-nav__item">
       <a class="<%= path === '/reunions' ? 'active' : '' %>" href="/reunions"
-        >reunions</a
+        >Reunions</a
       >
     </li>
     <% if (!isAuthenticated) { %>

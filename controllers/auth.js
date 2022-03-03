@@ -60,7 +60,7 @@ exports.postLogin = (req, res, next) => {
             req.session.user = user;
             return req.session.save((error) => {
               console.log(error);
-              res.redirect('/');
+              res.redirect('/reunions');
             });
           }
           res.redirect('/login');

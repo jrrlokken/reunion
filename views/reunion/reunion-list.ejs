@@ -19,8 +19,8 @@
               <img src="<%= reunion.imageUrl %>" alt="<%= reunion.title %>">
             </div>
             <div class="card__content">
-              <h2 class="reunion__price">$
-                  <%= reunion.price %>
+              <h2 class="reunion__year">
+                  <%= reunion.year %>
               </h2>
               <p class="reunion__description">
                   <%= reunion.description %>
@@ -33,7 +33,9 @@
         <% } %>
       </div>
       <% } else { %>
-        <h1>No Reunions Found!</h1>
+        <div class="content-container">
+          <h1>No Reunions Found!</h1>
+        </div>
       <% } %>
     </main>
     
