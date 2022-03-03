@@ -53,7 +53,7 @@ body {
 }
 
 .slideshow li {
-  animation: imageAnimation 50s linear 2.5s infinite;
+  animation: imageAnimation 40s linear 2.5s infinite;
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -68,24 +68,24 @@ body {
 }
 
 .slideshow li:nth-child(1) {
-  background-image: url(https://res.cloudinary.com/yelpcampcloud/image/upload/c_scale,dpr_auto,f_auto,q_auto,w_auto/v1513517509/K3mPv14_epb3ia.jpg);
+  background-image: url(https://res.cloudinary.com/joloxcloud/image/upload/c_scale,dpr_auto,f_auto,q_auto,w_auto/v1646328075/reunions/farm2_hmhcoq.jpg);
 }
 .slideshow li:nth-child(2) {
-  background-image: url(https://res.cloudinary.com/yelpcampcloud/image/upload/c_scale,dpr_auto,f_auto,q_auto,w_auto/v1513517629/SBEmFpv_vd8gp6.jpg);
+  background-image: url(https://res.cloudinary.com/joloxcloud/image/upload/c_scale,dpr_auto,f_auto,q_auto,w_auto/v1646328074/reunions/farm1_jmigpi.jpg);
   animation-delay: 10s;
 }
 .slideshow li:nth-child(3) {
-  background-image: url(https://res.cloudinary.com/yelpcampcloud/image/upload/c_scale,dpr_auto,f_auto,q_auto,w_auto/v1513517702/emvhOnb_qaqdwq.jpg);
+  background-image: url(https://res.cloudinary.com/joloxcloud/image/upload/c_scale,dpr_auto,f_auto,q_auto,w_auto/v1646328075/reunions/farm3_iq0u1g.jpg);
   animation-delay: 20s;
 }
 .slideshow li:nth-child(4) {
-  background-image: url(https://res.cloudinary.com/yelpcampcloud/image/upload/c_scale,dpr_auto,f_auto,q_auto,w_auto/v1513519375/2LSMCmJ_gpvxnl.jpg);
+  background-image: url(https://res.cloudinary.com/joloxcloud/image/upload/c_scale,dpr_auto,f_auto,q_auto,w_auto/v1646328074/reunions/norway_flag_jsc1pm.jpg);
   animation-delay: 30s;
 }
-.slideshow li:nth-child(5) {
+/* .slideshow li:nth-child(5) {
   background-image: url(https://res.cloudinary.com/yelpcampcloud/image/upload/c_scale,dpr_auto,f_auto,q_auto,w_auto/v1513519484/TVGe0Ef_el9ecd.jpg);
   animation-delay: 40s;
-}
+} */
 
 @keyframes imageAnimation {
   0%,

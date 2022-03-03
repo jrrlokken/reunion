@@ -15,3 +15,10 @@ exports.getIndex = (req, res, next) => {
     path: '/',
   });
 };
+
+exports.getUpcoming = (req, res, next) => {
+  res.render('reunion/upcoming', {
+    pageTitle: 'Lokken Reunion',
+    path: '/upcoming',
+  });
+};

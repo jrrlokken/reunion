@@ -6,5 +6,6 @@ const reunionController = require('../controllers/reunion');
 const router = express.Router();
 
 router.get('/', reunionController.getIndex);
+router.get('/upcoming', reunionController.getUpcoming);
 
 module.exports = router;
