@@ -43,7 +43,7 @@ form {
   padding: 0 1.5rem;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
 
 .main-header__nav {
@@ -160,8 +160,8 @@ form {
 
 #side-menu-toggle:active,
 #side-menu-toggle:hover {
-  color: #ffeb3b;
-  border-color: #ffeb3b;
+  color: black;
+  border-color: black;
 }
 
 .backdrop {
@@ -236,13 +236,13 @@ form {
 }
 
 .btn.danger {
-  color: red;
-  border-color: red;
+  color: tomato;
+  border-color: tomato;
 }
 
 .btn.danger:hover,
 .btn.danger:active {
-  background: red;
+  background: tomato;
   color: white;
 }
 

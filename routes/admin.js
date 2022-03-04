@@ -7,8 +7,12 @@ const isAdmin = require('../middleware/is-admin');
 const router = express.Router();
 
 router.get('/reunions', adminController.getReunions);
+
 router.get('/add-reunion', isAdmin, adminController.getAddReunion);
 router.post('/add-reunion', isAdmin, adminController.postAddReunion);
+
+router.get('/edit-reunion/:reunionId', isAdmin, adminController.getEditReunion);
+router.post('/edit-reunion', isAdmin, adminController.postEditReunion);
 
 router.post('/delete-reunion', isAdmin, adminController.postDeleteReunion);
 

@@ -7,13 +7,6 @@
         <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
       </li>
       <% if (isAuthenticated) { %>
-      <!-- <li class="main-header__item">
-        <a
-          class="<%= path === '/admin/add-reunion' ? 'active' : '' %>"
-          href="/admin/add-reunion"
-          >Add Reunion
-        </a>
-      </li> -->
       <li class="main-header__item">
         <a class="<%= path === '/reunions' ? 'active' : '' %>" href="/reunions"
           >Reunions</a

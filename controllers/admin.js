@@ -39,6 +39,51 @@ exports.postAddReunion = (req, res, next) => {
     .catch((error) => console.log(error));
 };
 
+exports.getEditReunion = (req, res, next) => {
+  const editMode = req.query.edit;
+  if (!editMode) {
+    return res.redirect('/reunions');
+  }
+  const reunionId = req.params.reunionId;
+  Reunion.findById(reunionId)
+    .then((reunion) => {
+      if (!reunion) {
+        return res.redirect('/reunions');
+      }
+      res.render('admin/edit-reunion', {
+        pageTitle: 'Edit Reunion',
+        path: '/admin/edit-reunion',
+        editing: editMode,
+        reunion: reunion,
+      });
+    })
+    .catch((error) => console.log(error));
+};
+
+exports.postEditReunion = (req, res, next) => {
+  const reunionId = req.body.reunionId;
+  const updatedTitle = req.body.title;
+  const updatedYear = req.body.year;
+  const updatedImageUrls = req.body.imageUrls;
+  const updatedDescription = req.body.description;
+
+  // console.log(req.body);
+
+  Reunion.findById(reunionId)
+    .then((reunion) => {
+      reunion.title = updatedTitle;
+      reunion.year = updatedYear;
+      reunion.imageUrls = updatedImageUrls;
+      reunion.description = updatedDescription;
+      return reunion.save();
+    })
+    .then((result) => {
+      console.log('Updated Reunion');
+      res.redirect('/admin/reunions');
+    })
+    .catch((error) => console.log(error));
+};
+
 exports.postDeleteReunion = (req, res, next) => {
   const reunionId = req.body.reunionId;
   Reunion.findByIdAndRemove(reunionId)
