@@ -13,6 +13,7 @@ exports.getReunions = (req, res, next) => {
 };
 
 exports.getAddReunion = (req, res, next) => {
+  console.log(req.session);
   res.render('admin/edit-reunion', {
     pageTitle: 'Add Reunion',
     path: '/admin/add-reunion',
