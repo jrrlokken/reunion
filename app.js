@@ -12,13 +12,12 @@ const User = require('./models/user');
 
 require('dotenv').config();
 const csrfProtection = csrf();
-
-const app = express();
-
 const store = new MongoDBStore({
   uri: process.env.MONGODB_URI,
   collection: 'sessions',
 });
+
+const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');

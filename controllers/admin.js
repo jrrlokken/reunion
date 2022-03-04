@@ -22,18 +22,18 @@ exports.getAddReunion = (req, res, next) => {
 };
 
 exports.postAddReunion = (req, res, next) => {
-  const { title, year, imageUrl, description } = req.body;
+  const { title, year, imageUrls, description } = req.body;
   const reunion = new Reunion({
     title: title,
     year: year,
     description: description,
-    imageUrl: imageUrl,
+    imageUrls: imageUrls,
     userId: req.user,
   });
   reunion
     .save()
     .then((result) => {
-      console.log('Created Reunion');
+      console.log('Created Reunion', reunion);
       res.redirect('/reunions');
     })
     .catch((error) => console.log(error));

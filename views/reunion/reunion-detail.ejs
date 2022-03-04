@@ -4,10 +4,10 @@
     <body>
         <%- include('../includes/navigation.ejs') %>
         <main class="centered">
-          <h1><%= reunion.title %></h1>
+          <h1><%= reunion.year %>: <%= reunion.title %></h1>
           <hr>
           <div>
-            <img class="image" src="<%= reunion.imageUrl %>" alt="<%= reunion.title %>">
+            <img class="image" src="<%= reunion.imageUrls[0] %>" alt="<%= reunion.title %>">
           </div>
           <p><%= reunion.description %></p>
         </main>
