@@ -5,8 +5,7 @@
         <%- include('../includes/navigation.ejs') %>
         <main class="centered">
           <h1><%= reunion.year %>: <%= reunion.title %></h1>
-          <hr>
-          <div>
+          <div class="margin-top">
             <img class="image" src="<%= reunion.imageUrls[0] %>" alt="<%= reunion.title %>">
           </div>
           <p><%= reunion.description %></p>

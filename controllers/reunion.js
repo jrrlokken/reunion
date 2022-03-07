@@ -1,5 +1,3 @@
-const { ObjectId } = require('mongodb');
-
 const Reunion = require('../models/reunion');
 
 exports.getIndex = (req, res, next) => {

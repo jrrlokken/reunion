@@ -19,6 +19,20 @@
           >Upcoming Reunion</a
         >
       </li>
+      <li class="main-header__item">
+        <a
+          class="<%= path === '/admin/reunions' ? 'active' : '' %>"
+          href="/admin/reunions"
+          >Your Reunions</a
+        >
+      </li>
+      <li class="main-header__item">
+        <a
+          class="<%= path === '/admin/add-reunion' ? 'active' : '' %>"
+          href="/admin/add-reunion"
+          >Add Reunion</a
+        >
+      </li>
       <% } %>
     </ul>
     <ul class="main-header__item-list">

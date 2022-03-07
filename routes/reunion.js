@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.get('/', isAuth, reunionController.getReunions);
 router.get('/upcoming', isAuth, reunionController.getUpcoming);
-router.get('/:reunionId', reunionController.getReunion);
+router.get('/:reunionId', isAuth, reunionController.getReunion);
 
 module.exports = router;

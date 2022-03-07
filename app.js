@@ -60,12 +60,17 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(indexRoute);
-app.use('/reunions/', reunionRoutes);
 app.use('/admin', adminRoutes);
+app.use('/reunions', reunionRoutes);
+app.use(indexRoute);
 app.use(authRoutes);
 
+app.use('/500', errorController.get500);
 app.use(errorController.get404);
+
+app.use((error, req, res, next) => {
+  res.redirect('/500');
+});
 
 mongoose
   .connect(process.env.MONGODB_URI)
