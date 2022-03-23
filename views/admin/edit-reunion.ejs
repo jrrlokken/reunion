@@ -16,8 +16,8 @@
                 <input type="text" name="title" id="title" value="<% if (editing || hasError) { %><%= reunion.title %><% } %>" />
             </div>
             <div class="form-control">
-                <label for="imageUrls">Image URL(s)</label>
-                <input type="text" name="imageUrls" id="imageUrls" value="<% if (editing || hasError) { %><%= reunion.imageUrls[0] %><% } %>">
+                <label for="image">Image</label>
+                <input type="file" name="image" id="image">
             </div>
             <div class="form-control">
                 <label for="year">Year</label>
