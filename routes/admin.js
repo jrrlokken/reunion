@@ -21,11 +21,10 @@ router.post(
       .isInt()
       .isLength({ min: 4, max: 4 })
       .withMessage('Year must be a 4 digit integer'),
-    // body('imageUrls').isURL().withMessage('Image URL must be a valid URL'),
     body('description')
-      .isLength({ min: 3, max: 400 })
+      .isLength({ min: 3, max: 1000 })
       .trim()
-      .withMessage('Description must be 3 - 400 characters'),
+      .withMessage('Description must be 3 - 1000 characters'),
   ],
   isAuth,
   adminController.postAddReunion
@@ -40,11 +39,10 @@ router.post(
     .trim()
     .withMessage('Title must be 3-50 characters'),
   body('year').isInt().withMessage('Year must be a 4 digit integer'),
-  // body('imageUrls').isURL().withMessage('Image URL must be a valid URL'),
   body('description')
-    .isLength({ min: 3, max: 400 })
+    .isLength({ min: 3, max: 1000 })
     .trim()
-    .withMessage('Description must be 3 - 400 characters'),
+    .withMessage('Description must be 3 - 1000 characters'),
   isAuth,
   adminController.postEditReunion
 );

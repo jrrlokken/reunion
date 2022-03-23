@@ -67,16 +67,15 @@ exports.postAddReunion = (req, res, next) => {
     });
   }
 
-  const imageUrls = image.path;
+  const imageUrl = image.path;
 
   const reunion = new Reunion({
     title: title,
     year: year,
-    imageUrls: imageUrls,
+    imageUrl: imageUrl,
     description: description,
     userId: req.user,
   });
-  console.log(reunion);
   reunion
     .save()
     .then((result) => {
@@ -152,8 +151,8 @@ exports.postEditReunion = (req, res, next) => {
       reunion.year = updatedYear;
       reunion.description = updatedDescription;
       if (image) {
-        fileHelper.deleteFile(reunion.imageUrls);
-        reunion.imageUrls = image.path;
+        fileHelper.deleteFile(reunion.imageUrl);
+        reunion.imageUrl = image.path;
       }
       return reunion.save().then((result) => {
         console.log('Updated Reunion');
@@ -174,7 +173,7 @@ exports.postDeleteReunion = (req, res, next) => {
       if (!reunion) {
         return next(new Error('Reunion not found'));
       }
-      fileHelper.deleteFile(product.imageUrls);
+      fileHelper.deleteFile(product.imageUrl);
       return Reunion.deleteOne({ _id: reunionId, userId: req.user._id });
     })
     .then(() => {
