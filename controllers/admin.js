@@ -27,13 +27,13 @@ exports.getAddReunion = (req, res, next) => {
 };
 
 exports.postAddReunion = (req, res, next) => {
-  // const { title, year, imageUrls, description } = req.body;
   const title = req.body.title;
   const year = req.body.year;
   const image = req.file;
   const description = req.body.description;
 
   if (!image) {
+    console.log(req.file);
     return res.status(422).render('admin/edit-reunion', {
       pageTitle: 'Add Reunion',
       path: '/admin/add-reunion',
@@ -45,7 +45,7 @@ exports.postAddReunion = (req, res, next) => {
         description: description,
       },
       errorMessage: 'Attached file is not a valid image',
-      validationErrors: errors.array(),
+      validationErrors: [],
     });
   }
 
@@ -173,7 +173,7 @@ exports.postDeleteReunion = (req, res, next) => {
       if (!reunion) {
         return next(new Error('Reunion not found'));
       }
-      fileHelper.deleteFile(product.imageUrl);
+      fileHelper.deleteFile(reunion.imageUrl);
       return Reunion.deleteOne({ _id: reunionId, userId: req.user._id });
     })
     .then(() => {

@@ -10,18 +10,18 @@
         <% if (errorMessage) { %> 
             <div class="user-message user-message--error"><%= errorMessage %></div>
         <% } %> 
-        <form class="reunion-form" action="/admin/<% if (editing) { %>edit-reunion<% } else { %>add-reunion<% } %>" method="POST">
+        <form class="reunion-form" action="/admin/<% if (editing) { %>edit-reunion<% } else { %>add-reunion<% } %>" method="POST" enctype="multipart/form-data">
             <div class="form-control">
                 <label for="title">Title</label>
                 <input type="text" name="title" id="title" value="<% if (editing || hasError) { %><%= reunion.title %><% } %>" />
             </div>
             <div class="form-control">
-                <label for="image">Image</label>
-                <input type="file" name="image" id="image">
-            </div>
-            <div class="form-control">
                 <label for="year">Year</label>
                 <input type="number" name="year" id="year" step="1" value="<% if (editing || hasError) { %><%= reunion.year %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="image">Image</label>
+                <input type="file" name="image" id="image">
             </div>
             <div class="form-control">
                 <label for="description">Description</label>
