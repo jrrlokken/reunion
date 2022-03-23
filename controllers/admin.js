@@ -4,7 +4,7 @@ const Reunion = require('../models/reunion');
 const fileHelper = require('../util/file');
 
 exports.getReunions = (req, res, next) => {
-  Reunion.find()
+  Reunion.find({ userId: req.user._id })
     .then((reunions) => {
       res.render('admin/reunions', {
         reunions: reunions,
