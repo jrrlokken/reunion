@@ -1,14 +1,23 @@
 <%- include('../includes/head.ejs') %>
-    </head>
+  <link rel="stylesheet" href="/css/carousel.css">
+</head>
 
-    <body>
-        <%- include('../includes/navigation.ejs') %>
-        <main class="centered">
-          <h1><%= reunion.year %>: <%= reunion.title %></h1>
-          <div class="margin-top">
-            <img class="image" src="/<%= reunion.imageUrl %>" alt="<%= reunion.title %>">
-          </div>
-          <p><%= reunion.description %></p>
-          <button class="btn btn-primary" onClick="history.back()">Back</button>
-        </main>
+<body>
+<%- include('../includes/navigation.ejs') %>
+  <main class="content-container centered">
+    <div class="margin-30">
+      <h1><%= reunion.year %>: <%= reunion.title %></h1>
+    </div>
+    
+    <div class="margin-30">
+      <img class="image" src="/<%= reunion.images[0].path %>" alt="<%= reunion.title %>">
+    </div>
+    <div class="margin-30 padding-3 description-text">
+      <p><%= reunion.description %></p>
+    </div>
+    <%- include('../includes/carousel.ejs') %>
+    <div class="margin-30">
+      <button class="btn btn-primary" onClick="history.back()">Back</button>
+    </div>
+  </main>
 <%- include('../includes/end.ejs') %>
