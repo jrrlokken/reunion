@@ -29,10 +29,11 @@ exports.getAddReunion = (req, res, next) => {
 exports.postAddReunion = (req, res, next) => {
   const title = req.body.title;
   const year = req.body.year;
-  const image = req.file;
+  const images = req.files;
   const description = req.body.description;
+  console.log(images);
 
-  if (!image) {
+  if (!images) {
     console.log(req.file);
     return res.status(422).render('admin/edit-reunion', {
       pageTitle: 'Add Reunion',
@@ -67,12 +68,10 @@ exports.postAddReunion = (req, res, next) => {
     });
   }
 
-  const imageUrl = image.path;
-
   const reunion = new Reunion({
     title: title,
     year: year,
-    imageUrl: imageUrl,
+    images: images,
     description: description,
     userId: req.user,
   });
