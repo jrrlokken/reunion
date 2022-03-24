@@ -41,8 +41,9 @@ h1 {
   height: 80vh;
 }
 
-.margin-top {
-  margin-top: 30px;
+.description-text {
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.7);
 }
 
 .image {
@@ -53,9 +54,15 @@ h1 {
   height: 100%;
 }
 
-.sticky {
-  position: sticky;
-  top: 0;
+.margin-30 {
+  margin: 2rem 0;
+}
+.margin-top {
+  margin-top: 30px;
+}
+
+.padding-3 {
+  padding: 0 3rem;
 }
 
 .main-header {
@@ -107,9 +114,10 @@ h1 {
 }
 
 .content-container {
-  height: 90vh;
+  width: 80%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -266,6 +274,11 @@ h1 {
 .btn.danger:active {
   background: #ffd4cd;
   color: #870000;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
 }
 
 .user-message {
