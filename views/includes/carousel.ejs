@@ -1,0 +1,20 @@
+<div class="carousel-wrapper">
+  <div class="carousel">
+    <img
+      src="/<%= reunion.images[0].path %>"
+      alt="reunion photo"
+      class="carousel__photo initial"
+    />
+    <% for (let image of reunion.images) { %>
+
+    <img
+      src="/<%= image.path %>"
+      alt="carousel photo"
+      class="carousel__photo"
+    />
+    <% } %>
+
+    <div class="carousel__button--next"></div>
+    <div class="carousel__button--prev"></div>
+  </div>
+</div>
