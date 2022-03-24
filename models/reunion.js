@@ -10,8 +10,8 @@ const reunionSchema = new Schema({
     type: Number,
     required: true,
   },
-  imageUrl: {
-    type: String,
+  images: {
+    type: Array,
     required: true,
   },
   description: {
