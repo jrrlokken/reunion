@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const cloudinary = require('cloudinary').v2;
 
 const Reunion = require('../models/reunion');
 const fileHelper = require('../util/file');
@@ -67,6 +68,14 @@ exports.postAddReunion = (req, res, next) => {
       validationErrors: errors.array(),
     });
   }
+
+  // const imageFile = req.files.image.path;
+  // cloudinary.uploader
+  //   .upload(imageFile, { tags: 'reunion_upload' })
+  //   .then(function (image) {
+  //     console.log('** Image uploaded to Cloudinary service');
+  //     console.dir(image);
+  //   });
 
   const reunion = new Reunion({
     title: title,
@@ -172,7 +181,7 @@ exports.postDeleteReunion = (req, res, next) => {
       if (!reunion) {
         return next(new Error('Reunion not found'));
       }
-      fileHelper.deleteFile(reunion.imageUrl);
+      fileHelper.deleteFile(reunion.images[0].path);
       return Reunion.deleteOne({ _id: reunionId, userId: req.user._id });
     })
     .then(() => {

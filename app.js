@@ -1,3 +1,14 @@
+require('dotenv').config();
+const cloudinary = require('cloudinary').v2;
+
+if (typeof process.env.CLOUDINARY_URL === 'undefined') {
+  console.warn('!! Cloudinary config is undefined');
+  console.warn('export CLOUDINARY_URL or set dotenv file');
+} else {
+  console.log('** Cloudinary config:');
+  console.log(cloudinary.config());
+}
+
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -10,8 +21,6 @@ const multer = require('multer');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
-
-require('dotenv').config();
 
 const app = express();
 const store = new MongoDBStore({
