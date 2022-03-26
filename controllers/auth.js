@@ -198,8 +198,13 @@ exports.postReset = (req, res, next) => {
           from: 'no-reply@lokkenreunion.com',
           subject: 'Password Reset',
           html: `
-          <p>You requested a password reset</p>
+          <p>Hello,</p>
+
+          <p>You requested a password reset for your account at lokkenreunion.com</p>
           <p>Click this <a href="https://www.lokkenreunion.com/reset/${token}">link</a> to set a new password.</p>
+          <p>Please contact <a href="mailto:admin@lokkenreunion.com">the site administrator</a> for assistance.</p>
+          <br>
+          <hr>
           `,
         });
       })
