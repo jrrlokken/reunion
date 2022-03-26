@@ -72,7 +72,7 @@ h1 {
 
 .card {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  background-color: #d8e2f9;
+  background-color: #eaf0fe;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -129,7 +129,7 @@ h1 {
 }
 
 .description-text {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.05);
   color: rgba(0, 0, 0, 0.7);
   border: 1px solid rgba(0, 0, 0, 0.7);
   border-radius: 5px;
