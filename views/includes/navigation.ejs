@@ -5,15 +5,13 @@
     <ul class="main-header__item-list">
       <% if (isAuthenticated) { %>
       <li class="main-header__item">
-        <a
-          class="<%= path === '/reunions' ? 'active' : 'hover' %>"
-          href="/reunions"
+        <a class="<%= path === '/reunions' ? 'active' : '' %>" href="/reunions"
           >Reunions</a
         >
       </li>
       <li class="main-header__item">
         <a
-          class="<%= path === '/reunions/upcoming' ? 'active' : 'hover' %>"
+          class="<%= path === '/reunions/upcoming' ? 'active' : '' %>"
           href="/reunions/upcoming"
           >Upcoming Reunion</a
         >
@@ -21,14 +19,14 @@
       <% if (isAdmin) { %>
       <li class="main-header__item">
         <a
-          class="<%= path === '/admin/reunions' ? 'active' : 'hover' %>"
+          class="<%= path === '/admin/reunions' ? 'active' : '' %>"
           href="/admin/reunions"
           >Your Reunions</a
         >
       </li>
       <li class="main-header__item">
         <a
-          class="<%= path === '/admin/add-reunion' ? 'active' : 'hover' %>"
+          class="<%= path === '/admin/add-reunion' ? 'active' : '' %>"
           href="/admin/add-reunion"
           >Add Reunion</a
         >
@@ -38,12 +36,12 @@
     <ul class="main-header__item-list">
       <% if (!isAuthenticated) { %>
       <li class="main-header__item">
-        <a class="<%= path === '/login' ? 'active' : 'hover' %>" href="/login"
+        <a class="<%= path === '/login' ? 'active' : '' %>" href="/login"
           >Login</a
         >
       </li>
       <li class="main-header__item">
-        <a class="<%= path === '/signup' ? 'active' : 'hover' %>" href="/signup"
+        <a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup"
           >Sign Up</a
         >
       </li>

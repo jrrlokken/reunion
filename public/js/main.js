@@ -7,14 +7,12 @@
   let slide = 0;
   let moving = true;
 
-  // Set classes
   function setInitialClasses() {
     items[totalItems - 1].classList.add('prev');
     items[0].classList.add('active');
     items[1].classList.add('next');
   }
 
-  // Set event listeners
   function setEventListeners() {
     let next = d.getElementsByClassName('carousel__button--next')[0];
     let prev = d.getElementsByClassName('carousel__button--prev')[0];
