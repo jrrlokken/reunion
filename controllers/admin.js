@@ -32,10 +32,8 @@ exports.postAddReunion = (req, res, next) => {
   const year = req.body.year;
   const images = req.files;
   const description = req.body.description;
-  console.log(images);
 
   if (!images) {
-    console.log(req.file);
     return res.status(422).render('admin/edit-reunion', {
       pageTitle: 'Add Reunion',
       path: '/admin/add-reunion',

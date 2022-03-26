@@ -88,10 +88,10 @@ body {
   background-image: url(https://res.cloudinary.com/joloxcloud/image/upload/c_scale,dpr_auto,f_auto,q_auto,w_auto/v1646328074/reunions/norway_flag_jsc1pm.jpg);
   animation-delay: 30s;
 }
-/* .slideshow li:nth-child(5) {
+.slideshow li:nth-child(5) {
   background-image: url(https://res.cloudinary.com/yelpcampcloud/image/upload/c_scale,dpr_auto,f_auto,q_auto,w_auto/v1513519484/TVGe0Ef_el9ecd.jpg);
   animation-delay: 40s;
-} */
+}
 
 @keyframes imageAnimation {
   0%,
