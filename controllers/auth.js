@@ -65,8 +65,11 @@ exports.postSignup = (req, res, next) => {
       return transport.sendMail({
         to: email,
         from: 'no-reply@lokkenreunion.com',
-        subject: 'Signup succeeded',
-        html: '<p>You have successfully signed up with LokkenReunion.com</p>',
+        subject: 'Signup succeeded at LokkenReunion.com',
+        html: `
+          <p>Thank you for signing up with LokkenReunion.com!</p>
+          <p>Come join the reunion :)</p>
+        `,
       });
     })
     .catch((error) => console.log(error));
