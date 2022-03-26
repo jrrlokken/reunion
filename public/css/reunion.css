@@ -18,8 +18,12 @@
 
 .reunion__year {
   text-align: center;
-  color: #4d4d4d;
   margin-bottom: 0.5rem;
+}
+
+.card__content h2,
+.card__content h1 {
+  color: rgba(0, 0, 0, 0.8);
 }
 
 .reunion__description {

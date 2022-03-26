@@ -8,6 +8,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
+  background-color: antiquewhite;
 }
 
 main {
@@ -44,10 +45,12 @@ h1 {
 .description-text {
   background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
 }
 
 .image {
   max-height: 20rem;
+  border-radius: 5px;
 }
 
 .image img {
@@ -73,6 +76,7 @@ h1 {
   display: flex;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  background-color: lightblue;
 }
 
 .main-header__nav {
@@ -110,7 +114,7 @@ h1 {
 .main-header__item a.active,
 .main-header__item button:hover,
 .main-header__tems button:active {
-  color: blue;
+  color: darkblue;
 }
 
 .content-container {
@@ -222,6 +226,9 @@ h1 {
 
 .card {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  background-color: lightblue;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .card__header,
@@ -262,7 +269,7 @@ h1 {
   font: inherit;
   border: 1px solid #0355ac;
   color: #0355ac;
-  background: white;
+  background: antiquewhite;
   border-radius: 3px;
   cursor: pointer;
 }
