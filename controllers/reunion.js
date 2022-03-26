@@ -39,12 +39,12 @@ exports.getUpcoming = (req, res, next) => {
     pageTitle: 'Lokken Reunion',
     path: '/reunions/upcoming',
     reunion: {
-      title: 'Superfun Reunion!',
+      title: 'Upcoming Lokken Reunion!',
       year: 2023,
       imageUrl:
         'https://images.unsplash.com/photo-1559014157-33373e15e6ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
       description:
-        'A description of the upcoming reunion. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        "Here will be a description of the upcoming reunion.  Since we are not sure when it will take place, I'm just calling it the 2023 reunion for now :)",
     },
   });
 };

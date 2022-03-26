@@ -35,10 +35,6 @@ const fileStorage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     cb(null, new Date().toISOString() + '-' + file.originalname);
-    // cb(
-    //   null,
-    //   new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname
-    // );
   },
 });
 
@@ -64,9 +60,6 @@ const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(
-//   multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
-// );
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).array('images', 8)
 );

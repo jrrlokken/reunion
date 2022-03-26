@@ -64,7 +64,7 @@ exports.postSignup = (req, res, next) => {
       res.redirect('/login');
       return transport.sendMail({
         to: email,
-        from: 'joshualokken@pm.me',
+        from: 'no-reply@lokkenreunion.com',
         subject: 'Signup succeeded',
         html: '<p>You have successfully signed up with LokkenReunion.com</p>',
       });
@@ -195,11 +195,11 @@ exports.postReset = (req, res, next) => {
         res.redirect('/');
         transport.sendMail({
           to: req.body.email,
-          from: 'joshualokken@pm.me',
+          from: 'no-reply@lokkenreunion.com',
           subject: 'Password Reset',
           html: `
           <p>You requested a password reset</p>
-          <p>Click this <a href="http://localhost:3000/reset/${token}">link</a> to set a new password.</p>
+          <p>Click this <a href="https://www.lokkenreunion.com/reset/${token}">link</a> to set a new password.</p>
           `,
         });
       })
