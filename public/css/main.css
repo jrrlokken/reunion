@@ -121,6 +121,14 @@ h1 {
   align-items: center;
 }
 
+.emptyPage-container {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .mobile-nav {
   width: 30rem;
   height: 100vh;
