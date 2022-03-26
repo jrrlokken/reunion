@@ -1,11 +1,8 @@
 <div class="backdrop"></div>
 <header class="main-header sticky">
-  <button id="side-menu-toggle">Menu</button>
+  <!-- <button id="side-menu-toggle">Menu</button> -->
   <nav class="main-header__nav">
     <ul class="main-header__item-list">
-      <!-- <li class="main-header__item">
-        <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
-      </li> -->
       <% if (isAuthenticated) { %>
       <li class="main-header__item">
         <a class="<%= path === '/reunions' ? 'active' : '' %>" href="/reunions"
@@ -19,6 +16,7 @@
           >Upcoming Reunion</a
         >
       </li>
+      <% if (isAdmin) { %>
       <li class="main-header__item">
         <a
           class="<%= path === '/admin/reunions' ? 'active' : '' %>"
@@ -33,7 +31,7 @@
           >Add Reunion</a
         >
       </li>
-      <% } %>
+      <% } %> <% } %>
     </ul>
     <ul class="main-header__item-list">
       <% if (!isAuthenticated) { %>
@@ -59,7 +57,7 @@
   </nav>
 </header>
 
-<nav class="mobile-nav">
+<!-- <nav class="mobile-nav">
   <ul class="mobile-nav__item-list">
     <li class="mobile-nav__item">
       <a class="<%= path === '/' ? 'active' : '' %>" href="/">Home</a>
@@ -89,4 +87,4 @@
     </li>
     <% } %>
   </ul>
-</nav>
+</nav> -->

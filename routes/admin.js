@@ -3,12 +3,13 @@ const { body } = require('express-validator');
 
 const adminController = require('../controllers/admin');
 const isAuth = require('../middleware/is-auth');
+const isAdmin = require('../middleware/is-admin');
 
 const router = express.Router();
 
-router.get('/reunions', isAuth, adminController.getReunions);
+router.get('/reunions', isAdmin, adminController.getReunions);
 
-router.get('/add-reunion', isAuth, adminController.getAddReunion);
+router.get('/add-reunion', isAdmin, adminController.getAddReunion);
 router.post(
   '/add-reunion',
   [
@@ -26,11 +27,11 @@ router.post(
       .trim()
       .withMessage('Description must be 3 - 1000 characters'),
   ],
-  isAuth,
+  isAdmin,
   adminController.postAddReunion
 );
 
-router.get('/edit-reunion/:reunionId', isAuth, adminController.getEditReunion);
+router.get('/edit-reunion/:reunionId', isAdmin, adminController.getEditReunion);
 router.post(
   '/edit-reunion',
   body('title')
@@ -43,10 +44,10 @@ router.post(
     .isLength({ min: 3, max: 1000 })
     .trim()
     .withMessage('Description must be 3 - 1000 characters'),
-  isAuth,
+  isAdmin,
   adminController.postEditReunion
 );
 
-router.post('/delete-reunion', isAuth, adminController.postDeleteReunion);
+router.post('/delete-reunion', isAdmin, adminController.postDeleteReunion);
 
 module.exports = router;
