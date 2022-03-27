@@ -3,7 +3,7 @@
 body {
   height: 100vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('https://res.cloudinary.com/joloxcloud/image/upload/c_scale,dpr_auto,f_auto,q_auto,w_auto/v1646328074/reunions/norway_flag_jsc1pm.jpg');
+    url('../images/norway_flag_jsc1pm.webp');
   background-size: cover;
   background-position: center;
   text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
