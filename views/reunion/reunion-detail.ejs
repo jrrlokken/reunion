@@ -27,15 +27,8 @@
       </div>
     </section>
     <hr>
-    <section class="reunion-comments margin-30">
-        <div class="comment-container">
-          <label for="newComment" name="newComment">Add your comment below</label>
-          <textarea id="newComment"></textarea>
-          <button class="btn" id="addComment">Add Comment</button>
-        </div>
-        <div class="comments-container" id="allComments"></div>
-    </section>
-    <div class="margin-30">
+    <%- include('../includes/comments.ejs') %>
+    <div class="margin-30 centered">
       <button class="btn" onClick="history.back()">Back</button>
     </div>
   </main>
