@@ -48,3 +48,8 @@ exports.getUpcoming = (req, res, next) => {
     },
   });
 };
+
+exports.postComment = (req, res, next) => {
+  const commentText = document.getElementById('newComment').value;
+  console.log(commentText);
+};

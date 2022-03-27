@@ -1,24 +1,40 @@
 <%- include('../includes/head.ejs') %>
+  <link rel="stylesheet" href="/css/reunion.css">
   <link rel="stylesheet" href="/css/carousel.css">
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css"> -->
+  <link rel="stylesheet" href="/css/comments.css">
 </head>
 
 <body>
 <%- include('../includes/navigation.ejs') %>
-  <main class="content-container centered">
-    <div class="margin-30">
-      <h1><%= reunion.year %>: <%= reunion.title %></h1>
-    </div>
-    <% if (reunion.images.length === 1) { %>
-      <div class="margin-30">
-        <img class="image" src="/<%= reunion.images[0].path %>" alt="<%= reunion.title %>">
+  <main>
+    <section class="reunion-details">
+      <div class="centered content-container">
+        <div>
+          <div class="margin-30">
+            <h1><%= reunion.year %>: <%= reunion.title %></h1>
+          </div>
+          <% if (reunion.images.length <= 1) { %>
+            <div class="margin-30">
+              <img class="image" src="/<%= reunion.images[0].path %>" alt="<%= reunion.title %>">
+            </div>
+          <% } else { %>
+          <%- include('../includes/carousel.ejs') %>
+          <% } %>
+          <div class="margin-30 padding-3 description-text">
+            <p><%= reunion.description %></p>
+          </div>
+        </div>
       </div>
-    <% } else { %>
-    <%- include('../includes/carousel.ejs') %>
-    <% } %>
-    <div class="margin-30 padding-3 description-text">
-      <p><%= reunion.description %></p>
-    </div>
+    </section>
+    <hr>
+    <section class="reunion-comments margin-30">
+        <div class="comment-container">
+          <label for="newComment" name="newComment">Add your comment below</label>
+          <textarea id="newComment"></textarea>
+          <button class="btn" id="addComment">Add Comment</button>
+        </div>
+        <div class="comments-container" id="allComments"></div>
+    </section>
     <div class="margin-30">
       <button class="btn" onClick="history.back()">Back</button>
     </div>

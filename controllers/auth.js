@@ -14,66 +14,66 @@ const transport = nodemailer.createTransport(
   })
 );
 
-exports.getSignup = (req, res, next) => {
-  let message = req.flash('error');
-  if (message.length > 0) {
-    message = message[0];
-  } else {
-    message = null;
-  }
-  res.render('auth/signup', {
-    path: '/signup',
-    pageTitle: 'Sign Up',
-    errorMessage: null,
-    userInput: {
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
-    validationErrors: [],
-  });
-};
+// exports.getSignup = (req, res, next) => {
+//   let message = req.flash('error');
+//   if (message.length > 0) {
+//     message = message[0];
+//   } else {
+//     message = null;
+//   }
+//   res.render('auth/signup', {
+//     path: '/signup',
+//     pageTitle: 'Sign Up',
+//     errorMessage: null,
+//     userInput: {
+//       email: '',
+//       password: '',
+//       confirmPassword: '',
+//     },
+//     validationErrors: [],
+//   });
+// };
 
-exports.postSignup = (req, res, next) => {
-  const { email, password, confirmPassword } = req.body;
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).render('auth/signup', {
-      path: '/signup',
-      pageTitle: 'Sign Up',
-      errorMessage: errors.array()[0].msg,
-      userInput: {
-        email: email,
-        password: password,
-        confirmPassword: req.body.confirmPassword,
-      },
-      validationErrors: errors.array(),
-    });
-  }
+// exports.postSignup = (req, res, next) => {
+//   const { email, password, confirmPassword } = req.body;
+//   const errors = validationResult(req);
+//   if (!errors.isEmpty()) {
+//     return res.status(422).render('auth/signup', {
+//       path: '/signup',
+//       pageTitle: 'Sign Up',
+//       errorMessage: errors.array()[0].msg,
+//       userInput: {
+//         email: email,
+//         password: password,
+//         confirmPassword: req.body.confirmPassword,
+//       },
+//       validationErrors: errors.array(),
+//     });
+//   }
 
-  bcrypt
-    .hash(password, 12)
-    .then((hashedPassword) => {
-      const user = new User({
-        email: email,
-        password: hashedPassword,
-      });
-      return user.save();
-    })
-    .then((result) => {
-      res.redirect('/login');
-      return transport.sendMail({
-        to: email,
-        from: 'no-reply@lokkenreunion.com',
-        subject: 'Signup succeeded at LokkenReunion.com',
-        html: `
-          <p>Thank you for signing up with LokkenReunion.com!</p>
-          <p>Come join the reunion :)</p>
-        `,
-      });
-    })
-    .catch((error) => console.log(error));
-};
+//   bcrypt
+//     .hash(password, 12)
+//     .then((hashedPassword) => {
+//       const user = new User({
+//         email: email,
+//         password: hashedPassword,
+//       });
+//       return user.save();
+//     })
+//     .then((result) => {
+//       res.redirect('/login');
+//       return transport.sendMail({
+//         to: email,
+//         from: 'no-reply@lokkenreunion.com',
+//         subject: 'Signup succeeded at LokkenReunion.com',
+//         html: `
+//           <p>Thank you for signing up with LokkenReunion.com!</p>
+//           <p>Come join the reunion :)</p>
+//         `,
+//       });
+//     })
+//     .catch((error) => console.log(error));
+// };
 
 exports.getLogin = (req, res, next) => {
   let message = req.flash('error');
