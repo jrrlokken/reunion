@@ -2,4 +2,8 @@ node_modules
 .env*
 .prettierrc
 .vercel
+<<<<<<< Updated upstream
 /images
+=======
+./images/
+>>>>>>> Stashed changes

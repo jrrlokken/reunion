@@ -1,13 +1,4 @@
 require('dotenv').config();
-// const cloudinary = require('cloudinary').v2;
-
-// if (typeof process.env.CLOUDINARY_URL === 'undefined') {
-//   console.warn('!! Cloudinary config is undefined');
-//   console.warn('export CLOUDINARY_URL or set dotenv file');
-// } else {
-//   console.log('** Cloudinary config:');
-//   console.log(cloudinary.config());
-// }
 
 const path = require('path');
 const express = require('express');
@@ -61,7 +52,7 @@ const adminRoutes = require('./routes/admin');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
-  multer({ storage: fileStorage, fileFilter: fileFilter }).array('images', 8)
+  multer({ storage: fileStorage, fileFilter: fileFilter }).array('images', 10)
 );
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'images')));

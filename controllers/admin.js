@@ -44,7 +44,7 @@ exports.postAddReunion = (req, res, next) => {
         year: year,
         description: description,
       },
-      errorMessage: 'Attached file is not a valid image',
+      errorMessage: 'A valid image is required',
       validationErrors: [],
     });
   }
@@ -66,14 +66,6 @@ exports.postAddReunion = (req, res, next) => {
       validationErrors: errors.array(),
     });
   }
-
-  // const imageFile = req.files.image.path;
-  // cloudinary.uploader
-  //   .upload(imageFile, { tags: 'reunion_upload' })
-  //   .then(function (image) {
-  //     console.log('** Image uploaded to Cloudinary service');
-  //     console.dir(image);
-  //   });
 
   const reunion = new Reunion({
     title: title,
@@ -106,6 +98,7 @@ exports.getEditReunion = (req, res, next) => {
       if (!reunion) {
         return res.redirect('/reunions');
       }
+      console.log('REUNION: => ', reunion);
       res.render('admin/edit-reunion', {
         pageTitle: 'Edit Reunion',
         path: '/admin/edit-reunion',
@@ -127,9 +120,11 @@ exports.postEditReunion = (req, res, next) => {
   const reunionId = req.body.reunionId;
   const updatedTitle = req.body.title;
   const updatedYear = req.body.year;
-  const image = req.file;
+  const updatedImages = req.files;
   const updatedDescription = req.body.description;
   const errors = validationResult(req);
+
+  console.log(updatedImages);
 
   if (!errors.isEmpty()) {
     return res.status(422).render('admin/edit-reunion', {
@@ -151,14 +146,14 @@ exports.postEditReunion = (req, res, next) => {
   Reunion.findById(reunionId)
     .then((reunion) => {
       if (reunion.userId.toString() !== req.user._id.toString()) {
-        return res.redirect('/');
+        return res.redirect('/admin/reunions');
       }
       reunion.title = updatedTitle;
       reunion.year = updatedYear;
       reunion.description = updatedDescription;
-      if (image) {
-        fileHelper.deleteFile(reunion.imageUrl);
-        reunion.imageUrl = image.path;
+      if (updatedImages) {
+        // fileHelper.deleteFile(reunion.imageUrl);
+        reunion.images = [...reunion.images, updatedImages];
       }
       return reunion.save().then((result) => {
         console.log('Updated Reunion');

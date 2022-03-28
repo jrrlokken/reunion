@@ -54,6 +54,16 @@ h1 {
   color: white;
 }
 
+.btn.secondary {
+  border-color: #983f00;
+  color: #983f00;
+}
+
+.btn.secondary:hover,
+.btn.secondary:active {
+  background-color: #fec59d;
+}
+
 .btn.danger {
   color: #870000;
   border-color: #bb2221;
@@ -73,7 +83,7 @@ h1 {
 
 .card {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  background-color: #eaf0fe;
+  background-color: #dae7f7;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -169,11 +179,11 @@ h1 {
 .main-header {
   width: 100%;
   height: 3.5rem;
-  background-color: #086fcb;
+  background-color: #2579b1;
   padding: 0 1.5rem;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.4); */
 }
 
 .main-header__nav {
@@ -202,7 +212,7 @@ h1 {
   background: transparent;
   border: none;
   text-decoration: none;
-  color: #d8e2f9;
+  color: #d5e1ef;
   cursor: pointer;
   transition: all 0.2s ease-out;
 }
@@ -229,7 +239,7 @@ h1 {
 }
 
 .padding-3 {
-  padding: 0 3rem;
+  padding: 0 1rem;
 }
 
 .sticky {

@@ -8,17 +8,17 @@
   let moving = true;
 
   function setInitialClasses() {
-    items[totalItems - 1].classList.add('prev');
-    items[0].classList.add('active');
-    items[1].classList.add('next');
+    items[totalItems - 1]?.classList.add('prev');
+    items[0]?.classList.add('active');
+    items[1]?.classList.add('next');
   }
 
   function setEventListeners() {
     let next = d.getElementsByClassName('carousel__button--next')[0];
     let prev = d.getElementsByClassName('carousel__button--prev')[0];
 
-    next.addEventListener('click', moveNext);
-    prev.addEventListener('click', movePrev);
+    next?.addEventListener('click', moveNext);
+    prev?.addEventListener('click', movePrev);
   }
 
   // 'Next' navigation handler

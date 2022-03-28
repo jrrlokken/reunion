@@ -20,15 +20,16 @@
                 <input type="number" name="year" id="year" step="1" value="<% if (editing || hasError) { %><%= reunion.year %><% } %>">
             </div>
             <div class="form-control">
-                <label for="images">Image</label>
+                <label for="images">Images</label>
                 <input type="file" name="images" id="images" multiple>
             </div>
             <div class="form-control">
                 <label for="description">Description</label>
                 <textarea name="description" id="description" rows="5"><% if (editing || hasError) { %><%= reunion.description %><% } %></textarea>
             </div>
-
-            <button class="btn" type="submit"><% if (editing) { %>Update reunion<% } else { %>Add reunion<% } %> </button>
+            <div class="centered">
+                <button class="btn" type="submit"><% if (editing) { %>Update Reunion<% } else { %>Add Reunion<% } %> </button>
+            </div>
             <input type="hidden" name="_csrf" value="<%=  csrfToken %>">
             <% if (editing) { %>
               <input type="hidden" name="reunionId" value="<%= reunion._id %>">

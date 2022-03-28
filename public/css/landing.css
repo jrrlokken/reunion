@@ -49,6 +49,7 @@ main {
   font-size: 20px;
   color: white;
   background: transparent;
+  border: 1px solid white;
   border-radius: 5px;
 }
 
