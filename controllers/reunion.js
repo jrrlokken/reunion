@@ -25,7 +25,6 @@ exports.getReunion = (req, res, next) => {
   const reunionId = req.params.reunionId;
   Reunion.findById(reunionId)
     .then((reunion) => {
-      console.log(reunion);
       res.render('reunion/reunion-detail', {
         reunion: reunion,
         pageTitle: reunion.title,

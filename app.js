@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -13,6 +11,7 @@ const multer = require('multer');
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
+require('dotenv').config();
 const app = express();
 const store = new MongoDBStore({
   uri: process.env.MONGODB_URI,

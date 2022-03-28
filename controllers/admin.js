@@ -1,7 +1,10 @@
 const { validationResult } = require('express-validator');
+// const cloudinary = require('cloudinary').v2;
 
 const Reunion = require('../models/reunion');
 const fileHelper = require('../util/file');
+
+// console.log(cloudinary.config().cloud_name);
 
 exports.getReunions = (req, res, next) => {
   Reunion.find({ userId: req.user._id })
@@ -66,6 +69,18 @@ exports.postAddReunion = (req, res, next) => {
     });
   }
 
+  // const uploadImages = async (images) => {
+  //   for (let image of images) {
+  //     cloudinary.uploader
+  //       .upload(image.filename)
+  //       .then((result) => {
+  //         console.log('success', JSON.stringify(result, null, 2));
+  //       })
+  //       .catch((error) => console.log('Error', JSON.stringify(error, null, 2)));
+  //   }
+  // };
+  // await uploadImages(images);
+
   const reunion = new Reunion({
     title: title,
     year: year,
@@ -123,8 +138,6 @@ exports.postEditReunion = (req, res, next) => {
   const updatedDescription = req.body.description;
   const errors = validationResult(req);
 
-  console.log(updatedImages);
-
   if (!errors.isEmpty()) {
     return res.status(422).render('admin/edit-reunion', {
       pageTitle: 'Edit Reunion',
@@ -147,12 +160,10 @@ exports.postEditReunion = (req, res, next) => {
       if (reunion.userId.toString() !== req.user._id.toString()) {
         return res.redirect('/admin/reunions');
       }
-      console.log(reunion.images);
       if (updatedImages) {
         // fileHelper.deleteFile(reunion.imageUrl);
         reunion.images = [...reunion.images, ...updatedImages];
       }
-      console.log(reunion.images);
       reunion.title = updatedTitle;
       reunion.year = updatedYear;
       reunion.description = updatedDescription;
