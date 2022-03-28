@@ -1,5 +1,4 @@
 const { validationResult } = require('express-validator');
-const cloudinary = require('cloudinary').v2;
 
 const Reunion = require('../models/reunion');
 const fileHelper = require('../util/file');
@@ -98,7 +97,7 @@ exports.getEditReunion = (req, res, next) => {
       if (!reunion) {
         return res.redirect('/reunions');
       }
-      console.log('REUNION: => ', reunion);
+
       res.render('admin/edit-reunion', {
         pageTitle: 'Edit Reunion',
         path: '/admin/edit-reunion',
@@ -148,13 +147,16 @@ exports.postEditReunion = (req, res, next) => {
       if (reunion.userId.toString() !== req.user._id.toString()) {
         return res.redirect('/admin/reunions');
       }
+      console.log(reunion.images);
+      if (updatedImages) {
+        // fileHelper.deleteFile(reunion.imageUrl);
+        reunion.images = [...reunion.images, ...updatedImages];
+      }
+      console.log(reunion.images);
       reunion.title = updatedTitle;
       reunion.year = updatedYear;
       reunion.description = updatedDescription;
-      if (updatedImages) {
-        // fileHelper.deleteFile(reunion.imageUrl);
-        reunion.images = [...reunion.images, updatedImages];
-      }
+
       return reunion.save().then((result) => {
         console.log('Updated Reunion');
         res.redirect('/admin/reunions');

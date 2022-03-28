@@ -80,9 +80,13 @@
         newNext = 0;
         oldNext = 1;
       }
+      if (items[oldPrevious]) {
+        items[oldPrevious].className = itemClassName;
+      }
+      if (items[oldNext]) {
+        items[oldNext].className = itemClassName;
+      }
 
-      items[oldPrevious].className = itemClassName;
-      items[oldNext].className = itemClassName;
       // Add new classes
       items[newPrevious].className = itemClassName + ' prev';
       items[slide].className = itemClassName + ' active';
