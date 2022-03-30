@@ -1,11 +1,11 @@
 const { validationResult } = require('express-validator');
-const cloudinary = require('cloudinary').v2;
 
 const Reunion = require('../models/reunion');
 const fileHelper = require('../util/file');
 
 exports.getReunions = (req, res, next) => {
   Reunion.find({ userId: req.user._id })
+    .populate()
     .then((reunions) => {
       res.render('admin/reunions', {
         reunions: reunions,

@@ -23,6 +23,10 @@ const reunionSchema = new Schema({
     ref: 'User',
     required: true,
   },
+  comments: {
+    type: [Schema.Types.ObjectId],
+    ref: 'Comment',
+  },
 });
 
 module.exports = mongoose.model('Reunion', reunionSchema);

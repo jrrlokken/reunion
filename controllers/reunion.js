@@ -1,4 +1,5 @@
 const Reunion = require('../models/reunion');
+const Comment = require('../models/comment');
 
 exports.getIndex = (req, res, next) => {
   res.render('reunion/index', {
@@ -23,8 +24,10 @@ exports.getReunions = (req, res, next) => {
 
 exports.getReunion = (req, res, next) => {
   const reunionId = req.params.reunionId;
-  Reunion.findById(reunionId)
+  Reunion.findOne({ _id: reunionId })
+    .populate('comments')
     .then((reunion) => {
+      console.log(reunion.comments);
       res.render('reunion/reunion-detail', {
         reunion: reunion,
         pageTitle: reunion.title,
@@ -50,8 +53,23 @@ exports.getUpcoming = (req, res, next) => {
 };
 
 exports.postComment = (req, res, next) => {
-  // const commentText = document.getElementById('newComment').value;
-  // console.log(commentText);
+  const commentText = req.body.newComment;
+  const reunionId = req.body.reunionId;
 
-  const commentText = req.body.commentText;
+  const comment = new Comment({
+    text: commentText,
+    userId: req.user,
+    reunionId: reunionId,
+  });
+
+  comment
+    .save()
+    .then((result) => {
+      console.log('Added comment');
+    })
+    .catch((error) => {
+      const newError = new Error(error);
+      newError.httpStatusCode = 500;
+      return next(newError);
+    });
 };
