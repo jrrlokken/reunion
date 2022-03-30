@@ -24,12 +24,14 @@ exports.getReunions = (req, res, next) => {
 
 exports.getReunion = (req, res, next) => {
   const reunionId = req.params.reunionId;
-  Reunion.findOne({ _id: reunionId })
-    .populate('comments')
+  Reunion.findById(reunionId)
     .then((reunion) => {
-      console.log(reunion.comments);
+      Comment.findByReunion(reunionId);
+    })
+    .then((reunion) => {
       res.render('reunion/reunion-detail', {
         reunion: reunion,
+        comments: reunion.comments,
         pageTitle: reunion.title,
         path: '/reunions',
       });
