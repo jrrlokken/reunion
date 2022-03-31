@@ -2,7 +2,7 @@ const Reunion = require('../models/reunion');
 const Comment = require('../models/comment');
 const mongoose = require('mongoose');
 
-mongoose.set('debug', false);
+mongoose.set('debug', true);
 
 exports.getIndex = (req, res, next) => {
   res.render('reunion/index', {
@@ -61,16 +61,17 @@ exports.postComment = async (req, res, next) => {
 
   await Reunion.findById(reunionId)
     .then((reunion) => {
+      console.log(reunion);
       const comment = new Comment({
         _id: new mongoose.Types.ObjectId(),
         text: commentText,
         reunionId: new mongoose.Types.ObjectId(reunionId),
         userId: req.user._id,
       });
+      console.log(comment);
       reunion.comments.push(comment);
       comment.save();
       reunion.save();
-      console.log('Comment added, reunion updated');
       return res.redirect('back');
     })
     .catch((error) => {

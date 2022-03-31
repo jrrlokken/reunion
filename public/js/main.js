@@ -102,5 +102,3 @@
 
   initCarousel();
 })(document);
-
-//
