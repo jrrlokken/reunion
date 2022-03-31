@@ -1,4 +1,8 @@
 const Reunion = require('../models/reunion');
+const Comment = require('../models/comment');
+const mongoose = require('mongoose');
+
+mongoose.set('debug', true);
 
 exports.getIndex = (req, res, next) => {
   res.render('reunion/index', {
@@ -23,12 +27,14 @@ exports.getReunions = (req, res, next) => {
 
 exports.getReunion = (req, res, next) => {
   const reunionId = req.params.reunionId;
-  Reunion.findById(reunionId)
+
+  return Reunion.findOne({ _id: reunionId })
+    .populate({ path: 'comments', options: { sort: { createdAt: -1 } } })
     .then((reunion) => {
       res.render('reunion/reunion-detail', {
         reunion: reunion,
         pageTitle: reunion.title,
-        path: '/reunions',
+        path: '/reunions/:reunionId',
       });
     })
     .catch((error) => console.log(error));
@@ -47,4 +53,28 @@ exports.getUpcoming = (req, res, next) => {
         "Here will be a description of the upcoming reunion.  Since we are not sure when it will take place, I'm just calling it the 2023 reunion for now :)",
     },
   });
+};
+
+exports.postComment = async (req, res, next) => {
+  const commentText = req.body.newComment;
+  const reunionId = req.body.reunionId;
+
+  await Reunion.findById(reunionId)
+    .then((reunion) => {
+      const comment = new Comment({
+        _id: new mongoose.Types.ObjectId(),
+        text: commentText,
+        reunionId: new mongoose.Types.ObjectId(reunionId),
+        userId: req.user._id,
+      });
+      reunion.comments.push(comment);
+      comment.save();
+      reunion.save();
+      return res.redirect('back');
+    })
+    .catch((error) => {
+      const newError = new Error(error);
+      newError.httpStatusCode = 500;
+      return next(newError);
+    });
 };

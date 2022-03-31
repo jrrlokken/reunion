@@ -1,0 +1,24 @@
+<section class="reunion-comments margin-30">
+  <div class="comment-container">
+    <form
+      class="comment-form"
+      action="/reunions/<%= reunion._id %>"
+      method="POST"
+    >
+      <label for="newComment"> Add your comments here </label>
+      <textarea name="newComment" id="newComment" rows="6"></textarea>
+      <button type="submit" class="btn" id="addComment">Add Comment</button>
+      <input type="hidden" name="_csrf" value="<%=  csrfToken %>" />
+      <input type="hidden" name="reunionId" value="<%= reunion._id %>" />
+    </form>
+  </div>
+  <div class="comments-container" id="allComments">
+    <% for (let comment of reunion.comments) { %>
+    <div>
+      <p class="comment-header-text"><%= comment.createdAt %></p>
+      <%= comment.text %>
+      <hr />
+    </div>
+    <% } %>
+  </div>
+</section>

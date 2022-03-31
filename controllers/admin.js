@@ -5,6 +5,7 @@ const fileHelper = require('../util/file');
 
 exports.getReunions = (req, res, next) => {
   Reunion.find({ userId: req.user._id })
+    .populate()
     .then((reunions) => {
       res.render('admin/reunions', {
         reunions: reunions,
