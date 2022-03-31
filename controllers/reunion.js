@@ -59,7 +59,7 @@ exports.postComment = async (req, res, next) => {
   const commentText = req.body.newComment;
   const reunionId = req.body.reunionId;
 
-  await Reunion.findById(reunionId)
+  Reunion.findById(reunionId)
     .then((reunion) => {
       console.log(reunion);
       const comment = new Comment({
