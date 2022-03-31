@@ -18,12 +18,7 @@ const reunionSchema = new Schema({
     type: String,
     required: true,
   },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  comments: [{ text: String, date: Date }],
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 });
 
 module.exports = mongoose.model('Reunion', reunionSchema);

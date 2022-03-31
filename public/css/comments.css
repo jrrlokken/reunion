@@ -1,15 +1,17 @@
 .reunion-comments {
   display: flex;
   height: 30rem;
-  width: 80vw;
-  justify-content: space-between;
+  max-width: 80vw;
+  justify-content: space-around;
 }
 
 .comment-container {
-  width: 40%;
-  display: flex;
-  flex-direction: column;
+  width: 300px;
   text-align: center;
+}
+
+.comment-container textarea {
+  width: 100%;
 }
 
 .comment-container textarea {
@@ -19,15 +21,20 @@
 }
 
 .comments-container {
-  width: 50%;
+  width: 45%;
   overflow: hidden;
   padding: 1em;
   border: 1px solid black;
   border-radius: 5px;
-  background-color: antiquewhite;
+  background: transparent;
 }
 
 .comment-text {
   margin: 10px 0;
   overflow-wrap: break-word;
+}
+
+.comment-header-text {
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.6);
 }

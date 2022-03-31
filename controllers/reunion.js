@@ -1,5 +1,8 @@
 const Reunion = require('../models/reunion');
 const Comment = require('../models/comment');
+const mongoose = require('mongoose');
+
+mongoose.set('debug', true);
 
 exports.getIndex = (req, res, next) => {
   res.render('reunion/index', {
@@ -24,16 +27,14 @@ exports.getReunions = (req, res, next) => {
 
 exports.getReunion = (req, res, next) => {
   const reunionId = req.params.reunionId;
-  Reunion.findById(reunionId)
-    .then((reunion) => {
-      Comment.findByReunion(reunionId);
-    })
+
+  return Reunion.findOne({ _id: reunionId })
+    .populate({ path: 'comments', options: { sort: { createdAt: -1 } } })
     .then((reunion) => {
       res.render('reunion/reunion-detail', {
         reunion: reunion,
-        comments: reunion.comments,
         pageTitle: reunion.title,
-        path: '/reunions',
+        path: '/reunions/:reunionId',
       });
     })
     .catch((error) => console.log(error));
@@ -54,20 +55,22 @@ exports.getUpcoming = (req, res, next) => {
   });
 };
 
-exports.postComment = (req, res, next) => {
+exports.postComment = async (req, res, next) => {
   const commentText = req.body.newComment;
   const reunionId = req.body.reunionId;
 
-  const comment = new Comment({
-    text: commentText,
-    userId: req.user,
-    reunionId: reunionId,
-  });
-
-  comment
-    .save()
-    .then((result) => {
-      console.log('Added comment');
+  await Reunion.findById(reunionId)
+    .then((reunion) => {
+      const comment = new Comment({
+        _id: new mongoose.Types.ObjectId(),
+        text: commentText,
+        reunionId: new mongoose.Types.ObjectId(reunionId),
+        userId: req.user._id,
+      });
+      reunion.comments.push(comment);
+      comment.save();
+      reunion.save();
+      return res.redirect('back');
     })
     .catch((error) => {
       const newError = new Error(error);

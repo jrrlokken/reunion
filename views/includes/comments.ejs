@@ -14,7 +14,11 @@
   </div>
   <div class="comments-container" id="allComments">
     <% for (let comment of reunion.comments) { %>
-    <div><%= comment.text %></div>
+    <div>
+      <p class="comment-header-text"><%= comment.createdAt %></p>
+      <%= comment.text %>
+      <hr />
+    </div>
     <% } %>
   </div>
 </section>
