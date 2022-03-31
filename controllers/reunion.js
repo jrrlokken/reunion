@@ -2,7 +2,7 @@ const Reunion = require('../models/reunion');
 const Comment = require('../models/comment');
 const mongoose = require('mongoose');
 
-mongoose.set('debug', true);
+mongoose.set('debug', false);
 
 exports.getIndex = (req, res, next) => {
   res.render('reunion/index', {

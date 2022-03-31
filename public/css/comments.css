@@ -12,17 +12,14 @@
 
 .comment-container textarea {
   width: 100%;
-}
-
-.comment-container textarea {
   margin: 10px 0;
-  padding: 5px;
+  padding: 10px;
   max-width: 100%;
 }
 
 .comments-container {
   width: 45%;
-  overflow: hidden;
+  overflow: scroll;
   padding: 1em;
   border: 1px solid black;
   border-radius: 5px;

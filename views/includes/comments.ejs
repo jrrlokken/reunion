@@ -1,3 +1,5 @@
+<% const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+'July', 'August', 'September', 'October', 'November', 'December']; %>
 <section class="reunion-comments margin-30">
   <div class="comment-container">
     <form
@@ -6,16 +8,26 @@
       method="POST"
     >
       <label for="newComment"> Add your comments here </label>
-      <textarea name="newComment" id="newComment" rows="6"></textarea>
+      <textarea
+        name="newComment"
+        id="newComment"
+        rows="6"
+        style="font-family: Roboto; font-size: 1.2rem"
+      ></textarea>
       <button type="submit" class="btn" id="addComment">Add Comment</button>
       <input type="hidden" name="_csrf" value="<%=  csrfToken %>" />
       <input type="hidden" name="reunionId" value="<%= reunion._id %>" />
     </form>
   </div>
   <div class="comments-container" id="allComments">
-    <% for (let comment of reunion.comments) { %>
+    <% for (let comment of reunion.comments) { %> <% const d =
+    comment.createdAt.getDate(); const m =
+    monthNames[comment.createdAt.getMonth()]; const y =
+    comment.createdAt.getFullYear();%>
     <div>
-      <p class="comment-header-text"><%= comment.createdAt %></p>
+      <p class="comment-header-text">
+        On <%= m+ ' ' +d+ ', ' +y %>, a user wrote:
+      </p>
       <%= comment.text %>
       <hr />
     </div>
