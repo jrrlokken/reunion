@@ -1,0 +1,45 @@
+<form
+  action="/reunions/<%= reunion._id %>"
+  class="comment-form"
+  id="comment-form"
+  method="POST"
+>
+  <label for="newComment">Add your comments here</label>
+  <textarea
+    name="newComment"
+    id="newComment"
+    rows="6"
+    style="font-family: Roboto; font-size: 1.2rem"
+  ></textarea>
+  <input type="hidden" name="_csrf" value="<%=  csrfToken %>" />
+  <input type="hidden" name="reunionId" value="<%= reunion._id %>" />
+  <button type="submit" class="btn" id="addComment">Add Comment</button>
+</form>
+
+<div class="comments-container" id="allComments">
+  <% for (let comment of reunion.comments) { %> <% const d =
+  comment.createdAt.getDate(); const m =
+  monthNames[comment.createdAt.getMonth()]; const y =
+  comment.createdAt.getFullYear();%>
+  <div>
+    <p class="comment-header-text">
+      On <%= m+ ' ' +d+ ', ' +y %>, a user wrote:
+    </p>
+    <%= comment.text %>
+    <hr />
+  </div>
+  <% } %>
+</div>
+
+<!-- const updateCommentsRequest = new Request(`/reunions/${reunionId}`, { 
+  method: 'GET',
+  headers: myHeaders,
+  mode: 'cors',
+  cache: 'default', 
+})
+
+fetch(updateCommentsRequest)
+  .then(response => response.blob())
+  .then(myBlob => { 
+    reunion.comments = [...reunion.comments, myBlob(?)]
+  }) -->

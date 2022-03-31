@@ -55,23 +55,23 @@ exports.getUpcoming = (req, res, next) => {
   });
 };
 
-exports.postComment = async (req, res, next) => {
+exports.postComment = (req, res, next) => {
   const commentText = req.body.newComment;
   const reunionId = req.body.reunionId;
 
   Reunion.findById(reunionId)
     .then((reunion) => {
-      console.log(reunion);
       const comment = new Comment({
         _id: new mongoose.Types.ObjectId(),
         text: commentText,
         reunionId: new mongoose.Types.ObjectId(reunionId),
         userId: req.user._id,
       });
-      console.log(comment);
       reunion.comments.push(comment);
       comment.save();
       reunion.save();
+    })
+    .then((result) => {
       return res.redirect('back');
     })
     .catch((error) => {
