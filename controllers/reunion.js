@@ -70,6 +70,7 @@ exports.postComment = async (req, res, next) => {
       reunion.comments.push(comment);
       comment.save();
       reunion.save();
+      console.log('Comment added, reunion updated');
       return res.redirect('back');
     })
     .catch((error) => {

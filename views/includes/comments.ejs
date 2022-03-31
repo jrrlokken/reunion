@@ -2,11 +2,7 @@
 'July', 'August', 'September', 'October', 'November', 'December']; %>
 <section class="reunion-comments margin-30">
   <div class="comment-container">
-    <form
-      class="comment-form"
-      action="/reunions/<%= reunion._id %>"
-      method="POST"
-    >
+    <form action="/reunions/<%= reunion._id %>" class="comment-form" method="POST"></form>
       <label for="newComment"> Add your comments here </label>
       <textarea
         name="newComment"

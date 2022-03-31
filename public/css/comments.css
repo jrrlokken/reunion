@@ -32,6 +32,7 @@
 }
 
 .comment-header-text {
+  font-family: 'Roboto', sans-serif;
   font-size: 0.8rem;
   color: rgba(0, 0, 0, 0.6);
 }
