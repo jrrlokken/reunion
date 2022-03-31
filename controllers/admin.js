@@ -1,10 +1,7 @@
 const { validationResult } = require('express-validator');
-// const cloudinary = require('cloudinary').v2;
 
 const Reunion = require('../models/reunion');
 const fileHelper = require('../util/file');
-
-// console.log(cloudinary.config().cloud_name);
 
 exports.getReunions = (req, res, next) => {
   Reunion.find({ userId: req.user._id })
@@ -68,18 +65,6 @@ exports.postAddReunion = (req, res, next) => {
       validationErrors: errors.array(),
     });
   }
-
-  // const uploadImages = async (images) => {
-  //   for (let image of images) {
-  //     cloudinary.uploader
-  //       .upload(image.filename)
-  //       .then((result) => {
-  //         console.log('success', JSON.stringify(result, null, 2));
-  //       })
-  //       .catch((error) => console.log('Error', JSON.stringify(error, null, 2)));
-  //   }
-  // };
-  // await uploadImages(images);
 
   const reunion = new Reunion({
     title: title,
