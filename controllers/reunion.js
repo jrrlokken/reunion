@@ -1,6 +1,14 @@
 const Reunion = require('../models/reunion');
 const Comment = require('../models/comment');
 const mongoose = require('mongoose');
+const Pusher = require('pusher');
+
+var pusher = new Pusher({
+  appId: '1358257',
+  key: '369474ee4c2e0ecdb50c',
+  secret: 'd8248bdbd58deabac76f',
+  cluster: 'us2',
+});
 
 mongoose.set('debug', true);
 
@@ -70,9 +78,11 @@ exports.postComment = (req, res, next) => {
       reunion.comments.push(comment);
       comment.save();
       reunion.save();
+      pusher.trigger('reunion-comments', 'new_comment', comment);
     })
     .then((result) => {
-      return res.redirect('back');
+      console.log('Operation completed successfully');
+      // return res.redirect('back');
     })
     .catch((error) => {
       const newError = new Error(error);
