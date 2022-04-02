@@ -7,18 +7,29 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('multer');
-// const Pusher = require('pusher');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
 require('dotenv').config();
+
 const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http, {
+  cors: {
+    origin: '*',
+  },
+});
+
+const commentData = io.of('/comments');
+commentData.on('user-connected', () => {
+  console.log(`Receiver connected...`);
+});
+
 const store = new MongoDBStore({
   uri: process.env.MONGODB_URI,
   collection: 'sessions',
 });
-const csrfProtection = csrf();
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -42,6 +53,8 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+const csrfProtection = csrf();
+
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
@@ -50,7 +63,7 @@ const reunionRoutes = require('./routes/reunion');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).array('images', 10)
 );

@@ -1,14 +1,8 @@
+const mongoose = require('mongoose');
+const { validationResult } = require('express-validator');
+
 const Reunion = require('../models/reunion');
 const Comment = require('../models/comment');
-const mongoose = require('mongoose');
-const Pusher = require('pusher');
-
-var pusher = new Pusher({
-  appId: '1358257',
-  key: '369474ee4c2e0ecdb50c',
-  secret: 'd8248bdbd58deabac76f',
-  cluster: 'us2',
-});
 
 mongoose.set('debug', true);
 
@@ -43,6 +37,7 @@ exports.getReunion = (req, res, next) => {
         reunion: reunion,
         pageTitle: reunion.title,
         path: '/reunions/:reunionId',
+        errorMessage: null,
       });
     })
     .catch((error) => console.log(error));
@@ -63,30 +58,56 @@ exports.getUpcoming = (req, res, next) => {
   });
 };
 
-exports.postComment = (req, res, next) => {
+exports.postComment = async (req, res, next) => {
+  const errors = validationResult(req);
   const commentText = req.body.newComment;
   const reunionId = req.body.reunionId;
 
-  Reunion.findById(reunionId)
-    .then((reunion) => {
-      const comment = new Comment({
-        _id: new mongoose.Types.ObjectId(),
-        text: commentText,
-        reunionId: new mongoose.Types.ObjectId(reunionId),
-        userId: req.user._id,
-      });
-      reunion.comments.push(comment);
-      comment.save();
-      reunion.save();
-      pusher.trigger('reunion-comments', 'new_comment', comment);
+  const foundReunion = await Reunion.findById(reunionId)
+    .populate({
+      path: 'comments',
+      options: { sort: { createdAt: -1 } },
     })
-    .then((result) => {
-      console.log('Operation completed successfully');
-      // return res.redirect('back');
-    })
+    .then()
     .catch((error) => {
       const newError = new Error(error);
       newError.httpStatusCode = 500;
       return next(newError);
     });
+
+  if (!commentText) {
+    return res.status(422).render('reunion/reunion-detail', {
+      pageTitle: foundReunion.title,
+      path: '/reunions/:reunionId',
+      hasError: true,
+      reunion: foundReunion,
+      errorMessage: 'Comment text is required.',
+      validationErrors: [],
+    });
+  }
+
+  if (!errors.isEmpty()) {
+    return res.status(422).render('reunion/reunion-detail', {
+      pageTitle: foundReunion.title,
+      path: '/reunions/:reunionId',
+      editing: false,
+      hasError: true,
+      reunion: foundReunion,
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array(),
+    });
+  }
+
+  const comment = new Comment({
+    _id: new mongoose.Types.ObjectId(),
+    text: commentText,
+    reunionId: new mongoose.Types.ObjectId(reunionId),
+    userId: req.user._id,
+  });
+
+  foundReunion.comments.push(comment);
+  comment.save();
+  foundReunion.save();
+  console.log('Operation completed successfully');
+  res.status(201).end();
 };

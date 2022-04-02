@@ -103,60 +103,32 @@
 //   initCarousel();
 // })(document);
 
-// *************************** //
-//           Pusher            //
-// *************************** //
+// Comments
 
-(function () {
-  Pusher.logToConsole = true;
-  var serverUrl = 'http://localhost:3006/';
-  var comments = [];
-  var pusher = new Pusher('369474ee4c2e0ecdb50c', {
-    cluster: 'us2',
-  });
-  var commentForm = document.getElementById('comment-form');
+const commentForm = document.getElementById('comment-form');
+const csrfToken = document.getElementById('csrf').value;
+const commentText = document.getElementById('newComment').value;
+const reunionId = document.getElementById('reunionId').value;
 
-  commentForm.addEventListener('submit', addNewComment);
+commentForm.addEventListener('submit', handleCommentSubmit, false);
 
-  // Subscribe client to this channel
-  channel = pusher.subscribe('reunion-comments');
-})();
-
-function addNewComment(event) {
+async function handleCommentSubmit(event) {
   event.preventDefault();
-  serverUrl = 'http://localhost:3006/';
-  var commentForm = document.getElementById('comment-form');
-  var newComment = {
-    comment: document.getElementById('newComment').value,
-  };
+  console.log('Someone clicked the comment submit button...');
+  console.log(reunionId);
+  console.log(csrfToken);
 
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', serverUrl + 'reunions/comment', true);
-  xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState != 4 || xhr.status != 200) return;
-
-    // On Success of creating a new Comment
-    console.log('Success: ' + xhr.responseText);
-    commentForm.reset();
-  };
-  xhr.send(JSON.stringify(newComment));
-}
-
-var commentsList = document.getElementById('comments-list'),
-  commentTemplate = document.getElementById('comment-template');
-
-// Binding to Pusher Event on our 'flash-comments' Channel
-channel.bind('new_comment', newCommentReceived);
-
-// New Comment Received Event Handler
-// We will take the Comment Template, replace placeholders & append to commentsList
-function newCommentReceived(data) {
-  var newCommentHtml = commentTemplate.innerHTML.replace('{{name}}', data.name);
-  newCommentHtml = newCommentHtml.replace('{{email}}', data.email);
-  newCommentHtml = newCommentHtml.replace('{{comment}}', data.comment);
-  var newCommentNode = document.createElement('div');
-  newCommentNode.classList.add('comment');
-  newCommentNode.innerHTML = newCommentHtml;
-  commentsList.appendChild(newCommentNode);
+  const url = `http://localhost:3006/reunions/${reunionId}`;
+  const response = await fetch(url, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'X-CSRF-Token': csrfToken,
+    },
+    body: JSON.stringify({
+      reunionId: reunionId,
+      newComment: commentText,
+    }),
+  });
+  console.log(response);
 }

@@ -10,8 +10,13 @@
         rows="6"
         style="font-family: Roboto; font-size: 1.2rem"
       ></textarea>
-      <input type="hidden" name="_csrf" value="<%=  csrfToken %>" />
-      <input type="hidden" name="reunionId" value="<%= reunion._id %>" />
+      <input type="hidden" id="csrf" name="_csrf" value="<%=  csrfToken %>" />
+      <input
+        type="hidden"
+        id="reunionId"
+        name="reunionId"
+        value="<%= reunion._id %>"
+      />
       <button type="submit" class="btn" id="addComment">Add Comment</button>
     </form>
   </div>
