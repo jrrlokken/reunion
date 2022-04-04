@@ -106,14 +106,15 @@
 // Comments
 
 const commentForm = document.getElementById('comment-form');
-const csrfToken = document.getElementById('csrf').value;
 const commentInput = document.getElementById('newComment');
+const commentsContainer = document.getElementById('allComments');
 let commentText = document.getElementById('newComment').value;
 const reunionId = document.getElementById('reunionId').value;
+const csrfToken = document.getElementById('csrf').value;
 
 commentForm.addEventListener('submit', handleCommentSubmit, false);
 commentInput.addEventListener('change', (event) => {
-  commentText += event.target.value;
+  commentText = event.target.value;
 });
 
 async function handleCommentSubmit(event) {
@@ -131,8 +132,26 @@ async function handleCommentSubmit(event) {
     headers: {
       'X-CSRF-Token': csrfToken,
     },
-    body: reunionId,
+    body: { reunionId },
   })
-    .then((response) => console.log(response))
+    .then((response) => {
+      const d = response.comment.createdAt.getDate();
+      const m = monthNames[response.comment.createdAt.getMonth()];
+      const y = response.comment.createdAt.getFullYear();
+
+      const commentDiv = document.createElement('div');
+      commentDiv.classList.add('comments-container');
+      const commentP = doucment.createElement('p');
+      commentP.classList.add('comment-header-text');
+      const email = response.comment.userId.email;
+      const hr = document.createElement('hr');
+
+      commentP.textContent = `On ${m}+ ' ' +${d}+ ', ' +${y}, ${email} wrote:`;
+      commentDiv.appendChild(commentP);
+      commentDiv.appendChild(commentText);
+      commentDiv.appendChild(hr);
+
+      commentsContainer.appendChild(commentDiv);
+    })
     .catch((error) => console.log(error));
 }
