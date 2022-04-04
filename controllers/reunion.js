@@ -59,6 +59,7 @@ exports.getUpcoming = (req, res, next) => {
 };
 
 exports.postComment = async (req, res, next) => {
+  console.log(req.body);
   const errors = validationResult(req);
   const commentText = req.body.newComment;
   const reunionId = req.body.reunionId;
@@ -75,28 +76,28 @@ exports.postComment = async (req, res, next) => {
       return next(newError);
     });
 
-  if (!commentText) {
-    return res.status(422).render('reunion/reunion-detail', {
-      pageTitle: foundReunion.title,
-      path: '/reunions/:reunionId',
-      hasError: true,
-      reunion: foundReunion,
-      errorMessage: 'Comment text is required.',
-      validationErrors: [],
-    });
-  }
+  // if (!commentText) {
+  //   return res.status(422).render('reunion/reunion-detail', {
+  //     pageTitle: foundReunion.title,
+  //     path: '/reunions/:reunionId',
+  //     hasError: true,
+  //     reunion: foundReunion,
+  //     errorMessage: 'Comment text is required.',
+  //     validationErrors: [],
+  //   });
+  // }
 
-  if (!errors.isEmpty()) {
-    return res.status(422).render('reunion/reunion-detail', {
-      pageTitle: foundReunion.title,
-      path: '/reunions/:reunionId',
-      editing: false,
-      hasError: true,
-      reunion: foundReunion,
-      errorMessage: errors.array()[0].msg,
-      validationErrors: errors.array(),
-    });
-  }
+  // if (!errors.isEmpty()) {
+  //   return res.status(422).render('reunion/reunion-detail', {
+  //     pageTitle: foundReunion.title,
+  //     path: '/reunions/:reunionId',
+  //     editing: false,
+  //     hasError: true,
+  //     reunion: foundReunion,
+  //     errorMessage: errors.array()[0].msg,
+  //     validationErrors: errors.array(),
+  //   });
+  // }
 
   const comment = new Comment({
     _id: new mongoose.Types.ObjectId(),
@@ -109,5 +110,5 @@ exports.postComment = async (req, res, next) => {
   comment.save();
   foundReunion.save();
   console.log('Operation completed successfully');
-  res.status(201).end();
+  res.status(201).send('OK');
 };

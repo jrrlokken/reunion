@@ -107,28 +107,32 @@
 
 const commentForm = document.getElementById('comment-form');
 const csrfToken = document.getElementById('csrf').value;
-const commentText = document.getElementById('newComment').value;
+const commentInput = document.getElementById('newComment');
+let commentText = document.getElementById('newComment').value;
 const reunionId = document.getElementById('reunionId').value;
 
 commentForm.addEventListener('submit', handleCommentSubmit, false);
+commentInput.addEventListener('change', (event) => {
+  commentText += event.target.value;
+});
 
 async function handleCommentSubmit(event) {
   event.preventDefault();
   console.log('Someone clicked the comment submit button...');
-  console.log(reunionId);
   console.log(csrfToken);
+  console.log(reunionId);
+  console.log(commentText);
 
   const url = `http://localhost:3006/reunions/${reunionId}`;
-  const response = await fetch(url, {
+
+  fetch(url, {
     method: 'POST',
     credentials: 'include',
     headers: {
       'X-CSRF-Token': csrfToken,
     },
-    body: JSON.stringify({
-      reunionId: reunionId,
-      newComment: commentText,
-    }),
-  });
-  console.log(response);
+    body: reunionId,
+  })
+    .then((response) => console.log(response))
+    .catch((error) => console.log(error));
 }
