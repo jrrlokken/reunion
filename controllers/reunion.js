@@ -58,57 +58,58 @@ exports.getUpcoming = (req, res, next) => {
   });
 };
 
-exports.postComment = async (req, res, next) => {
-  console.log(req.body);
+exports.postComment = (req, res, next) => {
   const errors = validationResult(req);
   const commentText = req.body.newComment;
   const reunionId = req.body.reunionId;
 
-  const foundReunion = await Reunion.findById(reunionId)
+  const foundReunion = Reunion.findById(reunionId)
     .populate({
       path: 'comments',
       options: { sort: { createdAt: -1 } },
     })
-    .then()
+    .then((reunion) => {
+      console.log(reunion);
+
+      const comment = new Comment({
+        _id: new mongoose.Types.ObjectId(),
+        text: commentText,
+        reunionId: new mongoose.Types.ObjectId(reunionId),
+        userId: req.user._id,
+      });
+
+      foundReunion.comments.push(comment);
+      comment.save();
+      foundReunion.save();
+      console.log('Operation completed successfully');
+      return foundReunion;
+    })
     .catch((error) => {
       const newError = new Error(error);
       newError.httpStatusCode = 500;
       return next(newError);
     });
-
-  // if (!commentText) {
-  //   return res.status(422).render('reunion/reunion-detail', {
-  //     pageTitle: foundReunion.title,
-  //     path: '/reunions/:reunionId',
-  //     hasError: true,
-  //     reunion: foundReunion,
-  //     errorMessage: 'Comment text is required.',
-  //     validationErrors: [],
-  //   });
-  // }
-
-  // if (!errors.isEmpty()) {
-  //   return res.status(422).render('reunion/reunion-detail', {
-  //     pageTitle: foundReunion.title,
-  //     path: '/reunions/:reunionId',
-  //     editing: false,
-  //     hasError: true,
-  //     reunion: foundReunion,
-  //     errorMessage: errors.array()[0].msg,
-  //     validationErrors: errors.array(),
-  //   });
-  // }
-
-  const comment = new Comment({
-    _id: new mongoose.Types.ObjectId(),
-    text: commentText,
-    reunionId: new mongoose.Types.ObjectId(reunionId),
-    userId: req.user._id,
-  });
-
-  foundReunion.comments.push(comment);
-  comment.save();
-  foundReunion.save();
-  console.log('Operation completed successfully');
-  res.status(201).send('OK');
 };
+
+// if (!commentText) {
+//   return res.status(422).render('reunion/reunion-detail', {
+//     pageTitle: foundReunion.title,
+//     path: '/reunions/:reunionId',
+//     hasError: true,
+//     reunion: foundReunion,
+//     errorMessage: 'Comment text is required.',
+//     validationErrors: [],
+//   });
+// }
+
+// if (!errors.isEmpty()) {
+//   return res.status(422).render('reunion/reunion-detail', {
+//     pageTitle: foundReunion.title,
+//     path: '/reunions/:reunionId',
+//     editing: false,
+//     hasError: true,
+//     reunion: foundReunion,
+//     errorMessage: errors.array()[0].msg,
+//     validationErrors: errors.array(),
+//   });
+// }

@@ -131,27 +131,27 @@ async function handleCommentSubmit(event) {
     credentials: 'include',
     headers: {
       'X-CSRF-Token': csrfToken,
+      'Content-Type': 'x-www-form-urlencoded',
     },
-    body: { reunionId },
+    body: reunionId,
   })
     .then((response) => {
-      const d = response.comment.createdAt.getDate();
-      const m = monthNames[response.comment.createdAt.getMonth()];
-      const y = response.comment.createdAt.getFullYear();
-
-      const commentDiv = document.createElement('div');
-      commentDiv.classList.add('comments-container');
-      const commentP = doucment.createElement('p');
-      commentP.classList.add('comment-header-text');
-      const email = response.comment.userId.email;
-      const hr = document.createElement('hr');
-
-      commentP.textContent = `On ${m}+ ' ' +${d}+ ', ' +${y}, ${email} wrote:`;
-      commentDiv.appendChild(commentP);
-      commentDiv.appendChild(commentText);
-      commentDiv.appendChild(hr);
-
-      commentsContainer.appendChild(commentDiv);
+      // const d = response.comment.createdAt.getDate();
+      // const m = monthNames[response.comment.createdAt.getMonth()];
+      // const y = response.comment.createdAt.getFullYear();
+      // const commentDiv = document.createElement('div');
+      // commentDiv.classList.add('comments-container');
+      // const commentP = doucment.createElement('p');
+      // commentP.classList.add('comment-header-text');
+      // const email = response.comment.userId.email; // not exactly, but something like that...
+      // const hr = document.createElement('hr');
+      // commentP.textContent = `On ${m}+ ' ' +${d}+ ', ' +${y}, ${email} wrote:`;
+      // commentDiv.appendChild(commentP);
+      // commentDiv.appendChild(commentText);
+      // commentDiv.appendChild(hr);
+      // commentsContainer.appendChild(commentDiv);
+      commentInput.textContent = '';
+      console.log(response);
     })
     .catch((error) => console.log(error));
 }
