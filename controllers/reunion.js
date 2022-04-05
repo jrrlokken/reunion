@@ -59,30 +59,40 @@ exports.getUpcoming = (req, res, next) => {
 };
 
 exports.postComment = (req, res, next) => {
-  const errors = validationResult(req);
-  const commentText = req.body.newComment;
-  const reunionId = req.body.reunionId;
+  const reunionId = req.params.reunionId;
+  const commentText = req.body.commentText;
 
-  const foundReunion = Reunion.findById(reunionId)
+  if (!commentText) {
+    return res.status(422).render('reunion/reunion-detail', {
+      pageTitle: foundReunion.title,
+      path: '/reunions/:reunionId',
+      hasError: true,
+      reunion: foundReunion,
+      errorMessage: 'Comment text is required.',
+      validationErrors: [],
+    });
+  }
+
+  Reunion.findById(reunionId)
     .populate({
       path: 'comments',
       options: { sort: { createdAt: -1 } },
     })
     .then((reunion) => {
-      console.log(reunion);
-
+      const now = Date.now();
       const comment = new Comment({
         _id: new mongoose.Types.ObjectId(),
         text: commentText,
         reunionId: new mongoose.Types.ObjectId(reunionId),
-        userId: req.user._id,
+        userId: req.user,
+        createdAt: new Date(),
       });
 
-      foundReunion.comments.push(comment);
+      reunion.comments.push(comment);
       comment.save();
-      foundReunion.save();
+      reunion.save();
       console.log('Operation completed successfully');
-      return foundReunion;
+      return res.send(JSON.stringify(reunion));
     })
     .catch((error) => {
       const newError = new Error(error);
@@ -90,26 +100,3 @@ exports.postComment = (req, res, next) => {
       return next(newError);
     });
 };
-
-// if (!commentText) {
-//   return res.status(422).render('reunion/reunion-detail', {
-//     pageTitle: foundReunion.title,
-//     path: '/reunions/:reunionId',
-//     hasError: true,
-//     reunion: foundReunion,
-//     errorMessage: 'Comment text is required.',
-//     validationErrors: [],
-//   });
-// }
-
-// if (!errors.isEmpty()) {
-//   return res.status(422).render('reunion/reunion-detail', {
-//     pageTitle: foundReunion.title,
-//     path: '/reunions/:reunionId',
-//     editing: false,
-//     hasError: true,
-//     reunion: foundReunion,
-//     errorMessage: errors.array()[0].msg,
-//     validationErrors: errors.array(),
-//   });
-// }
