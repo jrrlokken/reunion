@@ -14,17 +14,6 @@ const User = require('./models/user');
 require('dotenv').config();
 
 const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http, {
-  cors: {
-    origin: '*',
-  },
-});
-
-const commentData = io.of('/comments');
-commentData.on('user-connected', () => {
-  console.log(`Receiver connected...`);
-});
 
 const store = new MongoDBStore({
   uri: process.env.MONGODB_URI,
