@@ -12,6 +12,9 @@
 }
 
 .carousel {
+  /* max-width: 90%; */
+  display: flex;
+  justify-content: center;
   transform-style: preserve-3d;
   overflow: hidden;
 }
@@ -21,7 +24,7 @@
   position: absolute;
   top: 0;
   width: auto;
-  max-width: 70vw;
+  /* max-width: 70%; */
   height: 400px;
   max-height: 400px;
   margin: auto;

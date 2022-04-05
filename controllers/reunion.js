@@ -1,6 +1,8 @@
+const mongoose = require('mongoose');
+const { validationResult } = require('express-validator');
+
 const Reunion = require('../models/reunion');
 const Comment = require('../models/comment');
-const mongoose = require('mongoose');
 
 mongoose.set('debug', true);
 
@@ -35,6 +37,7 @@ exports.getReunion = (req, res, next) => {
         reunion: reunion,
         pageTitle: reunion.title,
         path: '/reunions/:reunionId',
+        errorMessage: null,
       });
     })
     .catch((error) => console.log(error));
@@ -56,23 +59,40 @@ exports.getUpcoming = (req, res, next) => {
 };
 
 exports.postComment = (req, res, next) => {
-  const commentText = req.body.newComment;
-  const reunionId = req.body.reunionId;
+  const reunionId = req.params.reunionId;
+  const commentText = req.body.commentText;
+
+  if (!commentText) {
+    return res.status(422).render('reunion/reunion-detail', {
+      pageTitle: foundReunion.title,
+      path: '/reunions/:reunionId',
+      hasError: true,
+      reunion: foundReunion,
+      errorMessage: 'Comment text is required.',
+      validationErrors: [],
+    });
+  }
 
   Reunion.findById(reunionId)
+    .populate({
+      path: 'comments',
+      options: { sort: { createdAt: -1 } },
+    })
     .then((reunion) => {
+      const now = Date.now();
       const comment = new Comment({
         _id: new mongoose.Types.ObjectId(),
         text: commentText,
         reunionId: new mongoose.Types.ObjectId(reunionId),
-        userId: req.user._id,
+        userId: req.user,
+        createdAt: new Date(),
       });
+
       reunion.comments.push(comment);
       comment.save();
       reunion.save();
-    })
-    .then((result) => {
-      return res.redirect('back');
+      console.log('Operation completed successfully');
+      return res.send(JSON.stringify(reunion));
     })
     .catch((error) => {
       const newError = new Error(error);
