@@ -19,7 +19,7 @@ async function handleCommentSubmit(event) {
   console.log(reunionId);
   console.log(commentText);
 
-  const url = `http://localhost:3006/reunions/${reunionId}`;
+  const url = `http://127.0.0.1:3006/reunions/${reunionId}`;
 
   fetch(url, {
     method: 'post',
