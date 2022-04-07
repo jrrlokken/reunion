@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
-const { validationResult } = require('express-validator');
+// const { validationResult } = require('express-validator');
 
 const Reunion = require('../models/reunion');
 const Comment = require('../models/comment');
 const Pusher = require('pusher');
 
 const pusher = new Pusher({
-  appId: '1358257',
-  key: '369474ee4c2e0ecdb50c',
-  secret: 'd8248bdbd58deabac76f',
-  cluster: 'us2',
+  appId: process.env.PUSHER_APPID,
+  key: process.env.PUSHER_KEY,
+  secret: process.env.PUSHER_SECRET,
+  cluster: process.env.PUSHER_CLUSTER,
   useTLS: true,
 });
 
-mongoose.set('debug', true);
+// mongoose.set('debug', true);
 
 exports.getIndex = (req, res, next) => {
   res.render('reunion/index', {
@@ -52,22 +52,20 @@ exports.getReunion = (req, res, next) => {
     .catch((error) => console.log(error));
 };
 
-exports.getUpcoming = (req, res, next) => {
-  res.render('reunion/upcoming', {
-    pageTitle: 'Lokken Reunion',
-    path: '/reunions/upcoming',
-    reunion: {
-      _id: new mongoose.Types.ObjectId(),
-      title: 'Upcoming Lokken Reunion!',
-      year: 2023,
-      images: [
-        'https://images.unsplash.com/photo-1562584086-7c6b531e01c2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80',
-      ],
-      description:
-        "Here will be a description of the upcoming reunion.  Since we are not sure when it will take place, I'm just calling it the 2023 reunion for now :)",
-      comments: [],
-    },
-  });
+exports.getUpcoming = async (req, res, next) => {
+  const reunionId = process.env.UPCOMING_REUNION_ID;
+
+  return Reunion.findOne({ _id: reunionId })
+    .populate({ path: 'comments', options: { sort: { createdAt: -1 } } })
+    .then((reunion) => {
+      res.render('reunion/reunion-detail', {
+        reunion: reunion,
+        pageTitle: reunion.title,
+        path: '/reunions/:reunionId',
+        errorMessage: null,
+      });
+    })
+    .catch((error) => console.log(error));
 };
 
 exports.postComment = (req, res, next) => {
