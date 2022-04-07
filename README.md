@@ -6,5 +6,4 @@ Welcome to the Lokken Reunion!
 
 TODO:
   - Add cloudinary support
-  - Add PassportJS
-  - PusherJS for commenting
+  - ~~PusherJS for commenting~~
