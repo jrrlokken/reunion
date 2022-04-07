@@ -3,6 +3,15 @@ const { validationResult } = require('express-validator');
 
 const Reunion = require('../models/reunion');
 const Comment = require('../models/comment');
+const Pusher = require('pusher');
+
+const pusher = new Pusher({
+  appId: '1358257',
+  key: '369474ee4c2e0ecdb50c',
+  secret: 'd8248bdbd58deabac76f',
+  cluster: 'us2',
+  useTLS: true,
+});
 
 mongoose.set('debug', true);
 
@@ -48,12 +57,15 @@ exports.getUpcoming = (req, res, next) => {
     pageTitle: 'Lokken Reunion',
     path: '/reunions/upcoming',
     reunion: {
+      _id: new mongoose.Types.ObjectId(),
       title: 'Upcoming Lokken Reunion!',
       year: 2023,
-      imageUrl:
+      images: [
         'https://images.unsplash.com/photo-1562584086-7c6b531e01c2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80',
+      ],
       description:
         "Here will be a description of the upcoming reunion.  Since we are not sure when it will take place, I'm just calling it the 2023 reunion for now :)",
+      comments: [],
     },
   });
 };
@@ -79,7 +91,6 @@ exports.postComment = (req, res, next) => {
       options: { sort: { createdAt: -1 } },
     })
     .then((reunion) => {
-      const now = Date.now();
       const comment = new Comment({
         _id: new mongoose.Types.ObjectId(),
         text: commentText,
@@ -91,7 +102,9 @@ exports.postComment = (req, res, next) => {
       reunion.comments.push(comment);
       comment.save();
       reunion.save();
-      console.log('Operation completed successfully');
+      pusher.trigger(`${reunionId}`, 'comment', {
+        message: comment,
+      });
       return res.send(JSON.stringify(reunion));
     })
     .catch((error) => {

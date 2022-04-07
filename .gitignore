@@ -3,3 +3,4 @@ node_modules
 .prettierrc
 .vercel
 /images
+yarn-error.log

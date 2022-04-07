@@ -6,11 +6,12 @@
         <main class="content-container centered">
           <h1><%= reunion.year %>: <%= reunion.title %></h1>
           <div class="margin-top">
-            <img class="image" src="<%= reunion.imageUrl %>" alt="<%= reunion.title %>">
+            <img class="image" src="<%= reunion.images[0] %>" alt="<%= reunion.title %>">
           </div>
           <div class="margin-30 padding-3 description-text">
             <p><%= reunion.description %></p>
           </div>
+          <%- include('../includes/comments.ejs') %>
           <div class="margin-30">
             <button class="btn btn-primary" onClick="history.back()">Back</button>
           </div>
