@@ -13,6 +13,7 @@ function buildComment(comment) {
   // const d = comment.createdAt.getDate();
   // const m = monthNames[comment.createdAt.getMonth()];
   // const y = comment.createdAt.getFullYear();
+  // console.log(comment);
   const commentDiv = document.createElement('div');
   const commentP = document.createElement('p');
   commentP.classList.add('comment-header-text');

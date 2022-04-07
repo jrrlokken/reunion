@@ -21,13 +21,13 @@
     </form>
   </div>
   <div class="comments-container" id="allComments">
-    <% for (let comment of reunion.comments) { %> <% const d =
-    comment.createdAt.getDate(); const m =
-    monthNames[comment.createdAt.getMonth()]; const y =
+    <% for (let comment of reunion.comments) { %> <%
+    console.log(comment.userId); const d = comment.createdAt.getDate(); const m
+    = monthNames[comment.createdAt.getMonth()]; const y =
     comment.createdAt.getFullYear(); %>
     <div>
       <p class="comment-header-text">
-        On <%= m+ ' ' +d+ ', ' +y %>, a user wrote:
+        On <%= m+ ' ' +d+ ', ' +y+ ', '%> someone wrote:
       </p>
       <%= comment.text %>
       <hr />

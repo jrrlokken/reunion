@@ -18,6 +18,10 @@ const reunionSchema = new Schema({
     type: String,
     required: true,
   },
+  userId: {
+    type: String,
+    required: true,
+  },
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 });
 

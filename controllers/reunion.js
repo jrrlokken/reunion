@@ -88,6 +88,7 @@ exports.postComment = (req, res, next) => {
       path: 'comments',
       options: { sort: { createdAt: -1 } },
     })
+    .populate({ path: 'userId' })
     .then((reunion) => {
       const comment = new Comment({
         _id: new mongoose.Types.ObjectId(),
