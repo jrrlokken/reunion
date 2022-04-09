@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 
 const Reunion = require('../models/reunion');
+const cloudinary = require('../util/cloudinary');
 const fileHelper = require('../util/file');
 
 exports.getReunions = (req, res, next) => {
@@ -67,6 +68,13 @@ exports.postAddReunion = (req, res, next) => {
     });
   }
 
+  images.forEach((image) => {
+    cloudinary.uploader.upload(image.path, function (err, result) {
+      images.push(result.secure_url);
+      console.log(images);
+    });
+  });
+
   const reunion = new Reunion({
     title: title,
     year: year,
@@ -77,6 +85,9 @@ exports.postAddReunion = (req, res, next) => {
   reunion
     .save()
     .then((result) => {
+      console.log(result);
+    })
+    .then(() => {
       console.log('Created Reunion');
       res.redirect('/admin/reunions');
     })
