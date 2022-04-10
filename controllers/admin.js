@@ -68,34 +68,50 @@ exports.postAddReunion = (req, res, next) => {
     });
   }
 
-  images.forEach((image) => {
-    cloudinary.uploader.upload(image.path, function (err, result) {
-      images.push(result.secure_url);
-      console.log(images);
-    });
-  });
+  let uploadedImages = [];
 
-  const reunion = new Reunion({
-    title: title,
-    year: year,
-    images: images,
-    description: description,
-    userId: req.user,
-  });
-  reunion
-    .save()
-    .then((result) => {
-      console.log(result);
-    })
-    .then(() => {
-      console.log('Created Reunion');
-      res.redirect('/admin/reunions');
-    })
-    .catch((error) => {
-      const newError = new Error(error);
-      newError.httpStatusCode = 500;
-      return next(newError);
+  const uploadImages = async (images) => {
+    for (const image of images) {
+      await cloudinary.uploader
+        .upload(image.path, { folder: 'reunions' })
+        .then((result) => {
+          uploadedImages.push(result.secure_url);
+          console.log(uploadedImages);
+        })
+        .catch((error) => console.error(error));
+    }
+  };
+
+  uploadImages(req.files).then(() => {
+    const reunion = new Reunion({
+      title: title,
+      year: year,
+      images: uploadedImages,
+      description: description,
     });
+    return reunion
+      .save()
+      .then((result) => {
+        console.log('Added Reunion');
+        res.redirect('/admin/reunions');
+      })
+      .catch((error) => console.error(error));
+  });
+  // uploadImages(images)
+  //   .then((result) => {
+  //     console.log(result);
+  // const reunion = {
+  //   title: title,
+  //   year: year,
+  //   images: result,
+  //   description: description,
+  // };
+  // return reunion.save().then((result) => {
+  //   console.log('Updated Reunion');
+  //   res.redirect('/admin/reunions');
+  // });
+  // })
+  // .catch((error) => console.error(error));
 };
 
 exports.getEditReunion = (req, res, next) => {
@@ -158,7 +174,6 @@ exports.postEditReunion = (req, res, next) => {
         return res.redirect('/admin/reunions');
       }
       if (updatedImages) {
-        // fileHelper.deleteFile(reunion.imageUrl);
         reunion.images = [...reunion.images, ...updatedImages];
       }
       reunion.title = updatedTitle;

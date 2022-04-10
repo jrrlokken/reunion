@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const { validationResult } = require('express-validator');
 
 const Reunion = require('../models/reunion');
 const Comment = require('../models/comment');

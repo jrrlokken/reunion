@@ -19,7 +19,7 @@
           <% if (reunion.images) { %>
           <% if (reunion.images?.length <= 1) { %>
             <div class="margin-30">
-              <img class="image" src="/<%= reunion.images[0].path %>" alt="<%= reunion.title %>">
+              <img class="image" src="<%= reunion.images[0] %>" alt="<%= reunion.title %>">
             </div>
           <% } else { %>
           <%- include('../includes/carousel.ejs') %>
