@@ -116,7 +116,7 @@ app.use((error, req, res, next) => {
 mongoose
   .connect(process.env.MONGODB_URI)
   .then((result) => {
-    app.listen(process.env.PORT, '0.0.0.0');
+    app.listen(process.env.REUNIONS_PORT, '0.0.0.0');
     console.log('Database connected');
   })
   .catch((error) => console.log(error));
