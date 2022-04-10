@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
 const Reunion = require('../models/reunion');
 const cloudinary = require('../util/cloudinary');
@@ -76,7 +77,6 @@ exports.postAddReunion = (req, res, next) => {
         .upload(image.path, { folder: 'reunions' })
         .then((result) => {
           uploadedImages.push(result.secure_url);
-          console.log(uploadedImages);
         })
         .catch((error) => console.error(error));
     }
@@ -97,21 +97,6 @@ exports.postAddReunion = (req, res, next) => {
       })
       .catch((error) => console.error(error));
   });
-  // uploadImages(images)
-  //   .then((result) => {
-  //     console.log(result);
-  // const reunion = {
-  //   title: title,
-  //   year: year,
-  //   images: result,
-  //   description: description,
-  // };
-  // return reunion.save().then((result) => {
-  //   console.log('Updated Reunion');
-  //   res.redirect('/admin/reunions');
-  // });
-  // })
-  // .catch((error) => console.error(error));
 };
 
 exports.getEditReunion = (req, res, next) => {
