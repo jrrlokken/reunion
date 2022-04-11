@@ -68,7 +68,7 @@ exports.postSignup = (req, res, next) => {
         subject: 'Signup succeeded at LokkenReunion.com',
         html: `
           <p>Thank you for signing up with LokkenReunion.com!</p>
-          <p>Come join the reunion :)</p>
+          <p>Come join the reunion 😄</p>
         `,
       });
     })
