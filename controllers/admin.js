@@ -1,9 +1,20 @@
 const { validationResult } = require('express-validator');
-const mongoose = require('mongoose');
 
 const Reunion = require('../models/reunion');
 const cloudinary = require('../util/cloudinary');
-const fileHelper = require('../util/file');
+
+let uploadedImages = [];
+
+const uploadImages = async (images) => {
+  for (const image of images) {
+    await cloudinary.uploader
+      .upload(image.path, { folder: 'reunions' })
+      .then((result) => {
+        uploadedImages.push(result.secure_url);
+      })
+      .catch((error) => console.error(error));
+  }
+};
 
 exports.getReunions = (req, res, next) => {
   Reunion.find({ userId: req.user._id })
@@ -26,6 +37,7 @@ exports.getAddReunion = (req, res, next) => {
     hasError: false,
     errorMessage: null,
     validationErrors: [],
+    loading: false,
   });
 };
 
@@ -69,19 +81,6 @@ exports.postAddReunion = (req, res, next) => {
     });
   }
 
-  let uploadedImages = [];
-
-  const uploadImages = async (images) => {
-    for (const image of images) {
-      await cloudinary.uploader
-        .upload(image.path, { folder: 'reunions' })
-        .then((result) => {
-          uploadedImages.push(result.secure_url);
-        })
-        .catch((error) => console.error(error));
-    }
-  };
-
   uploadImages(req.files).then(() => {
     const reunion = new Reunion({
       title: title,
@@ -95,7 +94,11 @@ exports.postAddReunion = (req, res, next) => {
         console.log('Added Reunion');
         res.redirect('/admin/reunions');
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        const newError = new Error(error);
+        newError.httpStatusCode = 500;
+        return next(newError);
+      });
   });
 };
 
@@ -155,11 +158,13 @@ exports.postEditReunion = (req, res, next) => {
 
   Reunion.findById(reunionId)
     .then((reunion) => {
-      if (reunion.userId.toString() !== req.user._id.toString()) {
-        return res.redirect('/admin/reunions');
-      }
+      // if (reunion.userId.toString() !== req.user._id.toString()) {
+      //   return res.redirect('/admin/reunions');
+      // }
       if (updatedImages) {
-        reunion.images = [...reunion.images, ...updatedImages];
+        uploadImages(req.files)
+          .then((reunion.images = [...reunion.images, ...uploadedImages]))
+          .catch((error) => console.error(error));
       }
       reunion.title = updatedTitle;
       reunion.year = updatedYear;
@@ -184,7 +189,7 @@ exports.postDeleteReunion = (req, res, next) => {
       if (!reunion) {
         return next(new Error('Reunion not found'));
       }
-      fileHelper.deleteFile(reunion.images[0].path);
+      // fileHelper.deleteFile(reunion.images[0].path);
       return Reunion.deleteOne({ _id: reunionId, userId: req.user._id });
     })
     .then(() => {
