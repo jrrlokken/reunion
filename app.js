@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -10,8 +12,6 @@ const multer = require('multer');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
-
-require('dotenv').config();
 
 const app = express();
 
@@ -116,7 +116,7 @@ app.use((error, req, res, next) => {
 mongoose
   .connect(process.env.MONGODB_URI)
   .then((result) => {
-    app.listen(process.env.PORT, '0.0.0.0');
+    app.listen(process.env.REUNIONS_PORT, '0.0.0.0');
     console.log('Database connected');
   })
-  .catch((error) => console.log(error));
+  .catch((error) => console.error(error));
