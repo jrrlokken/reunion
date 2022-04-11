@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const { validationResult } = require('express-validator');
 
 const Reunion = require('../models/reunion');
 const Comment = require('../models/comment');
@@ -71,6 +70,7 @@ exports.getUpcoming = async (req, res, next) => {
 exports.postComment = (req, res, next) => {
   const reunionId = req.params.reunionId;
   const commentText = req.body.commentText;
+  const user = req.user;
 
   if (!commentText) {
     return res.status(422).render('reunion/reunion-detail', {
@@ -93,7 +93,7 @@ exports.postComment = (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         text: commentText,
         reunionId: new mongoose.Types.ObjectId(reunionId),
-        userId: req.user,
+        userId: user,
         createdAt: new Date(),
       });
 

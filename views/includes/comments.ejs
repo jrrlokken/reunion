@@ -1,5 +1,6 @@
 <% const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
 'July', 'August', 'September', 'October', 'November', 'December']; %>
+
 <section class="reunion-comments margin-30">
   <div class="comment-container">
     <form class="comment-form" id="comment-form">
@@ -25,7 +26,7 @@
     comment.createdAt.getDate(); const m =
     monthNames[comment.createdAt.getMonth()]; const y =
     comment.createdAt.getFullYear(); %>
-    <div>
+    <div class="comment-wrapper">
       <p class="comment-header-text">
         On <%= m+ ' ' +d+ ', ' +y %>, a user wrote:
       </p>
@@ -35,3 +36,5 @@
     <% } %>
   </div>
 </section>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script src="/js/comments.js"></script>

@@ -1,29 +1,49 @@
 // Comments
-const reunionId = document.getElementById('reunionId').value;
 const commentForm = document.getElementById('comment-form');
-const commentInput = document.getElementById('newComment');
 const commentsContainer = document.getElementById('allComments');
-let commentText = document.getElementById('newComment').value;
+const commentInput = document.getElementById('newComment');
+let commentText = commentInput.value;
+
+const reunionId = document.getElementById('reunionId').value;
 const csrfToken = document.getElementById('csrf').value;
 
-// Enable pusher logging - don't include this in production
-Pusher.logToConsole = false;
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
 function buildComment(comment) {
-  // const d = comment.createdAt.getDate();
-  // const m = monthNames[comment.createdAt.getMonth()];
-  // const y = comment.createdAt.getFullYear();
+  const date = new Date(comment.createdAt);
+  const d = date.getDate();
+  const m = monthNames[date.getMonth()];
+  const y = date.getFullYear();
+
   const commentDiv = document.createElement('div');
+  commentDiv.classList.add('comment-wrapper');
+
   const commentP = document.createElement('p');
   commentP.classList.add('comment-header-text');
+
   const email = comment.userId.email;
+  commentP.textContent = `On ${m} ${d}, ${y}, ${email} wrote:`;
+
   const hr = document.createElement('hr');
-  // commentP.textContent = `On ${m}+ ' ' +${d}+ ', ' +${y}, ${email} wrote:`;
-  commentP.textContent = `${email} just wrote:`;
+
   commentDiv.append(commentP);
   commentDiv.append(comment.text);
   commentDiv.appendChild(hr);
   commentsContainer.prepend(commentDiv);
+
   return commentForm.reset();
 }
 
@@ -34,6 +54,7 @@ const pusher = new Pusher('369474ee4c2e0ecdb50c', {
 const channel = pusher.subscribe(`${reunionId}`);
 channel.bind('comment', (data) => {
   const newComment = data.message;
+  console.log(newComment);
   buildComment(newComment);
 });
 
