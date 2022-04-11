@@ -27,13 +27,17 @@
   background: transparent;
 }
 
+.comment-wrapper {
+  word-wrap: break-word;
+}
+
 .comment-text {
   margin: 10px 0;
   overflow-wrap: break-word;
 }
 
 .comment-header-text {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.8rem;
   color: rgba(0, 0, 0, 0.6);
 }
