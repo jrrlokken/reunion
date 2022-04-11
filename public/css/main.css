@@ -55,6 +55,14 @@ h1 {
   color: white;
 }
 
+.btn-primary {
+  /* color: white; */
+  text-shadow: none;
+}
+.btn-primary.active,
+.btn-primary:hover {
+  background-color: #132680;
+}
 .btn.secondary {
   border-color: #983f00;
   color: #983f00;

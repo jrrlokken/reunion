@@ -54,7 +54,6 @@ const pusher = new Pusher('369474ee4c2e0ecdb50c', {
 const channel = pusher.subscribe(`${reunionId}`);
 channel.bind('comment', (data) => {
   const newComment = data.message;
-  console.log(newComment);
   buildComment(newComment);
 });
 
