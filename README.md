@@ -5,5 +5,7 @@
 Welcome to the Lokken Reunion!
 
 TODO:
-  - Add cloudinary support
+  - ~~Add cloudinary support~~
   - ~~PusherJS for commenting~~
+  - Fix comment date/name bug
+  - Add Loading indicator for adding/editing reunions
