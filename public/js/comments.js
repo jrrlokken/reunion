@@ -19,7 +19,7 @@ function buildComment(comment) {
   const email = comment.userId.email;
   const hr = document.createElement('hr');
   // commentP.textContent = `On ${m}+ ' ' +${d}+ ', ' +${y}, ${email} wrote:`;
-  commentP.textContent = `${email} wrote:`;
+  commentP.textContent = `${email} just wrote:`;
   commentDiv.append(commentP);
   commentDiv.append(comment.text);
   commentDiv.appendChild(hr);
@@ -45,7 +45,7 @@ commentInput.addEventListener('change', (event) => {
 async function handleCommentSubmit(event) {
   event.preventDefault();
 
-  const url = `${BASE_URL}/reunions/${reunionId}`;
+  const url = `http://localhost:3006/reunions/${reunionId}`;
 
   fetch(url, {
     method: 'post',
