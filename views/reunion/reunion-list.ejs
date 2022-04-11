@@ -7,6 +7,7 @@
 
     <main>
       <% if (reunions.length > 0) { %>
+        
       <div class="grid">
         <% for (let reunion of reunions) { %>
           <article class="card reunion-item">
@@ -16,7 +17,7 @@
               </h1>
             </header>
             <div class="card__image">
-              <img src="<%= reunion.images[0].path %>" alt="<%= reunion.title %>">
+              <img src="<%= reunion.images[0] %>" alt="<%= reunion.title %>">
             </div>
             <div class="card__content">
               <h2 class="reunion__year">
