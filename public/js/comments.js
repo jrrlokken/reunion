@@ -54,7 +54,6 @@ const pusher = new Pusher('369474ee4c2e0ecdb50c', {
 const channel = pusher.subscribe(`${reunionId}`);
 channel.bind('comment', (data) => {
   const newComment = data.message;
-  console.log(newComment);
   buildComment(newComment);
 });
 
@@ -78,7 +77,7 @@ async function handleCommentSubmit(event) {
     body: `commentText=${commentText}`,
   })
     .then((response) => {
-      console.log(response.json);
+      // console.log(response.json);
     })
     .catch((error) => console.log(error));
 }

@@ -87,6 +87,7 @@ exports.postAddReunion = (req, res, next) => {
       year: year,
       images: uploadedImages,
       description: description,
+      userId: req.user,
     });
     return reunion
       .save()
@@ -158,9 +159,9 @@ exports.postEditReunion = (req, res, next) => {
 
   Reunion.findById(reunionId)
     .then((reunion) => {
-      // if (reunion.userId.toString() !== req.user._id.toString()) {
-      //   return res.redirect('/admin/reunions');
-      // }
+      if (reunion.userId.toString() !== req.user._id.toString()) {
+        return res.redirect('/admin/reunions');
+      }
       if (updatedImages) {
         uploadImages(req.files)
           .then((reunion.images = [...reunion.images, ...uploadedImages]))

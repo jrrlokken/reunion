@@ -72,7 +72,7 @@ app.use(flash());
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.isAdmin =
-    req.session?.user?._id.toString() === process.env.ADMIN_ID.toString();
+    req.session?.user?._id.toString() === process.env.ADMIN_ID;
   res.locals.csrfToken = req.csrfToken();
   next();
 });
