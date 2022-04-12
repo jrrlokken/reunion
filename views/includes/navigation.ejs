@@ -11,8 +11,8 @@
       </li>
       <li class="main-header__item">
         <a
-          class="<%= path === '/reunions/6254957de9c2ae62bf867b5a' ? 'active' : '' %>"
-          href="/reunions/6254957de9c2ae62bf867b5a"
+          class="<%= path === '/reunions/upcoming' ? 'active' : '' %>"
+          href="/reunions/<%= process.env.UPCOMING_REUNION_ID %>"
           >Upcoming Reunion</a
         >
       </li>
