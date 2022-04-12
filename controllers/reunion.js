@@ -93,7 +93,7 @@ exports.postComment = (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         text: commentText,
         reunionId: new mongoose.Types.ObjectId(reunionId),
-        userId: user,
+        userId: req.user,
         createdAt: new Date(),
       });
 
@@ -103,7 +103,17 @@ exports.postComment = (req, res, next) => {
       pusher.trigger(`${reunionId}`, 'comment', {
         message: comment,
       });
-      return res.send(JSON.stringify(reunion));
+
+      Comment.findOne(comment._id)
+        .populate({
+          path: 'userId',
+          model: 'User',
+        })
+        .then((comment) => {
+          console.log(comment);
+          return res.send(JSON.stringify(comment));
+        })
+        .catch((error) => console.error(error));
     })
     .catch((error) => {
       const newError = new Error(error);

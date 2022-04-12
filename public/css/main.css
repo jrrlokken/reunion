@@ -41,52 +41,56 @@ h1 {
   padding: 0.25rem 1rem;
   text-decoration: none;
   font: inherit;
-  border: 1px solid #086fcb;
-  color: #086fcb;
-  background: white;
+  background: transparent;
   border-radius: 3px;
   cursor: pointer;
   transition: all 0.2s ease-out;
 }
 
-.btn:hover,
-.btn:active {
-  background-color: #086fcb;
+.btn.welcome-btn {
+  padding: 10px 20px;
+  font-size: 20px;
   color: white;
+  background: transparent;
+  border: 1px solid white;
+  border-radius: 5px;
 }
 
 .btn-primary {
-  /* color: white; */
+  border: 1px solid #086fcb;
+  color: #086fcb;
   text-shadow: none;
 }
 .btn-primary.active,
 .btn-primary:hover {
-  background-color: #132680;
+  background-color: #086fcb;
+  background-color: #086fcb;
+  color: white;
 }
-.btn.secondary {
+.btn-secondary {
+  border: 1px solid #983f00;
   border-color: #983f00;
   color: #983f00;
 }
 
-.btn.secondary:hover,
-.btn.secondary:active {
+.btn-secondary:hover,
+.btn-secondary:active {
   background-color: #fec59d;
 }
 
-.btn.danger {
+.btn-danger {
+  border: 1px solid red;
   color: #870000;
-  border-color: #bb2221;
+  border-color: #b73326;
 }
 
-.btn.danger:hover,
-.btn.danger:active {
+.btn-danger:hover,
+.btn-danger:active {
   background: #ffd4cd;
-  color: #870000;
 }
 
 #addComment {
   border-color: #007455;
-  /* background: #d5f0e6; */
   color: #007455;
 }
 
@@ -230,11 +234,8 @@ h1 {
   transition: all 0.2s ease-out;
 }
 
-.main-header__item a:hover,
-.main-header__item a:active,
 .main-header__item a.active,
-.main-header__item button:hover,
-.main-header__tems button:active {
+.main-header__tems button.active {
   color: white;
 }
 
@@ -242,6 +243,7 @@ h1 {
 .main-header__item button:hover {
   display: inline-block;
   transform: scale(1.2);
+  color: white;
 }
 
 .margin-30 {
@@ -285,7 +287,7 @@ h1 {
   color: #007455;
 }
 
-// Mobile Nav
+/* Mobile Nav */
 .mobile-nav {
   width: 30rem;
   height: 100vh;
