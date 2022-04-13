@@ -1,20 +1,9 @@
 const { validationResult } = require('express-validator');
 
 const Reunion = require('../models/reunion');
-const cloudinary = require('../util/cloudinary');
+const uploadImages = require('../util/file');
 
 let uploadedImages = [];
-
-const uploadImages = async (images) => {
-  for (const image of images) {
-    await cloudinary.uploader
-      .upload(image.path, { folder: 'reunions' })
-      .then((result) => {
-        uploadedImages.push(result.secure_url);
-      })
-      .catch((error) => console.error(error));
-  }
-};
 
 exports.getReunions = (req, res, next) => {
   Reunion.find({ userId: req.user._id })

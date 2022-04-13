@@ -111,7 +111,6 @@ exports.postComment = (req, res, next) => {
       Comment.findOne(comment._id)
         .populate('userId')
         .then((comment) => {
-          console.log(comment);
           return res.send(JSON.stringify(comment));
         })
         .catch((error) => console.error(error));
