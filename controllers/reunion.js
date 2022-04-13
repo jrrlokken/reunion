@@ -57,14 +57,23 @@ exports.getReunion = (req, res, next) => {
 
 exports.getUpcoming = async (req, res, next) => {
   const reunionId = process.env.UPCOMING_REUNION_ID;
+  if (!reunionId) {
+    const newError = new Error(error);
+    newError.httpStatusCode = 500;
+    return next(newError);
+  }
 
   return Reunion.findOne({ _id: reunionId })
-    .populate({ path: 'comments', options: { sort: { createdAt: -1 } } })
+    .populate({
+      path: 'comments',
+      options: { sort: { createdAt: -1 } },
+      populate: { path: 'userId' },
+    })
     .then((reunion) => {
       res.render('reunion/reunion-detail', {
         reunion: reunion,
         pageTitle: reunion.title,
-        path: '/reunions/:reunionId',
+        path: '/reunions/upcoming',
         errorMessage: null,
       });
     })
@@ -74,7 +83,6 @@ exports.getUpcoming = async (req, res, next) => {
 exports.postComment = (req, res, next) => {
   const reunionId = req.params.reunionId;
   const commentText = req.body.commentText;
-  const user = req.user;
 
   if (!commentText) {
     return res.status(422).render('reunion/reunion-detail', {

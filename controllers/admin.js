@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 
+const uploadImages = require('../util/cloudinary');
 const Reunion = require('../models/reunion');
-const uploadImages = require('../util/file');
 
 let uploadedImages = [];
 
@@ -148,9 +148,9 @@ exports.postEditReunion = (req, res, next) => {
 
   Reunion.findById(reunionId)
     .then((reunion) => {
-      if (reunion.userId.toString() !== req.user._id.toString()) {
-        return res.redirect('/admin/reunions');
-      }
+      // if (reunion.userId.toString() !== req.user._id.toString()) {
+      //   return res.redirect('/admin/reunions');
+      // }
       if (updatedImages) {
         uploadImages(req.files)
           .then((reunion.images = [...reunion.images, ...uploadedImages]))
@@ -179,7 +179,6 @@ exports.postDeleteReunion = (req, res, next) => {
       if (!reunion) {
         return next(new Error('Reunion not found'));
       }
-      // fileHelper.deleteFile(reunion.images[0].path);
       return Reunion.deleteOne({ _id: reunionId, userId: req.user._id });
     })
     .then(() => {

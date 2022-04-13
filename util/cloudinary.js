@@ -6,4 +6,16 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-module.exports = cloudinary;
+const uploadImages = async (images) => {
+  for (const image of images) {
+    await cloudinary.uploader
+      .upload(image.path, { folder: 'reunions' })
+      .then((result) => {
+        uploadedImages.push(result.secure_url);
+      })
+      .catch((error) => console.error(error));
+  }
+};
+
+exports.cloudinary = cloudinary;
+exports.uploadImages = uploadImages;
