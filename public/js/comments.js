@@ -77,7 +77,7 @@ async function handleCommentSubmit(event) {
     body: `commentText=${commentText}`,
   })
     .then((response) => {
-      // console.log(response.json);
+      return response.json();
     })
     .catch((error) => console.log(error));
 }

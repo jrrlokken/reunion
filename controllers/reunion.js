@@ -39,7 +39,11 @@ exports.getReunion = (req, res, next) => {
   const reunionId = req.params.reunionId;
 
   return Reunion.findOne({ _id: reunionId })
-    .populate({ path: 'comments', options: { sort: { createdAt: -1 } } })
+    .populate({
+      path: 'comments',
+      options: { sort: { createdAt: -1 } },
+      populate: { path: 'userId' },
+    })
     .then((reunion) => {
       res.render('reunion/reunion-detail', {
         reunion: reunion,
@@ -105,10 +109,7 @@ exports.postComment = (req, res, next) => {
       });
 
       Comment.findOne(comment._id)
-        .populate({
-          path: 'userId',
-          model: 'User',
-        })
+        .populate('userId')
         .then((comment) => {
           console.log(comment);
           return res.send(JSON.stringify(comment));
