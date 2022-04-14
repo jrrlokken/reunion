@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const Reunion = require("../models/reunion");
-const Comment = require("../models/comment");
-const Pusher = require("pusher");
+const Reunion = require('../models/reunion');
+const Comment = require('../models/comment');
+const Pusher = require('pusher');
 
 const pusher = new Pusher({
   appId: process.env.PUSHER_APPID,
@@ -15,19 +15,19 @@ const pusher = new Pusher({
 // mongoose.set('debug', true);
 
 exports.getIndex = (req, res, next) => {
-  res.render("reunion/index-slideshow", {
-    pageTitle: "Lokken Reunion",
-    path: "/",
+  res.render('reunion/index-slideshow', {
+    pageTitle: 'Lokken Reunion',
+    path: '/',
   });
 };
 
 exports.getReunions = (req, res, next) => {
   Reunion.find()
     .then((reunions) => {
-      res.render("reunion/reunion-list", {
+      res.render('reunion/reunion-list', {
         reunions: reunions,
-        pageTitle: "Lokken Reunion",
-        path: "/reunions",
+        pageTitle: 'Lokken Reunion',
+        path: '/reunions',
       });
     })
     .catch((error) => {
@@ -40,15 +40,15 @@ exports.getReunion = (req, res, next) => {
 
   return Reunion.findOne({ _id: reunionId })
     .populate({
-      path: "comments",
+      path: 'comments',
       options: { sort: { createdAt: -1 } },
-      populate: { path: "userId" },
+      populate: { path: 'userId' },
     })
     .then((reunion) => {
-      res.render("reunion/reunion-detail", {
+      res.render('reunion/reunion-detail', {
         reunion: reunion,
         pageTitle: reunion.title,
-        path: "/reunions/:reunionId",
+        path: '/reunions/:reunionId',
         errorMessage: null,
       });
     })
@@ -65,15 +65,15 @@ exports.getUpcoming = async (req, res, next) => {
 
   return Reunion.findOne({ _id: reunionId })
     .populate({
-      path: "comments",
+      path: 'comments',
       options: { sort: { createdAt: -1 } },
-      populate: { path: "userId" },
+      populate: { path: 'userId' },
     })
     .then((reunion) => {
-      res.render("reunion/reunion-detail", {
+      res.render('reunion/reunion-detail', {
         reunion: reunion,
         pageTitle: reunion.title,
-        path: "/reunions/upcoming",
+        path: '/reunions/upcoming',
         errorMessage: null,
       });
     })
@@ -85,19 +85,19 @@ exports.postComment = (req, res, next) => {
   const commentText = req.body.commentText;
 
   if (!commentText) {
-    return res.status(422).render("reunion/reunion-detail", {
+    return res.status(422).render('reunion/reunion-detail', {
       pageTitle: foundReunion.title,
-      path: "/reunions/:reunionId",
+      path: '/reunions/:reunionId',
       hasError: true,
       reunion: foundReunion,
-      errorMessage: "Comment text is required.",
+      errorMessage: 'Comment text is required.',
       validationErrors: [],
     });
   }
 
   Reunion.findById(reunionId)
     .populate({
-      path: "comments",
+      path: 'comments',
       options: { sort: { createdAt: -1 } },
     })
     .then((reunion) => {
@@ -112,12 +112,12 @@ exports.postComment = (req, res, next) => {
       reunion.comments.push(comment);
       comment.save();
       reunion.save();
-      pusher.trigger(`${reunionId}`, "comment", {
+      pusher.trigger(`${reunionId}`, 'comment', {
         message: comment,
       });
 
       Comment.findOne(comment._id)
-        .populate("userId")
+        .populate('userId')
         .then((comment) => {
           return res.send(JSON.stringify(comment));
         })

@@ -1,7 +1,7 @@
-const { validationResult } = require("express-validator");
+const { validationResult } = require('express-validator');
 
-const uploadImages = require("../util/cloudinary");
-const Reunion = require("../models/reunion");
+const uploadImages = require('../util/cloudinary');
+const Reunion = require('../models/reunion');
 
 let uploadedImages = [];
 
@@ -9,19 +9,19 @@ exports.getReunions = (req, res, next) => {
   Reunion.find({ userId: req.user._id })
     .populate()
     .then((reunions) => {
-      res.render("admin/reunions", {
+      res.render('admin/reunions', {
         reunions: reunions,
-        pageTitle: "Admin",
-        path: "/admin/reunions",
+        pageTitle: 'Admin',
+        path: '/admin/reunions',
       });
     })
     .catch((error) => console.log(error));
 };
 
 exports.getAddReunion = (req, res, next) => {
-  res.render("admin/edit-reunion", {
-    pageTitle: "Add Reunion",
-    path: "/admin/add-reunion",
+  res.render('admin/edit-reunion', {
+    pageTitle: 'Add Reunion',
+    path: '/admin/add-reunion',
     editing: false,
     hasError: false,
     errorMessage: null,
@@ -37,9 +37,9 @@ exports.postAddReunion = (req, res, next) => {
   const description = req.body.description;
 
   if (!images) {
-    return res.status(422).render("admin/edit-reunion", {
-      pageTitle: "Add Reunion",
-      path: "/admin/add-reunion",
+    return res.status(422).render('admin/edit-reunion', {
+      pageTitle: 'Add Reunion',
+      path: '/admin/add-reunion',
       editing: false,
       hasError: true,
       reunion: {
@@ -47,7 +47,7 @@ exports.postAddReunion = (req, res, next) => {
         year: year,
         description: description,
       },
-      errorMessage: "A valid image is required",
+      errorMessage: 'A valid image is required',
       validationErrors: [],
     });
   }
@@ -55,9 +55,9 @@ exports.postAddReunion = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(422).render("admin/edit-reunion", {
-      pageTitle: "Add Reunion",
-      path: "/admin/add-reunion",
+    return res.status(422).render('admin/edit-reunion', {
+      pageTitle: 'Add Reunion',
+      path: '/admin/add-reunion',
       editing: false,
       hasError: true,
       reunion: {
@@ -81,8 +81,8 @@ exports.postAddReunion = (req, res, next) => {
     return reunion
       .save()
       .then((result) => {
-        console.log("Added Reunion");
-        res.redirect("/admin/reunions");
+        console.log('Added Reunion');
+        res.redirect('/admin/reunions');
       })
       .catch((error) => {
         const newError = new Error(error);
@@ -95,18 +95,18 @@ exports.postAddReunion = (req, res, next) => {
 exports.getEditReunion = (req, res, next) => {
   const editMode = req.query.edit;
   if (!editMode) {
-    return res.redirect("/reunions");
+    return res.redirect('/reunions');
   }
   const reunionId = req.params.reunionId;
   Reunion.findById(reunionId)
     .then((reunion) => {
       if (!reunion) {
-        return res.redirect("/reunions");
+        return res.redirect('/reunions');
       }
 
-      res.render("admin/edit-reunion", {
-        pageTitle: "Edit Reunion",
-        path: "/admin/edit-reunion",
+      res.render('admin/edit-reunion', {
+        pageTitle: 'Edit Reunion',
+        path: '/admin/edit-reunion',
         editing: editMode,
         hasError: false,
         errorMessage: null,
@@ -130,9 +130,9 @@ exports.postEditReunion = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(422).render("admin/edit-reunion", {
-      pageTitle: "Edit Reunion",
-      path: "/admin/edit-reunion",
+    return res.status(422).render('admin/edit-reunion', {
+      pageTitle: 'Edit Reunion',
+      path: '/admin/edit-reunion',
       editing: true,
       hasError: true,
       product: {
@@ -161,8 +161,8 @@ exports.postEditReunion = (req, res, next) => {
       reunion.description = updatedDescription;
 
       return reunion.save().then((result) => {
-        console.log("Updated Reunion");
-        res.redirect("/admin/reunions");
+        console.log('Updated Reunion');
+        res.redirect('/admin/reunions');
       });
     })
     .catch((error) => {
@@ -177,13 +177,13 @@ exports.postDeleteReunion = (req, res, next) => {
   Reunion.findById({ _id: reunionId, userId: req.user._id })
     .then((reunion) => {
       if (!reunion) {
-        return next(new Error("Reunion not found"));
+        return next(new Error('Reunion not found'));
       }
       return Reunion.deleteOne({ _id: reunionId, userId: req.user._id });
     })
     .then(() => {
-      console.log("Reunion Deleted");
-      res.redirect("/admin/reunions");
+      console.log('Reunion Deleted');
+      res.redirect('/admin/reunions');
     })
     .catch((error) => {
       const newError = new Error(error);
@@ -191,4 +191,3 @@ exports.postDeleteReunion = (req, res, next) => {
       return next(newError);
     });
 };
-

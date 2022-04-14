@@ -1,10 +1,10 @@
-const bcrypt = require("bcryptjs");
-const crypto = require("crypto");
-const nodemailer = require("nodemailer");
-const sendgridTransport = require("nodemailer-sendgrid-transport");
-const { validationResult } = require("express-validator");
+const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
+const { validationResult } = require('express-validator');
 
-const User = require("../models/user");
+const User = require('../models/user');
 
 const transport = nodemailer.createTransport(
   sendgridTransport({
@@ -15,20 +15,20 @@ const transport = nodemailer.createTransport(
 );
 
 exports.getSignup = (req, res, next) => {
-  let message = req.flash("error");
+  let message = req.flash('error');
   if (message.length > 0) {
     message = message[0];
   } else {
     message = null;
   }
-  res.render("auth/signup", {
-    path: "/signup",
-    pageTitle: "Sign Up",
+  res.render('auth/signup', {
+    path: '/signup',
+    pageTitle: 'Sign Up',
     errorMessage: null,
     userInput: {
-      email: "",
-      password: "",
-      confirmPassword: "",
+      email: '',
+      password: '',
+      confirmPassword: '',
     },
     validationErrors: [],
   });
@@ -38,9 +38,9 @@ exports.postSignup = (req, res, next) => {
   const { email, password, confirmPassword } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).render("auth/signup", {
-      path: "/signup",
-      pageTitle: "Sign Up",
+    return res.status(422).render('auth/signup', {
+      path: '/signup',
+      pageTitle: 'Sign Up',
       errorMessage: errors.array()[0].msg,
       userInput: {
         email: email,
@@ -61,11 +61,11 @@ exports.postSignup = (req, res, next) => {
       return user.save();
     })
     .then((result) => {
-      res.redirect("/login");
+      res.redirect('/login');
       return transport.sendMail({
         to: email,
-        from: "no-reply@lokkenreunion.com",
-        subject: "Signup succeeded at LokkenReunion.com",
+        from: 'no-reply@lokkenreunion.com',
+        subject: 'Signup succeeded at LokkenReunion.com',
         html: `
           <p>Thank you for signing up with LokkenReunion.com!</p>
           <p>Come join the reunion 😄</p>
@@ -76,20 +76,20 @@ exports.postSignup = (req, res, next) => {
 };
 
 exports.getLogin = (req, res, next) => {
-  let message = req.flash("error");
+  let message = req.flash('error');
   if (message.length > 0) {
     message = message[0];
   } else {
     message = null;
   }
-  res.render("auth/login", {
-    path: "/login",
-    pageTitle: "Login",
+  res.render('auth/login', {
+    path: '/login',
+    pageTitle: 'Login',
     errorMessage: message,
     validationErrors: [],
     userInput: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 };
@@ -99,9 +99,9 @@ exports.postLogin = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(422).render("auth/login", {
-      path: "/login",
-      pageTitle: "Login",
+    return res.status(422).render('auth/login', {
+      path: '/login',
+      pageTitle: 'Login',
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
       userInput: {
@@ -114,10 +114,10 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ email: email })
     .then((user) => {
       if (!user) {
-        return res.status(422).render("auth/login", {
-          path: "/login",
-          pageTitle: "Login",
-          errorMessage: "Invalid email or password",
+        return res.status(422).render('auth/login', {
+          path: '/login',
+          pageTitle: 'Login',
+          errorMessage: 'Invalid email or password',
           validationErrors: [],
           userInput: {
             email: email,
@@ -133,13 +133,13 @@ exports.postLogin = (req, res, next) => {
             req.session.isLoggedIn = true;
             req.session.user = user;
             return req.session.save((error) => {
-              res.redirect("/reunions");
+              res.redirect('/reunions');
             });
           }
-          return res.status(422).render("auth/login", {
-            path: "/login",
-            pageTitle: "Login",
-            errorMessage: "Invalid email or password",
+          return res.status(422).render('auth/login', {
+            path: '/login',
+            pageTitle: 'Login',
+            errorMessage: 'Invalid email or password',
             validationErrors: errors.array(),
             userInput: {
               email: email,
@@ -149,7 +149,7 @@ exports.postLogin = (req, res, next) => {
         })
         .catch((error) => {
           console.log(error);
-          res.redirect("/login");
+          res.redirect('/login');
         });
     })
     .catch((error) => console.log(error));
@@ -158,20 +158,20 @@ exports.postLogin = (req, res, next) => {
 exports.postLogout = (req, res, next) => {
   req.session.destroy((error) => {
     console.log(error);
-    res.redirect("/");
+    res.redirect('/');
   });
 };
 
 exports.getReset = (req, res, next) => {
-  let message = req.flash("error");
+  let message = req.flash('error');
   if (message.length > 0) {
     message = message[0];
   } else {
     message = null;
   }
-  res.render("auth/reset", {
-    path: "/reset",
-    pageTitle: "Reset Password",
+  res.render('auth/reset', {
+    path: '/reset',
+    pageTitle: 'Reset Password',
     errorMessage: message,
   });
 };
@@ -180,25 +180,25 @@ exports.postReset = (req, res, next) => {
   crypto.randomBytes(32, (error, buffer) => {
     if (error) {
       console.log(error);
-      return res.redirect("/reset");
+      return res.redirect('/reset');
     }
-    const token = buffer.toString("hex");
+    const token = buffer.toString('hex');
     User.findOne({ email: req.body.email })
       .then((user) => {
         if (!user) {
-          req.flash("error", "No account found");
-          return res.redirect("/reset");
+          req.flash('error', 'No account found');
+          return res.redirect('/reset');
         }
         user.resetToken = token;
         user.resetTokenExpiration = Date.now() + 3600000;
         return user.save();
       })
       .then((result) => {
-        res.redirect("/");
+        res.redirect('/');
         transport.sendMail({
           to: req.body.email,
-          from: "no-reply@lokkenreunion.com",
-          subject: "Password Reset",
+          from: 'no-reply@lokkenreunion.com',
+          subject: 'Password Reset',
           html: `
           <p>Hello,</p>
 
@@ -221,16 +221,16 @@ exports.getResetPassword = (req, res, next) => {
     resetTokenExpiration: { $gt: Date.now() },
   })
     .then((user) => {
-      let message = req.flash("error");
+      let message = req.flash('error');
       if (message.length > 0) {
         message = message[0];
       } else {
         message = null;
       }
 
-      res.render("auth/reset-password", {
-        path: "/reset-password",
-        pageTitle: "Reset Password",
+      res.render('auth/reset-password', {
+        path: '/reset-password',
+        pageTitle: 'Reset Password',
         errorMessage: message,
         userId: user._id.toString(),
         passwordToken: token,
@@ -261,7 +261,7 @@ exports.postResetPassword = (req, res, next) => {
       return resetUser.save();
     })
     .then((result) => {
-      res.redirect("/login");
+      res.redirect('/login');
     })
     .catch((error) => console.log(error));
 };
