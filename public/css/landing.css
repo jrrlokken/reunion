@@ -43,19 +43,3 @@ main {
   font-weight: 900;
   letter-spacing: 3px;
 }
-
-.btn {
-  padding: 10px 20px;
-  font-size: 20px;
-  color: white;
-  background: transparent;
-  border: 1px solid white;
-  border-radius: 5px;
-}
-
-.btn-primary,
-.btn-primary:hover {
-  /* background-color: #132680; */
-  color: white;
-  text-shadow: none;
-}

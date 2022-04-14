@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const Reunion = require('../models/reunion');
-const Comment = require('../models/comment');
-const Pusher = require('pusher');
+const Reunion = require("../models/reunion");
+const Comment = require("../models/comment");
+const Pusher = require("pusher");
 
 const pusher = new Pusher({
   appId: process.env.PUSHER_APPID,
@@ -15,19 +15,19 @@ const pusher = new Pusher({
 // mongoose.set('debug', true);
 
 exports.getIndex = (req, res, next) => {
-  res.render('reunion/index', {
-    pageTitle: 'Lokken Reunion',
-    path: '/',
+  res.render("reunion/index-slideshow", {
+    pageTitle: "Lokken Reunion",
+    path: "/",
   });
 };
 
 exports.getReunions = (req, res, next) => {
   Reunion.find()
     .then((reunions) => {
-      res.render('reunion/reunion-list', {
+      res.render("reunion/reunion-list", {
         reunions: reunions,
-        pageTitle: 'Lokken Reunion',
-        path: '/reunions',
+        pageTitle: "Lokken Reunion",
+        path: "/reunions",
       });
     })
     .catch((error) => {
@@ -39,12 +39,16 @@ exports.getReunion = (req, res, next) => {
   const reunionId = req.params.reunionId;
 
   return Reunion.findOne({ _id: reunionId })
-    .populate({ path: 'comments', options: { sort: { createdAt: -1 } } })
+    .populate({
+      path: "comments",
+      options: { sort: { createdAt: -1 } },
+      populate: { path: "userId" },
+    })
     .then((reunion) => {
-      res.render('reunion/reunion-detail', {
+      res.render("reunion/reunion-detail", {
         reunion: reunion,
         pageTitle: reunion.title,
-        path: '/reunions/:reunionId',
+        path: "/reunions/:reunionId",
         errorMessage: null,
       });
     })
@@ -53,14 +57,23 @@ exports.getReunion = (req, res, next) => {
 
 exports.getUpcoming = async (req, res, next) => {
   const reunionId = process.env.UPCOMING_REUNION_ID;
+  if (!reunionId) {
+    const newError = new Error(error);
+    newError.httpStatusCode = 500;
+    return next(newError);
+  }
 
   return Reunion.findOne({ _id: reunionId })
-    .populate({ path: 'comments', options: { sort: { createdAt: -1 } } })
+    .populate({
+      path: "comments",
+      options: { sort: { createdAt: -1 } },
+      populate: { path: "userId" },
+    })
     .then((reunion) => {
-      res.render('reunion/reunion-detail', {
+      res.render("reunion/reunion-detail", {
         reunion: reunion,
         pageTitle: reunion.title,
-        path: '/reunions/:reunionId',
+        path: "/reunions/upcoming",
         errorMessage: null,
       });
     })
@@ -70,22 +83,21 @@ exports.getUpcoming = async (req, res, next) => {
 exports.postComment = (req, res, next) => {
   const reunionId = req.params.reunionId;
   const commentText = req.body.commentText;
-  const user = req.user;
 
   if (!commentText) {
-    return res.status(422).render('reunion/reunion-detail', {
+    return res.status(422).render("reunion/reunion-detail", {
       pageTitle: foundReunion.title,
-      path: '/reunions/:reunionId',
+      path: "/reunions/:reunionId",
       hasError: true,
       reunion: foundReunion,
-      errorMessage: 'Comment text is required.',
+      errorMessage: "Comment text is required.",
       validationErrors: [],
     });
   }
 
   Reunion.findById(reunionId)
     .populate({
-      path: 'comments',
+      path: "comments",
       options: { sort: { createdAt: -1 } },
     })
     .then((reunion) => {
@@ -93,17 +105,23 @@ exports.postComment = (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         text: commentText,
         reunionId: new mongoose.Types.ObjectId(reunionId),
-        userId: user,
+        userId: req.user,
         createdAt: new Date(),
       });
 
       reunion.comments.push(comment);
       comment.save();
       reunion.save();
-      pusher.trigger(`${reunionId}`, 'comment', {
+      pusher.trigger(`${reunionId}`, "comment", {
         message: comment,
       });
-      return res.send(JSON.stringify(reunion));
+
+      Comment.findOne(comment._id)
+        .populate("userId")
+        .then((comment) => {
+          return res.send(JSON.stringify(comment));
+        })
+        .catch((error) => console.error(error));
     })
     .catch((error) => {
       const newError = new Error(error);

@@ -25,10 +25,10 @@
     <% for (let comment of reunion.comments) { %> <% const d =
     comment.createdAt.getDate(); const m =
     monthNames[comment.createdAt.getMonth()]; const y =
-    comment.createdAt.getFullYear(); %>
+    comment.createdAt.getFullYear(); const email = comment.userId.email; %>
     <div class="comment-wrapper">
       <p class="comment-header-text">
-        On <%= m+ ' ' +d+ ', ' +y %>, a user wrote:
+        On <%= m+ ' ' +d+ ', ' +y+ ', ' +email %> wrote:
       </p>
       <%= comment.text %>
       <hr />

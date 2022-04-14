@@ -10,7 +10,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  reunions: [{ type: Schema.Types.ObjectId, ref: 'Reunion' }],
   resetToken: String,
   resetTokenExpiration: Date,
 });
