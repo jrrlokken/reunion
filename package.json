@@ -11,6 +11,7 @@
     "start": "node app.js"
   },
   "devDependencies": {
+    "cypress": "^9.5.4",
     "nodemon": "^2.0.15"
   },
   "dependencies": {

@@ -48,7 +48,7 @@ exports.postAddReunion = (req, res, next) => {
   const images = req.files;
   const description = req.body.description;
 
-  if (!images) {
+  if (images.length < 1) {
     return res.status(422).render('admin/edit-reunion', {
       pageTitle: 'Add Reunion',
       path: '/admin/add-reunion',
