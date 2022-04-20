@@ -12,8 +12,6 @@ const pusher = new Pusher({
   useTLS: true,
 });
 
-// mongoose.set('debug', true);
-
 exports.getIndex = (req, res, next) => {
   res.render('reunion/index-slideshow', {
     pageTitle: 'Lokken Reunion',

@@ -65,7 +65,7 @@ exports.postSignup = (req, res, next) => {
       return transport.sendMail({
         to: email,
         from: 'no-reply@lokkenreunion.com',
-        subject: 'Signup succeeded at LokkenReunion.com',
+        subject: 'Successful signup at LokkenReunion.com',
         html: `
           <p>Thank you for signing up with LokkenReunion.com!</p>
           <p>Come join the reunion 😄</p>

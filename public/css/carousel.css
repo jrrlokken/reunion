@@ -1,6 +1,5 @@
 .carousel-wrapper {
   overflow: hidden;
-  /* width: 90%; */
   max-height: 30rem;
   display: flex;
   justify-content: center;
@@ -12,7 +11,6 @@
 }
 
 .carousel {
-  /* max-width: 90%; */
   display: flex;
   justify-content: center;
   transform-style: preserve-3d;
@@ -24,8 +22,6 @@
   position: absolute;
   top: 0;
   width: auto;
-  /* max-width: 70%; */
-  /* border-radius: 5px; */
   height: 400px;
   max-height: 400px;
   margin: auto;
@@ -64,7 +60,7 @@
   transform: translateY(-50%);
   border-radius: 50%;
   cursor: pointer;
-  z-index: 1001; /* Sit on top of everything */
+  z-index: 1001;
   border: 1px solid black;
 }
 
