@@ -56,12 +56,7 @@ exports.getReunion = (req, res, next) => {
 };
 
 exports.getUpcoming = async (req, res, next) => {
-  const reunionId = process.env.UPCOMING_REUNION_ID;
-  if (!reunionId) {
-    const newError = new Error(error);
-    newError.httpStatusCode = 500;
-    return next(newError);
-  }
+  const reunionId = '625ff33a61176db95ca66cdd';
 
   return Reunion.findOne({ _id: reunionId })
     .populate({
@@ -112,9 +107,14 @@ exports.postComment = (req, res, next) => {
       reunion.comments.push(comment);
       comment.save();
       reunion.save();
-      pusher.trigger(`${reunionId}`, 'comment', {
-        message: comment,
-      });
+      pusher
+        .trigger(`${reunionId}`, 'comment', {
+          message: comment,
+        })
+        .then((comment) => {
+          console.log(comment);
+        })
+        .catch((error) => console.error(error));
 
       Comment.findOne(comment._id)
         .populate('userId')
