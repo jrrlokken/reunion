@@ -14,22 +14,26 @@
 .carousel {
   /* max-width: 90%; */
   display: flex;
-  justify-content: center;
+  /* justify-content: space-between; */
   transform-style: preserve-3d;
+  overflow: hidden;
+}
+
+.carousel__photo-container {
+  /* border: 1px solid black; */
+  border-radius: 10px;
   overflow: hidden;
 }
 
 .carousel__photo {
   opacity: 0;
   position: absolute;
-  top: 0;
+  /* top: 0; */
   width: auto;
-  /* max-width: 70%; */
-  /* border-radius: 5px; */
   height: 400px;
   max-height: 400px;
   margin: auto;
-  padding: 1rem 4rem;
+  /* padding: 1rem 4rem; */
   z-index: 100;
   transition: transform 0.5s, opacity 0.5s, z-index 0.5s;
 }
@@ -64,7 +68,7 @@
   transform: translateY(-50%);
   border-radius: 50%;
   cursor: pointer;
-  z-index: 1001; /* Sit on top of everything */
+  z-index: 1001;
   border: 1px solid black;
 }
 
