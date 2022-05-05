@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 
-const uploadImages = require('../util/cloudinary');
+const { uploadImages } = require('../util/cloudinary');
 const Reunion = require('../models/reunion');
 
 let uploadedImages = [];

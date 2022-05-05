@@ -1,12 +1,3 @@
 body {
   background-color: #dae7f7;
 }
-
-/*
-<picture>
-  <source srcset="https://dummyimage.com/2000x400/007aeb/4196e5" media="(min-width: 1400px)">
-  <source srcset="https://dummyimage.com/1400x400/007aeb/4196e5" media="(min-width: 768px)">
-  <source srcset="https://dummyimage.com/800x400/007aeb/4196e5" media="(min-width: 576px)">
-  <img srcset="https://dummyimage.com/600x400/007aeb/4196e5" alt="responsive image" class="d-block img-fluid">
-</picture>
-*/

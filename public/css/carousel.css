@@ -20,7 +20,6 @@
 }
 
 .carousel__photo-container {
-  /* border: 1px solid black; */
   border-radius: 10px;
   overflow: hidden;
 }
@@ -44,6 +43,11 @@
   position: relative;
   z-index: 900;
 }
+
+/* .carousel__photo.active:hover {
+  transform: scale(1.2);
+  transition: scale 1s;
+} */
 
 .carousel__photo.prev,
 .carousel__photo.next {
