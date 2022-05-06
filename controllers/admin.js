@@ -1,21 +1,9 @@
 const { validationResult } = require('express-validator');
-const cloudinary = require('cloudinary').v2;
 
+const { uploadImages } = require('../util/cloudinary');
 const Reunion = require('../models/reunion');
 
 let uploadedImages = [];
-
-const uploadImages = async (images) => {
-  for (const image of images) {
-    await cloudinary.uploader
-      .upload(image.path, { folder: 'reunions' })
-      .then((result) => {
-        uploadedImages.push(result.secure_url);
-      })
-      .catch((error) => console.error(error));
-  }
-  return uploadedImages;
-};
 
 exports.getReunions = (req, res, next) => {
   Reunion.find({ userId: req.user._id })
@@ -34,7 +22,7 @@ exports.getAddReunion = (req, res, next) => {
   res.render('admin/edit-reunion', {
     pageTitle: 'Add Reunion',
     path: '/admin/add-reunion',
-    editing: false,
+    editinsg: false,
     hasError: false,
     errorMessage: null,
     validationErrors: [],
@@ -48,7 +36,7 @@ exports.postAddReunion = (req, res, next) => {
   const images = req.files;
   const description = req.body.description;
 
-  if (images.length < 1) {
+  if (!images) {
     return res.status(422).render('admin/edit-reunion', {
       pageTitle: 'Add Reunion',
       path: '/admin/add-reunion',
@@ -133,7 +121,7 @@ exports.getEditReunion = (req, res, next) => {
     });
 };
 
-exports.postEditReunion = async (req, res, next) => {
+exports.postEditReunion = (req, res, next) => {
   const reunionId = req.body.reunionId;
   const updatedTitle = req.body.title;
   const updatedYear = req.body.year;
@@ -160,24 +148,22 @@ exports.postEditReunion = async (req, res, next) => {
 
   Reunion.findById(reunionId)
     .then((reunion) => {
-      if (reunion.userId.toString() !== req.user._id.toString()) {
-        return res.redirect('/admin/reunions');
-      }
+      // if (reunion.userId.toString() !== req.user._id.toString()) {
+      //   return res.redirect('/admin/reunions');
+      // }
       if (updatedImages) {
-        uploadImages(updatedImages)
-          .then((uploadedImages) => {
-            reunion.images = [...reunion.images, ...uploadedImages];
-            reunion.title = updatedTitle;
-            reunion.year = updatedYear;
-            reunion.description = updatedDescription;
-
-            return reunion.save().then((result) => {
-              console.log('Updated Reunion');
-              res.redirect('/admin/reunions');
-            });
-          })
+        uploadImages(req.files)
+          .then((reunion.images = [...reunion.images, ...uploadedImages]))
           .catch((error) => console.error(error));
       }
+      reunion.title = updatedTitle;
+      reunion.year = updatedYear;
+      reunion.description = updatedDescription;
+
+      return reunion.save().then((result) => {
+        console.log('Updated Reunion');
+        res.redirect('/admin/reunions');
+      });
     })
     .catch((error) => {
       const newError = new Error(error);

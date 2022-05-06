@@ -20,6 +20,28 @@ const store = new MongoDBStore({
   collection: 'sessions',
 });
 
+// const fileStorage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, './images');
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, new Date().toISOString() + '-' + file.originalname);
+//   },
+// });
+
+// const fileFilter = (req, file, cb) => {
+//   if (
+//     file.mimetype === 'image/png' ||
+//     file.mimetype === 'image/jpg' ||
+//     file.mimetype === 'image/jpeg' ||
+//     file.mimetype === 'image/webp'
+//   ) {
+//     cb(null, true);
+//   } else {
+//     cb(null, false);
+//   }
+// };
+
 const csrfProtection = csrf();
 
 app.set('view engine', 'ejs');
@@ -37,7 +59,6 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use(
   session({
-    name: 'lokken-reunion',
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -51,8 +72,9 @@ app.use(flash());
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.isAdmin =
-    req.session?.user?._id.toString() === '62574023ffe0b6532849856e';
+    req.session?.user?._id.toString() === process.env.ADMIN_ID;
   res.locals.csrfToken = req.csrfToken();
+  res.locals.user = req.session.user;
   next();
 });
 
@@ -82,6 +104,7 @@ app.use('/500', errorController.get500);
 app.use(errorController.get404);
 
 app.use((error, req, res, next) => {
+  console.log(error);
   res.status(500).render('500', {
     pageTitle: 'Server Error',
     path: '/500',

@@ -1,12 +1,21 @@
 body {
-  background-color: black;
+}
+
+#landing-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* align-items: center; */
+  height: 100vh;
+  z-index: 1;
 }
 
 #landing-header {
-  z-index: 1;
+  z-index: 2;
   position: relative;
   text-align: center;
-  padding-top: 40vh;
+  padding: 1rem;
+  border-radius: 10px;
 }
 
 #landing-header h1 {
@@ -78,18 +87,13 @@ body {
     animation-timing-function: ease-in;
   }
   10% {
-    opacity: 1;
+    opacity: 0.7;
     animation-timing-function: ease-out;
   }
   20% {
-    opacity: 1;
+    opacity: 0.7;
   }
   30% {
     opacity: 0;
   }
-}
-
-/* Older browser support - .no-cssanimations class added by modernizr */
-.no-cssanimations .slideshow li {
-  opacity: 1;
 }
