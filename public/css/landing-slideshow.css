@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Source Serif Pro';
+  src: url('/assets/SourceSerifPro-Black.ttf');
+}
+
 body {
 }
 

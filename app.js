@@ -12,6 +12,7 @@ const multer = require('./util/multer');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
+require('./util/cache');
 
 const app = express();
 
@@ -19,28 +20,6 @@ const store = new MongoDBStore({
   uri: process.env.MONGODB_URI,
   collection: 'sessions',
 });
-
-// const fileStorage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, './images');
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, new Date().toISOString() + '-' + file.originalname);
-//   },
-// });
-
-// const fileFilter = (req, file, cb) => {
-//   if (
-//     file.mimetype === 'image/png' ||
-//     file.mimetype === 'image/jpg' ||
-//     file.mimetype === 'image/jpeg' ||
-//     file.mimetype === 'image/webp'
-//   ) {
-//     cb(null, true);
-//   } else {
-//     cb(null, false);
-//   }
-// };
 
 const csrfProtection = csrf();
 
@@ -54,7 +33,8 @@ const adminRoutes = require('./routes/admin');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
+app.use(express.static('assets'));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use(

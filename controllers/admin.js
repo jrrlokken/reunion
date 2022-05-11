@@ -7,6 +7,7 @@ let uploadedImages = [];
 
 exports.getReunions = (req, res, next) => {
   Reunion.find({ userId: req.user._id })
+    .cache({ key: req.user._id })
     .populate()
     .then((reunions) => {
       res.render('admin/reunions', {
@@ -22,7 +23,7 @@ exports.getAddReunion = (req, res, next) => {
   res.render('admin/edit-reunion', {
     pageTitle: 'Add Reunion',
     path: '/admin/add-reunion',
-    editinsg: false,
+    editing: false,
     hasError: false,
     errorMessage: null,
     validationErrors: [],
@@ -148,10 +149,7 @@ exports.postEditReunion = (req, res, next) => {
 
   Reunion.findById(reunionId)
     .then((reunion) => {
-      // if (reunion.userId.toString() !== req.user._id.toString()) {
-      //   return res.redirect('/admin/reunions');
-      // }
-      if (updatedImages) {
+      if (updatedImages.length > 0) {
         uploadImages(req.files)
           .then((reunion.images = [...reunion.images, ...uploadedImages]))
           .catch((error) => console.error(error));

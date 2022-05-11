@@ -3,6 +3,7 @@ const { body } = require('express-validator');
 
 const adminController = require('../controllers/admin');
 const isAdmin = require('../middleware/is-admin');
+const cleanCache = require('../middleware/clean-cache');
 
 const router = express.Router();
 
@@ -27,6 +28,7 @@ router.post(
       .withMessage('Description must be 3 - 1000 characters'),
   ],
   isAdmin,
+  cleanCache,
   adminController.postAddReunion
 );
 
@@ -44,6 +46,7 @@ router.post(
     .trim()
     .withMessage('Description must be 3 - 1000 characters'),
   isAdmin,
+  cleanCache,
   adminController.postEditReunion
 );
 

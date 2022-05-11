@@ -54,7 +54,7 @@ exports.getReunion = (req, res, next) => {
 };
 
 exports.getUpcoming = async (req, res, next) => {
-  const reunionId = '625ff33a61176db95ca66cdd';
+  const reunionId = process.env.UPCOMING_REUNION_ID;
 
   return Reunion.findOne({ _id: reunionId })
     .populate({
