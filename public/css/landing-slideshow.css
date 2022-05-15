@@ -1,21 +1,16 @@
-body {
-}
+@import url('https://fonts.googleapis.com/css?family=Source+Serif+Pro&display=swap');
 
-#landing-wrapper {
+body {
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  /* align-items: center; */
-  height: 100vh;
-  z-index: 1;
+  justify-content: center;
+  align-items: center;
 }
 
 #landing-header {
-  z-index: 2;
-  position: relative;
+  z-index: 100;
   text-align: center;
   padding: 1rem;
-  border-radius: 10px;
+  opacity: 1;
 }
 
 #landing-header h1 {
@@ -41,10 +36,21 @@ body {
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: -2;
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.slideshow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: -1;
 }
 
 .slideshow li {
@@ -57,7 +63,6 @@ body {
   background-position: 50% 50%;
   background-repeat: no-repeat;
   opacity: 0;
-  z-index: 0;
   animation: imageAnimation 50s linear infinite;
 }
 
@@ -87,11 +92,11 @@ body {
     animation-timing-function: ease-in;
   }
   10% {
-    opacity: 0.7;
+    opacity: 1;
     animation-timing-function: ease-out;
   }
   20% {
-    opacity: 0.7;
+    opacity: 1;
   }
   30% {
     opacity: 0;
