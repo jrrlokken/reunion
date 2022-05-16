@@ -13,12 +13,12 @@
         <% } %> 
         <form class="login-form" action="/login" method="POST">
             <div class="form-control">
+                <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>" type="email" name="email" id="email" value="<%= userInput.email %>">
                 <label for="email">E-Mail</label>
-                <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>" autofocus type="email" name="email" id="email" value="<%= userInput.email %>">
             </div>
             <div class="form-control">
-                <label for="password">Password</label>
                 <input class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>" type="password" name="password" id="password" value="<%= userInput.password %>">
+                <label for="password">Password</label>
             </div>
             <div class="button-container margin-top">
                 <button class="btn btn-primary" type="submit">Login</button>

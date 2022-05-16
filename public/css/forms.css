@@ -1,16 +1,21 @@
 .form-control {
-  margin: 1rem 0;
+  margin: 3rem 0;
+  position: relative;
 }
 
 .form-control label {
   font-size: 1.2rem;
+  position: absolute;
+  top: -25px;
+  left: 0;
 }
+
 .form-control label,
 .form-control input,
 .form-control textarea {
   display: block;
   width: 100%;
-  margin-bottom: 0.25rem;
+  margin-bottom: 1rem;
 }
 
 .form-control input,
@@ -38,6 +43,10 @@
 }
 
 .form-control input:focus + label span,
-.form-control input:active + label span {
-  transform: translateY(-30px);
+.form-control input.active + label span {
+  transform: translateY(-20px);
+}
+
+.btn:active {
+  transform: scale(0.98);
 }
