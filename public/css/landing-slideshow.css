@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Serif+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 
 body {
   background-color: black;
@@ -36,8 +36,8 @@ body {
 
 #landing-header p {
   margin-top: 0;
-  font-family: 'Roboto', sans-serif;
-  font-size: 2rem;
+  font-family: 'Muli', sans-serif;
+  font-size: 1.8rem;
   color: white;
 }
 
@@ -95,7 +95,7 @@ body {
 }
 
 .welcome-btn {
-  padding: 10px 20px;
+  padding: 15px 25px;
   font-size: 20px;
   color: white;
   background: transparent;
