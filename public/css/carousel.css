@@ -19,19 +19,16 @@
 .carousel__photo-container {
   border-radius: 10px;
   overflow: hidden;
-  z-index: -10;
 }
 
 .carousel__photo {
   opacity: 0;
   position: absolute;
-  /* top: 0; */
   width: auto;
   height: 400px;
   max-height: 400px;
   margin: auto;
-  /* padding: 1rem 4rem; */
-  z-index: 100;
+  z-index: -10;
   transition: transform 0.5s, opacity 0.5s, z-index 0.5s;
 }
 

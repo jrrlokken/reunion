@@ -98,11 +98,6 @@ body {
   margin-top: 200px;
 }
 
-.sub-list {
-  list-style-type: none;
-  padding: 0;
-}
-
 .list li {
   margin: 20px 0;
 }

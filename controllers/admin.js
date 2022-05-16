@@ -22,7 +22,7 @@ exports.getAddReunion = (req, res, next) => {
   res.render('admin/edit-reunion', {
     pageTitle: 'Add Reunion',
     path: '/admin/add-reunion',
-    editinsg: false,
+    editing: false,
     hasError: false,
     errorMessage: null,
     validationErrors: [],
