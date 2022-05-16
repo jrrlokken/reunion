@@ -109,9 +109,6 @@ exports.postComment = (req, res, next) => {
         .trigger(`${reunionId}`, 'comment', {
           message: comment,
         })
-        .then((comment) => {
-          console.log(comment);
-        })
         .catch((error) => console.error(error));
 
       Comment.findOne(comment._id)
