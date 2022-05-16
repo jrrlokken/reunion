@@ -57,6 +57,7 @@ h1 {
   background: white;
   border-radius: 3px;
   cursor: pointer;
+  text-transform: uppercase;
   transition: all 0.2s ease-out;
 }
 

@@ -102,7 +102,7 @@ body {
 
 .list li a {
   color: rgb(34, 31, 31);
-  font-size: 14px;
+  font-size: 1rem;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -114,4 +114,13 @@ body {
 
 .logout-form {
   text-align: center;
+}
+
+.footer {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  font-size: 12px;
+  color: black;
+  transform: translateX(-50%);
 }

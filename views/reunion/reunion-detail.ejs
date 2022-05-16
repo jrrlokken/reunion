@@ -7,11 +7,11 @@
 <body>
   <div class="backdrop-noimage"></div>
 <%- include('../includes/navigation.ejs') %>
-  <main>
+  <main class="reunion-container">
     <% if (errorMessage) { %> 
       <div class="user-message user-message--error"><%= errorMessage %></div>
     <% } %>
-    <section class="reunion-details">
+    <div class="reunion-details">
       <div class="reunion-title">
         <h1><%= reunion.year %>: <%= reunion.title %></h1>
       </div>
@@ -27,7 +27,7 @@
       <div class="description-text">
         <p><%= reunion.description %></p>
       </div>
-    </section>
+    </div>
     <hr>
     <%- include('../includes/comments.ejs') %>
     <div class="margin-30 centered">

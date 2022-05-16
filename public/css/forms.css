@@ -15,7 +15,7 @@
 
 .form-control input,
 .form-control textarea {
-  border: 1px solid black;
+  border-bottom: 1px solid black;
   font: inherit;
   border-radius: 2px;
 }
@@ -28,4 +28,16 @@
 .form-control input.invalid,
 .form-control textarea.invalid {
   border-color: #bb2221;
+}
+
+.form-control label span {
+  display: inline-block;
+  font-size: 18px;
+  min-width: 5px;
+  transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.form-control input:focus + label span,
+.form-control input:active + label span {
+  transform: translateY(-30px);
 }
