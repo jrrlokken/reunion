@@ -15,9 +15,16 @@ body {
 }
 
 .logo {
+  position: absolute;
+  top: 40px;
+  left: 50%;
   width: 150px;
+  margin: 0 auto;
+  transform: translateX(-50%);
 }
 
+.nav img {
+}
 .nav-btn {
   border: none;
   background-color: transparent;
@@ -86,6 +93,12 @@ body {
 }
 
 .list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 200px;
+}
+
+.sub-list {
   list-style-type: none;
   padding: 0;
 }

@@ -17,56 +17,56 @@
 
             <img src="/images/reunion_logo.png" alt="logo" class="logo">
 
-            <ul class="main-header__item-list">
-      <% if (isAuthenticated) { %>
-      <li class="main-header__item">
-        <a class="<%= path === '/reunions' ? 'active' : '' %>" href="/reunions"
-          >Reunions</a
-        >
-      </li>
-      <li class="main-header__item">
-        <a
-          class="<%= path === '/reunions/upcoming' ? 'active' : '' %>"
-          href="/reunions/upcoming"
-          >Upcoming Reunion</a
-        >
-      </li>
-      <% if (isAdmin) { %>
-      <li class="main-header__item">
-        <a
-          class="<%= path === '/admin/reunions' ? 'active' : '' %>"
-          href="/admin/reunions"
-          >Your Reunions</a
-        >
-      </li>
-      <li class="main-header__item">
-        <a
-          class="<%= path === '/admin/add-reunion' ? 'active' : '' %>"
-          href="/admin/add-reunion"
-          >Add Reunion</a
-        >
-      </li>
-      <% } %> <% } %>
-    </ul>
-    <ul class="main-header__item-list">
-      <% if (!isAuthenticated) { %>
-      <li class="main-header__item">
-        <a class="<%= path === '/login' ? 'active' : '' %>" href="/login"
-          >Login</a
-        >
-      </li>
-      <% } else { %>
-      <li class="main-header__item">
-        <a href="#">Signed in as: <%= user.email %></a>
-      </li>
-      <li class="main-header__item">
-        <form action="/logout" method="post">
-          <input type="hidden" name="_csrf" value="<%=  csrfToken %>" />
-          <button type="submit">Logout</button>
-        </form>
-      </li>
-      <% } %>
-    </ul>
+            <ul class="list">
+            <% if (isAuthenticated) { %>
+            <li class="main-header__item">
+              <a class="<%= path === '/reunions' ? 'active' : '' %>" href="/reunions"
+                >Reunions</a
+              >
+            </li>
+            <li class="main-header__item">
+              <a
+                class="<%= path === '/reunions/upcoming' ? 'active' : '' %>"
+                href="/reunions/upcoming"
+                >Upcoming Reunion</a
+              >
+            </li>
+            <% if (isAdmin) { %>
+            <li class="main-header__item">
+              <a
+                class="<%= path === '/admin/reunions' ? 'active' : '' %>"
+                href="/admin/reunions"
+                >Your Reunions</a
+              >
+            </li>
+            <li class="main-header__item">
+              <a
+                class="<%= path === '/admin/add-reunion' ? 'active' : '' %>"
+                href="/admin/add-reunion"
+                >Add Reunion</a
+              >
+            </li>
+            <% } %> <% } %>
+          </ul>
+          <ul class="sub-list">
+            <% if (!isAuthenticated) { %>
+            <li class="main-header__item">
+              <a class="<%= path === '/login' ? 'active' : '' %>" href="/login"
+                >Login</a
+              >
+            </li>
+            <% } else { %>
+            <li class="main-header__item">
+              <a href="#">Signed in as: <%= user.email %></a>
+            </li>
+            <li class="main-header__item">
+              <form action="/logout" method="post">
+                <input type="hidden" name="_csrf" value="<%=  csrfToken %>" />
+                <button class='btn btn-primary' type="submit">Logout</button>
+              </form>
+            </li>
+            <% } %>
+          </ul>
           </div>
         </div>
       </div>

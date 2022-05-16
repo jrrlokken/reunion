@@ -12,7 +12,6 @@
 
 .carousel {
   display: flex;
-  /* justify-content: space-between; */
   transform-style: preserve-3d;
   overflow: hidden;
 }
@@ -20,6 +19,7 @@
 .carousel__photo-container {
   border-radius: 10px;
   overflow: hidden;
+  z-index: -10;
 }
 
 .carousel__photo {
