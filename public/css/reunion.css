@@ -1,3 +1,7 @@
+.reunion-details {
+  text-align: center;
+}
+
 .reunion-form {
   width: 20rem;
   max-width: 90%;
@@ -9,14 +13,16 @@
   width: 20rem;
   max-width: 95%;
   margin: 1rem;
-}
-
-.reunion__title {
-  font-size: 1.2rem;
   text-align: center;
 }
 
-.reunion__year {
+.reunion-title {
+  font-size: 1.2rem;
+
+  padding: 20px 0;
+}
+
+.reunion-year {
   text-align: center;
   margin-bottom: 0.5rem;
 }
@@ -26,6 +32,16 @@
   color: rgba(0, 0, 0, 0.8);
 }
 
-.reunion__description {
+.reunion-description {
   text-align: center;
+}
+
+.description-text {
+  font-size: 20px;
+  background-color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+  padding: 0 10px;
+  margin: 20px 0;
 }

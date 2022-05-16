@@ -6,14 +6,12 @@
     <%- include('../includes/navigation.ejs') %>
     <div class="backdrop"></div>
     <main>
-      
       <% if (reunions.length > 0) { %>
-        
       <div class="grid">
         <% for (let reunion of reunions) { %>
           <article class="card reunion-item">
             <header class="card__header">
-              <h1 class="reunion__title">
+              <h1 class="reunion-title">
                   <%= reunion.title %>
               </h1>
             </header>
@@ -21,10 +19,10 @@
               <img src="<%= reunion.images[0] %>" alt="<%= reunion.title %>">
             </div>
             <div class="card__content">
-              <h2 class="reunion__year">
+              <h2 class="reunion-year">
                   <%= reunion.year %>
               </h2>
-              <p class="reunion__description">
+              <p class="reunion-description">
                   <%= reunion.description %>
               </p>
             </div>

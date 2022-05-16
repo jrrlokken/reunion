@@ -1,6 +1,3 @@
-<link rel="stylesheet" href="/css/nav.css" />
-</head>
-<body>
 <header class="main-header sticky">
   <nav class="main-header__nav">
     
@@ -24,7 +21,7 @@
                   >Reunions</a
                 >
               </li>
-              <li class="main-header__item">
+              <li class="">
                 <a
                   class="<%= path === '/reunions/upcoming' ? 'active' : '' %>"
                   href="/reunions/upcoming"
@@ -32,14 +29,14 @@
                 >
               </li>
               <% if (isAdmin) { %>
-              <li class="main-header__item">
+              <li class="">
                 <a
                   class="<%= path === '/admin/reunions' ? 'active' : '' %>"
                   href="/admin/reunions"
                   >Your Reunions</a
                 >
               </li>
-              <li class="main-header__item">
+              <li class="">
                 <a
                   class="<%= path === '/admin/add-reunion' ? 'active' : '' %>"
                   href="/admin/add-reunion"
@@ -49,19 +46,20 @@
               <% } %> <% } %>
             
               <% if (!isAuthenticated) { %>
-              <li class="main-header__item">
+              <li class="">
                 <a class="<%= path === '/login' ? 'active' : '' %>" href="/login"
                   >Login</a
                 >
               </li>
               <% } else { %>
-              <li class="main-header__item">
+              <hr />
+              <li class="">
                 <a href="#">Signed in as: <%= user.email %></a>
               </li>
-              <li class="main-header__item">
-                <form action="/logout" method="post">
+              <li class="">
+                <form action="/logout" method="post" class="logout-form">
                   <input type="hidden" name="_csrf" value="<%=  csrfToken %>" />
-                  <button class='btn btn-primary' type="submit">Logout</button>
+                  <button class='btn btn-primary logout-button' type="submit">Logout</button>
                 </form>
               </li>
               <% } %>

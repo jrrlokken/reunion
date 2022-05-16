@@ -1,15 +1,30 @@
-    <%- include('../includes/head.ejs') %>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <meta http-equiv='X-UA-Compatible' content='ie=edge' />
+    <title><%= pageTitle %></title>
+    <link
+      rel='stylesheet'
+      href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'
+      integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=='
+      crossorigin='anonymous'
+      referrerpolicy='no-referrer'
+    />
+    <link rel='icon' href='/images/favicon.ico' type='image/x-icon' />
+    <link rel='stylesheet' href='/css/main.css' />
     <link rel="stylesheet" href="/css/landing-slideshow.css" />
 </head>
   <body>
+    <div class="landing-wrapper">
       <div id="landing-header">
-        <img src="/images/reunion_logo.png" alt="logo" class="logo">
+        <img src="/images/reunion_white.png" alt="logo" class="logo">
         <p>
           Welcome! <br />
           Jump right in and explore past reunions! <br />Checkout the Upcoming
           Reunion page for more on the 202X reunion 👍🎉
         </p>
-        <a href="/reunions" class="btn btn-primary welcome-btn">C'mon In!</a>
+        <a href="/reunions" class="btn welcome-btn">C'mon In!</a>
       </div>
     
       <div class="slideshow">
@@ -21,4 +36,5 @@
           <li></li>
         </ul>
       </div>
+    </div>
 <%- include('../includes/end.ejs') %>

@@ -12,24 +12,20 @@
       <div class="user-message user-message--error"><%= errorMessage %></div>
     <% } %>
     <section class="reunion-details">
-      <div class="centered content-container">
+      <div class="reunion-title">
+        <h1><%= reunion.year %>: <%= reunion.title %></h1>
+      </div>
+      <% if (reunion.images) { %>
+      <% if (reunion.images?.length <= 1) { %>
         <div>
-          <div class="margin-30">
-            <h1><%= reunion.year %>: <%= reunion.title %></h1>
-          </div>
-          <% if (reunion.images) { %>
-          <% if (reunion.images?.length <= 1) { %>
-            <div class="margin-30">
-              <img class="image" src="<%= reunion.images[0] %>" alt="<%= reunion.title %>">
-            </div>
-          <% } else { %>
-          <%- include('../includes/carousel.ejs') %>
-          <% } %> 
-          <% } %>
-          <div class="margin-30 padding-3 description-text">
-            <p><%= reunion.description %></p>
-          </div>
+          <img class="image" src="<%= reunion.images[0] %>" alt="<%= reunion.title %>">
         </div>
+      <% } else { %>
+      <%- include('../includes/carousel.ejs') %>
+      <% } %> 
+      <% } %>
+      <div class="description-text">
+        <p><%= reunion.description %></p>
       </div>
     </section>
     <hr>

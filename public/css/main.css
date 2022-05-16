@@ -60,26 +60,19 @@ h1 {
   transition: all 0.2s ease-out;
 }
 
-.btn.welcome-btn {
-  padding: 10px 20px;
-  font-size: 20px;
-  color: white;
-  background: transparent;
-  border: 1px solid white;
-  border-radius: 5px;
-}
-
 .btn-primary {
   border: 1px solid #086fcb;
   color: #086fcb;
   text-shadow: none;
 }
+
 .btn-primary.active,
 .btn-primary:hover {
   background-color: #086fcb;
   background-color: #086fcb;
   color: white;
 }
+
 .btn-secondary {
   border: 1px solid #983f00;
   border-color: #983f00;
@@ -172,14 +165,6 @@ h1 {
   flex-direction: column;
 }
 
-.description-text {
-  font-size: 20px;
-  background-color: rgb(255, 255, 255);
-  color: rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(0, 0, 0, 0.7);
-  border-radius: 5px;
-}
-
 .emptyPage-container {
   height: 80vh;
   display: flex;
@@ -193,6 +178,9 @@ h1 {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: stretch;
+  position: absolute;
+  top: 0;
+  left: 10%;
 }
 
 .image {

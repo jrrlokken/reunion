@@ -1,32 +1,43 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Serif+Pro&display=swap');
 
 body {
+  background-color: black;
+  overflow: hidden;
+}
+
+.landing-wrapper {
+  height: 100vh;
+  color: white;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  text-align: center;
+  position: relative;
+  margin-bottom: 20px;
+  z-index: 1;
+}
+
+.landing-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
 }
 
 #landing-header {
-  z-index: 100;
-  text-align: center;
-  padding: 1rem;
-  opacity: 1;
-}
-
-#landing-header h1 {
-  font-family: 'Source Serif Pro', serif;
-  font-size: 4rem;
-  font-weight: 900;
-  letter-spacing: 2px;
+  z-index: 999;
+  margin-top: 50px;
+  max-width: 600px;
 }
 
 #landing-header p {
+  margin-top: 0;
   font-family: 'Roboto', sans-serif;
-  font-size: 1.2rem;
-}
-
-#landing-header h1,
-#landing-header p {
+  font-size: 2rem;
   color: white;
 }
 
@@ -36,7 +47,6 @@ body {
   height: 100%;
   top: 0;
   left: 0;
-  z-index: -2;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -49,8 +59,6 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  z-index: -1;
 }
 
 .slideshow li {
@@ -84,6 +92,20 @@ body {
 .slideshow li:nth-child(5) {
   background-image: url(https://res.cloudinary.com/joloxcloud/image/upload/v1649599682/reunions/gkt0zsmmkbatcnexffmu.jpg);
   animation-delay: 40s;
+}
+
+.welcome-btn {
+  padding: 10px 20px;
+  font-size: 20px;
+  color: white;
+  background: transparent;
+  border: 1px solid white;
+  border-radius: 5px;
+  position: relative;
+}
+
+.welcome-btn:hover {
+  background-color: blue;
 }
 
 @keyframes imageAnimation {
