@@ -1,6 +1,23 @@
+<link rel="stylesheet" href="/css/nav.css" />
+</head>
+<body>
 <header class="main-header sticky">
   <nav class="main-header__nav">
-    <ul class="main-header__item-list">
+    
+      <button class="nav-btn open-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div class="nav nav-blue">
+        <div class="nav nav-red">
+          <div class="nav nav-white">
+            <button class="nav-btn close-btn">
+              <i class="fas fa-times"></i>
+            </button>
+
+            <img src="/images/reunion_logo.png" alt="logo" class="logo">
+
+            <ul class="main-header__item-list">
       <% if (isAuthenticated) { %>
       <li class="main-header__item">
         <a class="<%= path === '/reunions' ? 'active' : '' %>" href="/reunions"
@@ -50,5 +67,10 @@
       </li>
       <% } %>
     </ul>
+          </div>
+        </div>
+      </div>
+      
   </nav>
 </header>
+<script src="/js/nav.js"></script>

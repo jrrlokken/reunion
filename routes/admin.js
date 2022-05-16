@@ -11,6 +11,7 @@ router.get('/reunions', isAdmin, adminController.getReunions);
 router.get('/add-reunion', isAdmin, adminController.getAddReunion);
 router.post(
   '/add-reunion',
+  isAdmin,
   [
     body('title')
       .isString()
@@ -33,6 +34,7 @@ router.post(
 router.get('/edit-reunion/:reunionId', isAdmin, adminController.getEditReunion);
 router.post(
   '/edit-reunion',
+  isAdmin,
   body('title')
     .isString()
     .isLength({ min: 3, max: 50 })

@@ -148,12 +148,9 @@ exports.postEditReunion = (req, res, next) => {
 
   Reunion.findById(reunionId)
     .then((reunion) => {
-      // if (reunion.userId.toString() !== req.user._id.toString()) {
-      //   return res.redirect('/admin/reunions');
-      // }
       if (updatedImages) {
         uploadImages(req.files)
-          .then((reunion.images = [...reunion.images, ...uploadedImages]))
+          .then((reunion.images = [...reunion.images, ...updatedImages]))
           .catch((error) => console.error(error));
       }
       reunion.title = updatedTitle;
