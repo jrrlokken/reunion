@@ -46,7 +46,7 @@ h1 {
   height: 100vh;
   background-color: #b5d7f1;
   z-index: -1;
-  opacity: 0.25;
+  opacity: 1;
 }
 
 .btn {
@@ -185,76 +185,10 @@ h1 {
 }
 
 .image {
-  max-height: 20rem;
+  width: auto;
+  height: 500px;
   border-radius: 5px;
 }
-
-.image img {
-  height: 100%;
-  padding: 1px;
-  border: 1px solid #021a40;
-}
-
-/* Nav */
-
-/* .main-header {
-  width: 100%;
-  height: 3.5rem;
-  background-color: #00489d;
-  padding: 0 1.5rem;
-  display: flex;
-  align-items: center;
-}
-
-.main-header__nav {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.main-header__item-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-.main-header__item {
-  margin: 0 1rem;
-  padding: 0;
-}
-
-.main-header__item a,
-.main-header__item button {
-  font: inherit;
-  background: transparent;
-  border: none;
-  text-decoration: none;
-  color: #d5e1ef;
-  cursor: pointer;
-  transition: all 0.2s ease-out;
-}
-
-.main-header__item a.active,
-.main-header__tems button.active {
-  color: white;
-}
-
-.main-header__item a:hover,
-.main-header__item button:hover {
-  display: inline-block;
-  transform: scale(1.2);
-  color: white;
-}
-
-.sticky {
-  position: sticky;
-  top: 0;
-  z-index: 200;
-}
-*/
 
 .margin-30 {
   margin: 2rem 0;
