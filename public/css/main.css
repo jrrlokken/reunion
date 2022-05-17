@@ -54,6 +54,7 @@ h1 {
   padding: 0.5rem 1rem;
   text-decoration: none;
   font: inherit;
+  font-size: 0.8rem;
   background: white;
   border-radius: 3px;
   cursor: pointer;
