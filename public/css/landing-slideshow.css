@@ -10,11 +10,12 @@ body {
   color: white;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   text-align: center;
   position: relative;
   margin-bottom: 20px;
   z-index: 1;
+  transform: translateY(-30px);
 }
 
 .landing-wrapper::before {
@@ -105,7 +106,7 @@ body {
 }
 
 .welcome-btn:hover {
-  background-color: blue;
+  background-color: #00489d;
 }
 
 @keyframes imageAnimation {

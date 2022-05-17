@@ -1,3 +1,20 @@
+.login-form,
+.signup-form,
+.reset-form,
+.reunion-form {
+  width: 20rem;
+  max-width: 90%;
+  margin: 10rem auto 0;
+  display: block;
+}
+
+.login-form input,
+.signup-form input,
+.reset-form input,
+.reunion-form input {
+  padding: 5px;
+}
+
 .form-control {
   margin: 3rem 0;
   position: relative;
@@ -43,7 +60,7 @@
 }
 
 .form-control input:focus + label span,
-.form-control input.active + label span {
+.form-control input:active + label span {
   transform: translateY(-20px);
 }
 

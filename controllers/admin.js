@@ -1,9 +1,10 @@
 const { validationResult } = require('express-validator');
+const fs = require('fs');
 
 const cloudinary = require('../util/cloudinary');
 const Reunion = require('../models/reunion');
 
-let uploadedImages = [];
+// let uploadedImages = [];
 
 exports.getReunions = (req, res, next) => {
   Reunion.find({ userId: req.user._id })
@@ -30,7 +31,7 @@ exports.getAddReunion = (req, res, next) => {
   });
 };
 
-exports.postAddReunion = (req, res, next) => {
+exports.postAddReunion = async (req, res, next) => {
   const title = req.body.title;
   const year = req.body.year;
   const images = req.files;
@@ -70,26 +71,34 @@ exports.postAddReunion = (req, res, next) => {
     });
   }
 
-  uploadImages(req.files).then(() => {
-    const reunion = new Reunion({
-      title: title,
-      year: year,
-      images: uploadedImages,
-      description: description,
-      userId: req.user,
-    });
-    return reunion
-      .save()
-      .then((result) => {
-        console.log('Added Reunion');
-        res.redirect('/admin/reunions');
-      })
-      .catch((error) => {
-        const newError = new Error(error);
-        newError.httpStatusCode = 500;
-        return next(newError);
-      });
+  const uploader = async (path) => await cloudinary.uploads(path, 'reunions');
+
+  const uploadedImages = [];
+  for (const image of images) {
+    const newPath = await uploader(image.path);
+    uploadedImages.push(newPath);
+    fs.unlinkSync(path);
+  }
+
+  const reunion = new Reunion({
+    title: title,
+    year: year,
+    images: uploadedImages,
+    description: description,
+    userId: req.user,
   });
+
+  return reunion
+    .save()
+    .then((result) => {
+      console.log('Added Reunion');
+      res.redirect('/admin/reunions');
+    })
+    .catch((error) => {
+      const newError = new Error(error);
+      newError.httpStatusCode = 500;
+      return next(newError);
+    });
 };
 
 exports.getEditReunion = (req, res, next) => {

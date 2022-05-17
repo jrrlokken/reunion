@@ -28,7 +28,7 @@
                 <label for="description">Description</label>
                 <textarea name="description" id="description" rows="5"><% if (editing || hasError) { %><%= reunion.description %><% } %></textarea>
             </div>
-            <div class="centered">
+            <div class="button-container">
                 <button class="btn btn-primary" type="submit"><% if (editing) { %>Update Reunion<% } else { %>Add Reunion<% } %> </button>
                 <a href="/admin/reunions" class="btn btn-secondary">Cancel</a>
             </div>

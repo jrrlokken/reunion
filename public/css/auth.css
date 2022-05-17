@@ -1,14 +1,1 @@
-.login-form,
-.signup-form,
-.reset-form {
-  width: 20rem;
-  max-width: 90%;
-  margin: 4rem auto;
-  display: block;
-}
 
-.login-form input,
-.signup-form input,
-.reset-form input {
-  padding: 5px;
-}

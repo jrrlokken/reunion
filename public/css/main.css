@@ -108,7 +108,7 @@ h1 {
 .button-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .card {
