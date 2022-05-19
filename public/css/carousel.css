@@ -38,11 +38,6 @@
   z-index: 1;
 }
 
-/* .carousel__photo.active:hover {
-  transform: scale(1.2);
-  transition: scale 1s;
-} */
-
 .carousel__photo.prev,
 .carousel__photo.next {
   z-index: 800;
@@ -68,6 +63,13 @@
   cursor: pointer;
   z-index: 1001;
   border: 1px solid black;
+  opacity: 0.5;
+  transition: opacity 0.3s ease-in;
+}
+
+.carousel__button--prev:hover,
+.carousel__button--next:hover {
+  opacity: 1;
 }
 
 .carousel__button--prev {

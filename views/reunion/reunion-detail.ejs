@@ -16,8 +16,8 @@
         <h1><%= reunion.year %>: <%= reunion.title %></h1>
       </div>
       <% if (reunion.images) { %>
-      <% if (reunion.images?.length <= 1) { %>
-        <div>
+      <% if (reunion.images.length <= 1) { %>
+        <div class="single-image-container">
           <img class="image" src="<%= reunion.images[0] %>" alt="<%= reunion.title %>">
         </div>
       <% } else { %>
@@ -30,7 +30,7 @@
     </div>
     <hr>
     <%- include('../includes/comments.ejs') %>
-    <div class="margin-30 centered">
+    <div class="back-button">
       <button class="btn btn-primary" onClick="history.back()">Back</button>
     </div>
   </main>

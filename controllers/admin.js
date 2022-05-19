@@ -166,7 +166,7 @@ exports.postEditReunion = async (req, res, next) => {
     }
   }
 
-  await Reunion.findById(reunionId)
+  Reunion.findById(reunionId)
     .then((reunion) => {
       reunion.title = updatedTitle;
       reunion.year = updatedYear;

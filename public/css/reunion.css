@@ -15,9 +15,14 @@
 
 .reunion-item {
   width: 20rem;
-  max-width: 95%;
+  /* max-width: 95%; */
   margin: 1rem;
   text-align: center;
+}
+
+.single-image-container img {
+  height: auto;
+  max-width: 80%;
 }
 
 .reunion-title {
@@ -44,8 +49,14 @@
   font-size: 20px;
   background-color: rgb(255, 255, 255);
   color: rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(0, 0, 0, 0.7);
+  border: 2px solid rgba(0, 0, 0, 0.4);
   border-radius: 5px;
   padding: 0 10px;
   margin: 20px 0;
+}
+
+.back-button {
+  position: absolute;
+  top: 5%;
+  right: 5%;
 }

@@ -13,9 +13,7 @@ body {
   align-items: center;
   text-align: center;
   position: relative;
-  margin-bottom: 20px;
   z-index: 1;
-  transform: translateY(-30px);
 }
 
 .landing-wrapper::before {
@@ -45,7 +43,7 @@ body {
 .slideshow {
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   top: 0;
   left: 0;
   list-style: none;
