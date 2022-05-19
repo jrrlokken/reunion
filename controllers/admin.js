@@ -4,8 +4,6 @@ const fs = require('fs');
 const cloudinary = require('../util/cloudinary');
 const Reunion = require('../models/reunion');
 
-// let uploadedImages = [];
-
 exports.getReunions = (req, res, next) => {
   Reunion.find({ userId: req.user._id })
     .populate()
@@ -71,15 +69,16 @@ exports.postAddReunion = async (req, res, next) => {
     });
   }
 
-  const uploader = async (path) => await cloudinary.uploads(path, 'reunions');
+  // const uploader = async (path) => await cloudinary.uploads(path, 'reunions');
 
   const uploadedImages = [];
   for (const image of images) {
-    const newPath = await uploader(image.path);
-    uploadedImages.push(newPath);
-    fs.unlinkSync(path);
+    const newPath = await cloudinary.uploader.upload(image.path, {
+      folder: 'reunions',
+    });
+    uploadedImages.push(newPath.secure_url);
   }
-
+  console.log(uploadedImages);
   const reunion = new Reunion({
     title: title,
     year: year,
