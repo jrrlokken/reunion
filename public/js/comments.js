@@ -65,7 +65,7 @@ commentInput.addEventListener('change', (event) => {
 async function handleCommentSubmit(event) {
   event.preventDefault();
 
-  const url = `http://192.168.168.13:3006/reunions/${reunionId}`;
+  const url = `http://localhost:3006/reunions/${reunionId}`;
 
   fetch(url, {
     method: 'post',

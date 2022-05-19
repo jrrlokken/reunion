@@ -155,9 +155,6 @@ exports.postEditReunion = async (req, res, next) => {
 
   const uploadedImages = [];
 
-  const reunion = await Reunion.findById(reunionId).then((reunion) =>
-    console.log(reunion)
-  );
   if (updatedImages) {
     for (const image of updatedImages) {
       const newPath = await cloudinary.uploader.upload(image.path, {
@@ -167,16 +164,23 @@ exports.postEditReunion = async (req, res, next) => {
     }
   }
 
-  console.log(uploadedImages);
-  reunion.title = updatedTitle;
-  reunion.year = updatedYear;
-  reunion.images = [...reunion.images, uploadedImages];
-  reunion.description = updatedDescription;
+  await Reunion.findById(reunionId)
+    .then((reunion) => {
+      reunion.title = updatedTitle;
+      reunion.year = updatedYear;
+      reunion.images = [...reunion.images, ...uploadedImages];
+      reunion.description = updatedDescription;
 
-  return reunion.save().then((result) => {
-    console.log('Updated Reunion');
-    res.redirect('/admin/reunions');
-  });
+      return reunion.save().then((result) => {
+        console.log('Updated Reunion');
+        res.redirect('/admin/reunions');
+      });
+    })
+    .catch((error) => {
+      const newError = new Error(error);
+      newError.httpStatusCode = 500;
+      return next(newError);
+    });
 };
 
 exports.postDeleteReunion = (req, res, next) => {
