@@ -76,6 +76,7 @@ exports.postAddReunion = async (req, res, next) => {
       folder: 'reunions',
     });
     uploadedImages.push(newPath.secure_url);
+    fs.unlinkSync(image.path);
   }
 
   const reunion = new Reunion({
@@ -161,6 +162,7 @@ exports.postEditReunion = async (req, res, next) => {
         folder: 'reunions',
       });
       uploadedImages.push(newPath.secure_url);
+      fs.unlinkSync(image.path);
     }
   }
 
