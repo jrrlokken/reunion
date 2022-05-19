@@ -69,16 +69,15 @@ exports.postAddReunion = async (req, res, next) => {
     });
   }
 
-  // const uploader = async (path) => await cloudinary.uploads(path, 'reunions');
-
   const uploadedImages = [];
+
   for (const image of images) {
     const newPath = await cloudinary.uploader.upload(image.path, {
       folder: 'reunions',
     });
     uploadedImages.push(newPath.secure_url);
   }
-  console.log(uploadedImages);
+
   const reunion = new Reunion({
     title: title,
     year: year,
@@ -129,7 +128,7 @@ exports.getEditReunion = (req, res, next) => {
     });
 };
 
-exports.postEditReunion = (req, res, next) => {
+exports.postEditReunion = async (req, res, next) => {
   const reunionId = req.body.reunionId;
   const updatedTitle = req.body.title;
   const updatedYear = req.body.year;
@@ -154,27 +153,30 @@ exports.postEditReunion = (req, res, next) => {
     });
   }
 
-  Reunion.findById(reunionId)
-    .then((reunion) => {
-      if (updatedImages) {
-        uploadImages(req.files)
-          .then((reunion.images = [...reunion.images, ...updatedImages]))
-          .catch((error) => console.error(error));
-      }
-      reunion.title = updatedTitle;
-      reunion.year = updatedYear;
-      reunion.description = updatedDescription;
+  const uploadedImages = [];
 
-      return reunion.save().then((result) => {
-        console.log('Updated Reunion');
-        res.redirect('/admin/reunions');
+  const reunion = await Reunion.findById(reunionId).then((reunion) =>
+    console.log(reunion)
+  );
+  if (updatedImages) {
+    for (const image of updatedImages) {
+      const newPath = await cloudinary.uploader.upload(image.path, {
+        folder: 'reunions',
       });
-    })
-    .catch((error) => {
-      const newError = new Error(error);
-      newError.httpStatusCode = 500;
-      return next(newError);
-    });
+      uploadedImages.push(newPath.secure_url);
+    }
+  }
+
+  console.log(uploadedImages);
+  reunion.title = updatedTitle;
+  reunion.year = updatedYear;
+  reunion.images = [...reunion.images, uploadedImages];
+  reunion.description = updatedDescription;
+
+  return reunion.save().then((result) => {
+    console.log('Updated Reunion');
+    res.redirect('/admin/reunions');
+  });
 };
 
 exports.postDeleteReunion = (req, res, next) => {
