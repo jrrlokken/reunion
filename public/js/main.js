@@ -15,7 +15,7 @@ if (links) {
         } else {
           console.log('whoops', e.srcElement.parentElement.href);
         }
-      }, 500);
+      }, 700);
       body.classList.add('fade');
     };
   });
