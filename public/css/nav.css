@@ -113,7 +113,13 @@
 }
 
 .logout-form {
+  display: flex;
+  justify-content: center;
   text-align: center;
+}
+
+.logout-form button {
+  font-size: 1.2rem;
 }
 
 .footer {
