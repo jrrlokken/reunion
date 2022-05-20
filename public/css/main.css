@@ -8,13 +8,6 @@ body {
   font-family: 'Muli', sans-serif;
   padding: 0;
   margin: 0;
-  opacity: 1;
-  transition-duration: 0.7s;
-  transition-property: opacity;
-}
-
-body.fade {
-  opacity: 0;
 }
 
 main {
