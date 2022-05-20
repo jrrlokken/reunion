@@ -1,4 +1,6 @@
 // Comments
+import { monthNames } from '../../constants/constants';
+
 const commentForm = document.getElementById('comment-form');
 const commentsContainer = document.getElementById('allComments');
 const commentInput = document.getElementById('newComment');
@@ -6,21 +8,6 @@ let commentText = commentInput.value;
 
 const reunionId = document.getElementById('reunionId').value;
 const csrfToken = document.getElementById('csrf').value;
-
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
 
 function buildComment(comment) {
   const date = new Date(comment.createdAt);
