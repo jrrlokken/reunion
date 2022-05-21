@@ -21,7 +21,7 @@
 }
 
 .single-image-container img {
-  height: auto;
+  height: 400px;
   max-width: 80%;
 }
 

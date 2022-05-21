@@ -1,11 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 
-body {
-  /* background-color: black; */
-  /* overflow: hidden; */
-}
-
 .landing-wrapper {
+  background-color: black;
   height: 100vh;
   color: white;
   display: flex;
@@ -28,9 +24,16 @@ body {
 }
 
 #landing-header {
-  z-index: 999;
-  margin-top: 50px;
+  z-index: 10;
   max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#landing-header img {
+  max-width: 400px;
 }
 
 #landing-header p {

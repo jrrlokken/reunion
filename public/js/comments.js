@@ -1,5 +1,18 @@
 // Comments
-import { monthNames } from '../../constants/constants';
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
 const commentForm = document.getElementById('comment-form');
 const commentsContainer = document.getElementById('allComments');
