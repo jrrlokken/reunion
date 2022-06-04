@@ -14,15 +14,7 @@ main {
   padding: 1rem;
   margin: auto;
   max-width: 80vw;
-  opacity: 1;
-  transition-duration: 700ms;
-  transition-property: opacity;
-  transition-timing-function: ease-out;
 }
-
-/* main.fade {
-  opacity: 0;
-} */
 
 form {
   display: inline;
