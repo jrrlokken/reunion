@@ -20,9 +20,9 @@ main {
   transition-timing-function: ease-out;
 }
 
-main.fade {
+/* main.fade {
   opacity: 0;
-}
+} */
 
 form {
   display: inline;
