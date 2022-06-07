@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const cluster = require('cluster');
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -9,6 +10,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('./util/multer');
+const xss = require('xss-clean');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
@@ -21,7 +23,7 @@ const store = new MongoDBStore({
 });
 
 const csrfProtection = csrf();
-
+app.use(xss());
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 

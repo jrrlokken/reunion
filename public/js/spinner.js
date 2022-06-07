@@ -23,4 +23,5 @@ var opts = {
 
 var target = document.getElementsByClassName('main-content');
 console.log(target);
+
 var spinner = new Spinner(opts).spin(target);
