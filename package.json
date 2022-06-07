@@ -6,6 +6,9 @@
   "repository": "git@github.com:jrrlokken/reunion",
   "author": "Joshua Lokken",
   "license": "MIT",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "dev": "nodemon app.js",
     "start": "node app.js"
