@@ -93,7 +93,8 @@ app.use((error, req, res, next) => {
 mongoose
   .connect(process.env.MONGODB_URI)
   .then((result) => {
-    app.listen(process.env.REUNIONS_PORT || 3006, '0.0.0.0');
+    const PORT = process.env.PORT || 3006;
+    app.listen(PORT, '0.0.0.0');
     console.log('Database connected');
   })
   .catch((error) => console.error(error));
