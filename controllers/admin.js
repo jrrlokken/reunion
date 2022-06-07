@@ -161,6 +161,7 @@ exports.postEditReunion = async (req, res, next) => {
     for (const image of updatedImages) {
       const newPath = await cloudinary.uploader.upload(image.path, {
         folder: 'reunions',
+        format: 'webp',
       });
       uploadedImages.push(newPath.secure_url);
       fs.unlinkSync(image.path);
