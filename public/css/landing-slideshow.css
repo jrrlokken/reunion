@@ -75,22 +75,22 @@
 }
 
 .slideshow li:nth-child(1) {
-  background-image: url(https://res.cloudinary.com/joloxcloud/image/upload/v1649521936/reunions/jxycabbqodppupnm60yd.jpg);
+  background-image: url(/static/slideshow1.jpg);
 }
 .slideshow li:nth-child(2) {
-  background-image: url(https://res.cloudinary.com/joloxcloud/image/upload/v1646328074/reunions/norway_flag_jsc1pm.jpg);
+  background-image: url(/static/slideshow2.jpg);
   animation-delay: 10s;
 }
 .slideshow li:nth-child(3) {
-  background-image: url(https://res.cloudinary.com/joloxcloud/image/upload/v1646328075/reunions/farm2_hmhcoq.jpg);
+  background-image: url(/static/slideshow3.jpg);
   animation-delay: 20s;
 }
 .slideshow li:nth-child(4) {
-  background-image: url(https://res.cloudinary.com/joloxcloud/image/upload/v1649521851/reunions/e7wkn1mh4u7wddlkjvoj.jpg);
+  background-image: url(/static/slideshow4.jpg);
   animation-delay: 30s;
 }
 .slideshow li:nth-child(5) {
-  background-image: url(https://res.cloudinary.com/joloxcloud/image/upload/v1649599682/reunions/gkt0zsmmkbatcnexffmu.jpg);
+  background-image: url(/static/slideshow5.jpg);
   animation-delay: 40s;
 }
 

@@ -11,10 +11,13 @@
   },
   "scripts": {
     "dev": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "mocha --recursive --exit --timeout 10000"
   },
   "devDependencies": {
-    "cypress": "^9.5.4",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.0.0",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
