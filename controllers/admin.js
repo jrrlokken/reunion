@@ -144,7 +144,7 @@ exports.postEditReunion = async (req, res, next) => {
       path: '/admin/edit-reunion',
       editing: true,
       hasError: true,
-      product: {
+      reunion: {
         title: updatedTitle,
         year: updatedYear,
         description: updatedDescription,
