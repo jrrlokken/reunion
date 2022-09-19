@@ -27,7 +27,6 @@ router.post(
       .trim()
       .withMessage('Description must be 3 - 1000 characters'),
   ],
-  isAdmin,
   adminController.postAddReunion
 );
 
@@ -45,7 +44,6 @@ router.post(
     .isLength({ min: 3, max: 1000 })
     .trim()
     .withMessage('Description must be 3 - 1000 characters'),
-  isAdmin,
   adminController.postEditReunion
 );
 

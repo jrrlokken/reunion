@@ -1,0 +1,22 @@
+    <%- include('../includes/head.ejs') %>
+   <%- include('../includes/navigation.ejs') %>
+    <div class="backdrop"></div>
+    <main class="centered-container">
+			<article class="card">
+				<div>
+					<img src="/images/avatar.webp" alt="Profile Image">
+				</div>
+				
+				<div class="card__content">
+					<h2><%= user.name %></h2>
+					<h3><%= user.email %></h3>
+					<p><%= user.about_me %></p>
+				</div>
+        <div class="card__actions">
+            <a href="/edit-profile" class="btn btn-primary">Edit Profile</a>
+        </div>
+        <input type="hidden" name="_csrf" value="<%=  csrfToken %>">
+        <input type="hidden" name="userId" value="<%= user._id %>">
+			</article>
+    </main>
+<%- include('../includes/end.ejs') %>

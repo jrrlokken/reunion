@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+const cloudinary = require('../util/cloudinary');
+
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 const { validationResult } = require('express-validator');
@@ -105,13 +107,13 @@ exports.postLogin = (req, res, next) => {
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
       userInput: {
-        email: email,
-        password: password,
+        email,
+        password,
       },
     });
   }
 
-  User.findOne({ email: email })
+  User.findOne({ email })
     .then((user) => {
       if (!user) {
         return res.status(422).render('auth/login', {
@@ -120,8 +122,8 @@ exports.postLogin = (req, res, next) => {
           errorMessage: 'Invalid email or password',
           validationErrors: [],
           userInput: {
-            email: email,
-            password: password,
+            email,
+            password,
           },
         });
       }
@@ -264,4 +266,112 @@ exports.postResetPassword = (req, res, next) => {
       res.redirect('/login');
     })
     .catch((error) => console.log(error));
+};
+
+exports.getUserProfile = (req, res, next) => {
+  let message = req.flash('error');
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
+
+  User.findById(req.session.user._id).then((user) => {
+    if (!user) {
+      return res.redirect('/login');
+    }
+
+    res.render('auth/profile', {
+      path: '/user-profile',
+      pageTitle: 'Profile',
+      errorMessage: null,
+      hasError: false,
+      editing: false,
+      validationErrors: [],
+      user,
+    });
+  });
+};
+
+exports.getEditProfile = (req, res, next) => {
+  // const editMode = req.query.edit;
+  // if (!editMode) {
+  //   return res.redirect('/user-profile');
+  // }
+
+  let message = req.flash('error');
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
+
+  User.findById(req.session.user._id).then((user) => {
+    if (!user) {
+      return res.redirect('/login');
+    }
+
+    res.render('auth/edit-profile', {
+      pageTitle: 'Edit Profile',
+      path: '/edit-profile',
+      editing: true,
+      hasError: false,
+      errorMessage: null,
+      validationErrors: [],
+      user: user,
+    });
+  });
+};
+
+exports.postEditProfile = async (req, res, next) => {
+  const updatedName = req.body.name;
+  const updatedAvatar = req.file;
+  const updatedAboutMe = req.body.about_me;
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).render('admin/edit-reunion', {
+      pageTitle: 'Edit Reunion',
+      path: '/admin/edit-reunion',
+      editing: true,
+      hasError: true,
+      product: {
+        title: updatedTitle,
+        year: updatedYear,
+        description: updatedDescription,
+        _id: reunionId,
+      },
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array(),
+    });
+  }
+
+  const uploadedImage = [];
+  if (updatedAvatar) {
+    const newPath = await upload(updatedAvatar.path, {
+      folder: 'reunions',
+      format: 'webp',
+    });
+    console.log(newPath);
+    uploadedImage.push(newPath.secure_url);
+    fs.unlinkSync(image.path);
+  }
+
+  User.findById(req.session.user._id).then((user) => {
+    user.name = updatedName;
+    user.avatar = uploadedImage;
+    user.about_me = updatedAboutMe;
+    return user
+      .save()
+      .then((result) => {
+        console.log('Updated Profile');
+        res.redirect('/user-profile');
+      })
+      .catch((error) => {
+        const newError = new Error(error);
+        newError.httpStatusCode = 500;
+        return next(newError);
+      });
+  });
 };

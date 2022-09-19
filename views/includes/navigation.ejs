@@ -28,6 +28,13 @@
                   >Upcoming Reunion</a
                 >
               </li>
+              <li class="">
+                <a
+                  class="<%= path === '/auth/user-profile' ? 'active' : '' %>"
+                  href="/user-profile"
+                  >My Profile</a
+                >
+              </li>
               <% if (isAdmin) { %>
               <li class="">
                 <a
@@ -54,7 +61,7 @@
               <% } else { %>
               <hr />
               <li class="">
-                SIGNED IN AS: <%= user.email %>
+                SIGNED IN AS: <strong><%= user.email %></strong>
               </li>
               <li class="">
                 <form action="/logout" method="post" class="logout-form">

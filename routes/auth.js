@@ -1,6 +1,7 @@
 const express = require('express');
 const { body } = require('express-validator');
-
+const multer = require('multer');
+const upload = multer({ dest: 'images/' });
 const authController = require('../controllers/auth');
 const User = require('../models/user');
 
@@ -57,5 +58,13 @@ router.get('/reset', authController.getReset);
 router.post('/reset', authController.postReset);
 router.get('/reset/:token', authController.getResetPassword);
 router.post('/reset-password', authController.postResetPassword);
+
+router.get('/user-profile', authController.getUserProfile);
+router.get('/edit-profile', authController.getEditProfile);
+router.post(
+  '/edit-profile',
+  upload.single('avatar'),
+  authController.postEditProfile
+);
 
 module.exports = router;

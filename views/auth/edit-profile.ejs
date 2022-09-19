@@ -1,0 +1,31 @@
+    <%- include('../includes/head.ejs') %>
+   <%- include('../includes/navigation.ejs') %>
+    <div class="backdrop"></div>
+    <main>
+        <% if (errorMessage) { %> 
+            <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } %> 
+        <form class="profile-form" action="/edit-profile" method="POST" enctype="multipart/form-data">
+            <div class="form-control">
+                <label for="title">Name</label>
+                <input type="text" name="name" id="name" value="<%= user.name %>" />
+            </div>
+            <div class="form-control">
+                <label for="about_me">About Me:</label>
+                <textarea name="about_me" id="about_me" rows="8"><%= user.about_me %></textarea>
+            </div>
+            <div class="form-control profile-image">
+                <label for="images">Profile Image</label>
+                <input type="file" name="images" id="images" single>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-primary" type="submit">Update Profile</button>
+                <a href="/user-profile" class="btn btn-secondary">Cancel</a>
+            </div>
+            <input type="hidden" name="_csrf" value="<%=  csrfToken %>">
+            <% if (editing) { %>
+              <input type="hidden" name="userId" value="<%= user._id %>">
+            <% } %>
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>
