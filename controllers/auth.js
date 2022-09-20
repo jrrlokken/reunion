@@ -351,7 +351,7 @@ exports.postEditProfile = async (req, res, next) => {
     for (const image of updatedAvatar) {
       try {
         const newPath = await cloudinary.uploader.upload(image.path, {
-          cloud_name: 'joloxcloud',
+          cloud_name: process.env.CLOUDINARY_CLOUDNAME,
           folder: 'reunions',
           format: 'webp',
         });
@@ -361,7 +361,6 @@ exports.postEditProfile = async (req, res, next) => {
         console.log(error);
       }
     }
-    console.log(uploadedImages);
   }
 
   User.findById(req.session.user._id).then((user) => {
