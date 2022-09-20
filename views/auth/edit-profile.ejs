@@ -1,5 +1,5 @@
     <%- include('../includes/head.ejs') %>
-   <%- include('../includes/navigation.ejs') %>
+    <%- include('../includes/navigation.ejs') %>
     <div class="backdrop"></div>
     <main>
         <% if (errorMessage) { %> 
@@ -7,18 +7,18 @@
         <% } %> 
         <form class="profile-form" action="/edit-profile" method="POST" enctype="multipart/form-data">
             <div class="form-control">
-                <label for="title">Name</label>
+                <label for="name">Name</label>
                 <input type="text" name="name" id="name" value="<%= user.name %>" />
             </div>
             <div class="form-control">
                 <label for="about_me">About Me:</label>
                 <textarea name="about_me" id="about_me" rows="8"><%= user.about_me %></textarea>
             </div>
-            <div class="form-control profile-image">
+            <div class="form-control">
                 <label for="images">Profile Image</label>
                 <input type="file" name="images" id="images" single>
             </div>
-            <div class="button-container">
+            <div class="button-container margin-top">
                 <button class="btn btn-primary" type="submit">Update Profile</button>
                 <a href="/user-profile" class="btn btn-secondary">Cancel</a>
             </div>

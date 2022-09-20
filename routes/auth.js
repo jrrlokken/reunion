@@ -61,10 +61,6 @@ router.post('/reset-password', authController.postResetPassword);
 
 router.get('/user-profile', authController.getUserProfile);
 router.get('/edit-profile', authController.getEditProfile);
-router.post(
-  '/edit-profile',
-  upload.single('avatar'),
-  authController.postEditProfile
-);
+router.post('/edit-profile', authController.postEditProfile);
 
 module.exports = router;

@@ -1,12 +1,15 @@
     <%- include('../includes/head.ejs') %>
    <%- include('../includes/navigation.ejs') %>
     <div class="backdrop"></div>
-    <main class="centered-container">
+    <main class="centered-container centered">
 			<article class="card">
 				<div>
+                <% if (user.avatar[0]) { %> 
+                    <img src="<%= user.avatar[0] %>" alt="Profile Image">
+                <% } else { %>
 					<img src="/images/avatar.webp" alt="Profile Image">
+                <% } %>
 				</div>
-				
 				<div class="card__content">
 					<h2><%= user.name %></h2>
 					<h3><%= user.email %></h3>

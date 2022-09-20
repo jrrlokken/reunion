@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+const fs = require('fs');
 const cloudinary = require('../util/cloudinary');
 
 const nodemailer = require('nodemailer');
@@ -280,7 +281,6 @@ exports.getUserProfile = (req, res, next) => {
     if (!user) {
       return res.redirect('/login');
     }
-
     res.render('auth/profile', {
       path: '/user-profile',
       pageTitle: 'Profile',
@@ -288,7 +288,7 @@ exports.getUserProfile = (req, res, next) => {
       hasError: false,
       editing: false,
       validationErrors: [],
-      user,
+      user: user,
     });
   });
 };
@@ -325,43 +325,50 @@ exports.getEditProfile = (req, res, next) => {
 
 exports.postEditProfile = async (req, res, next) => {
   const updatedName = req.body.name;
-  const updatedAvatar = req.file;
+  const updatedAvatar = req.files;
   const updatedAboutMe = req.body.about_me;
 
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(422).render('admin/edit-reunion', {
-      pageTitle: 'Edit Reunion',
-      path: '/admin/edit-reunion',
+    return res.status(422).render('admin/edit-profile', {
+      pageTitle: 'Edit Profile',
+      path: '/edit-profile',
       editing: true,
       hasError: true,
-      product: {
-        title: updatedTitle,
-        year: updatedYear,
-        description: updatedDescription,
-        _id: reunionId,
+      user: {
+        name: updatedName,
+        about_me: updatedAboutMe,
+        _id: req.session.user._id,
       },
       errorMessage: errors.array()[0].msg,
       validationErrors: errors.array(),
     });
   }
 
-  const uploadedImage = [];
+  const uploadedImages = [];
   if (updatedAvatar) {
-    const newPath = await upload(updatedAvatar.path, {
-      folder: 'reunions',
-      format: 'webp',
-    });
-    console.log(newPath);
-    uploadedImage.push(newPath.secure_url);
-    fs.unlinkSync(image.path);
+    for (const image of updatedAvatar) {
+      try {
+        const newPath = await cloudinary.uploader.upload(image.path, {
+          cloud_name: 'joloxcloud',
+          folder: 'reunions',
+          format: 'webp',
+        });
+        uploadedImages.push(newPath.secure_url);
+        fs.unlinkSync(image.path);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    console.log(uploadedImages);
   }
 
   User.findById(req.session.user._id).then((user) => {
     user.name = updatedName;
-    user.avatar = uploadedImage;
+    user.avatar = uploadedImages[0];
     user.about_me = updatedAboutMe;
+
     return user
       .save()
       .then((result) => {
