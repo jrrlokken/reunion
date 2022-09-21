@@ -8,16 +8,16 @@
         <% } %> 
         <form class="signup-form" action="/signup" method="POST">
             <div class="form-control">
-                <label for="email">E-Mail</label>
                 <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>" type="email" name="email" id="email" value="<%= userInput.email %>">
+                <label for="email">E-Mail</label>
             </div>
             <div class="form-control">
-                <label for="password">Password</label>
                 <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>" type="password" name="password" id="password" value="<%= userInput.password %>">
+                <label for="password">Password</label>
             </div>
             <div class="form-control">
-                <label for="confirmPassword">Confirm Password</label>
                 <input class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>" type="password" name="confirmPassword" id="confirmPassword" value="<%= userInput.confirmPassword %>">
+                <label for="confirmPassword">Confirm Password</label>
             </div>
 
             <div class="button-container margin-top">

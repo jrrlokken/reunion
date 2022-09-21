@@ -43,11 +43,6 @@
   border-radius: 2px;
 }
 
-.form-control input:focus,
-.form-control textarea:focus {
-  outline-color: #0355ac;
-}
-
 .form-control input.invalid,
 .form-control textarea.invalid {
   border-color: #bb2221;

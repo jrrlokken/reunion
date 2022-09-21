@@ -1,7 +1,6 @@
 const express = require('express');
 const { body } = require('express-validator');
-const multer = require('multer');
-const upload = multer({ dest: 'images/' });
+
 const authController = require('../controllers/auth');
 const User = require('../models/user');
 
