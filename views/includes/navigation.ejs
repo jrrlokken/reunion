@@ -21,14 +21,14 @@
                   >Reunions</a
                 >
               </li>
-              <li class="">
+              <li class="main-header__item">
                 <a
                   class="<%= path === '/reunions/upcoming' ? 'active' : '' %>"
                   href="/reunions/upcoming"
                   >Upcoming Reunion</a
                 >
               </li>
-              <li class="">
+              <li class="main-header__item">
                 <a
                   class="<%= path === '/auth/user-profile' ? 'active' : '' %>"
                   href="/user-profile"
@@ -36,14 +36,14 @@
                 >
               </li>
               <% if (isAdmin) { %>
-              <li class="">
+              <li class="main-header__item">
                 <a
                   class="<%= path === '/admin/reunions' ? 'active' : '' %>"
                   href="/admin/reunions"
                   >My Reunions</a
                 >
               </li>
-              <li class="">
+              <li class="main-header__item">
                 <a
                   class="<%= path === '/admin/add-reunion' ? 'active' : '' %>"
                   href="/admin/add-reunion"
@@ -53,17 +53,17 @@
               <% } %> <% } %>
             
               <% if (!isAuthenticated) { %>
-              <li class="">
+              <li class="main-header__item">
                 <a class="<%= path === '/login' ? 'active' : '' %>" href="/login"
                   >Login</a
                 >
               </li>
               <% } else { %>
               <hr />
-              <li class="">
+              <li class="main-header__item">
                 SIGNED IN AS: <strong><%= user.email %></strong>
               </li>
-              <li class="">
+              <li class="main-header__item">
                 <form action="/logout" method="post" class="logout-form">
                   <input type="hidden" name="_csrf" value="<%=  csrfToken %>" />
                   <button class='btn btn-primary logout-button' type="submit">Logout</button>
