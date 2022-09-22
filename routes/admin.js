@@ -48,5 +48,5 @@ router.post(
 );
 
 router.post('/delete-reunion', isAdmin, adminController.postDeleteReunion);
-
+router.get('/users', isAdmin, adminController.getUsers);
 module.exports = router;

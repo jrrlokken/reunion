@@ -206,3 +206,13 @@ exports.postDeleteReunion = (req, res, next) => {
       return next(newError);
     });
 };
+
+exports.getUsers = async (req, res, next) => {
+  const sessions = await Session.find();
+  console.log(sessions);
+  res.render('admin/users', {
+    pageTitle: 'Users',
+    path: '/admin/users',
+    users: sessions,
+  });
+};

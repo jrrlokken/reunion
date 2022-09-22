@@ -1,0 +1,16 @@
+  <%- include('../includes/head.ejs') %>
+  <%- include('../includes/navigation.ejs') %>
+	<div class="backdrop"></div>
+  <main>
+    <div>
+      <ul>
+        <% for (let user of users) { %>
+          <li>
+            <h1><%= user.name %></h1>
+            <p><%= user.email %></p>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </main>
+  <%- include('../includes/end.ejs') %>
