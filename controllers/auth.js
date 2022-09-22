@@ -293,11 +293,6 @@ exports.getUserProfile = (req, res, next) => {
 };
 
 exports.getEditProfile = (req, res, next) => {
-  // const editMode = req.query.edit;
-  // if (!editMode) {
-  //   return res.redirect('/user-profile');
-  // }
-
   let message = req.flash('error');
   if (message.length > 0) {
     message = message[0];
@@ -346,7 +341,7 @@ exports.postEditProfile = async (req, res, next) => {
   }
 
   const uploadedImages = [];
-  if (updatedAvatar) {
+  if (updatedAvatar.length > 0) {
     for (const image of updatedAvatar) {
       try {
         const newPath = await cloudinary.uploader.upload(image.path, {
