@@ -1,7 +1,7 @@
-FROM node:alpine/gallium
-COPY ./var/www/reunion
-WORKDIR /var/www/reunion
+FROM node:lts-alpine
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
 EXPOSE 3006
-
-CMD ["npm", "install"]
-LABEL version="0.1"
+CMD [ "npm", "start" ]
