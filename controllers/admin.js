@@ -73,6 +73,7 @@ exports.postAddReunion = async (req, res, next) => {
 
   for (const image of images) {
     const newPath = await cloudinary.uploader.upload(image.path, {
+      cloud_name: 'joloxcloud',
       folder: 'reunions',
       format: 'webp',
     });
