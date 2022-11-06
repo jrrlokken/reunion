@@ -5,6 +5,9 @@ const cloudinary = require('../util/cloudinary');
 
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
+
+const sib = require('sib-api-v3-sdk');
+
 const { validationResult } = require('express-validator');
 
 const User = require('../models/user');
@@ -16,6 +19,11 @@ const transport = nodemailer.createTransport(
     },
   })
 );
+
+const client = sib.ApiClient.instance;
+const apiKey = client.authentications['api-key'];
+apiKey.apiKey = process.env.SENDINBLUE_API_KEY;
+const emailAPI = new sib.TransactionalEmailsApi();
 
 exports.getSignup = (req, res, next) => {
   let message = req.flash('error');
@@ -65,15 +73,25 @@ exports.postSignup = (req, res, next) => {
     })
     .then((result) => {
       res.redirect('/login');
-      return transport.sendMail({
-        to: email,
-        from: 'no-reply@lokkenreunion.com',
+      return emailAPI.sendTransacEmail({
+        sender: { name: 'Lokken Reunion', email: 'no-reply@lokkenreunion.com' },
+        to: [{ email: email }],
         subject: 'Successful signup at LokkenReunion.com',
-        html: `
-          <p>Thank you for signing up with LokkenReunion.com!</p>
-          <p>Come join the reunion 😄</p>
-        `,
+        textContent:
+          'Thank you for signing up at LokkenReunion.com! Come join the reunion :)',
+        htmlContent:
+          '<p>Thank you for signing up at LokkenReunion.com!</p><p>Come join the reunion 😄</p>',
       });
+
+      // return transport.sendMail({
+      //   to: email,
+      //   from: 'no-reply@lokkenreunion.com',
+      //   subject: 'Successful signup at LokkenReunion.com',
+      //   html: `
+      //     <p>Thank you for signing up with LokkenReunion.com!</p>
+      //     <p>Come join the reunion 😄</p>
+      //   `,
+      // });
     })
     .catch((error) => console.log(error));
 };
