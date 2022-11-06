@@ -161,6 +161,7 @@ exports.postEditReunion = async (req, res, next) => {
   if (updatedImages) {
     for (const image of updatedImages) {
       const newPath = await cloudinary.uploader.upload(image.path, {
+        cloud_name: 'joloxcloud',
         folder: 'reunions',
         format: 'webp',
       });
