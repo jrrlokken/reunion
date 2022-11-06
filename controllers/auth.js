@@ -2,20 +2,16 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const fs = require('fs');
 const cloudinary = require('../util/cloudinary');
-
-const nodemailer = require('nodemailer');
-const sendgridTransport = require('nodemailer-sendgrid-transport');
+const sib = require('sib-api-v3-sdk');
 const { validationResult } = require('express-validator');
 
 const User = require('../models/user');
 
-const transport = nodemailer.createTransport(
-  sendgridTransport({
-    auth: {
-      api_key: process.env.SENDGRID_API_KEY,
-    },
-  })
-);
+// Mailer setup
+const client = sib.ApiClient.instance;
+const apiKey = client.authentications['api-key'];
+apiKey.apiKey = process.env.SENDINBLUE_API_KEY;
+const emailAPI = new sib.TransactionalEmailsApi();
 
 exports.getSignup = (req, res, next) => {
   let message = req.flash('error');
@@ -65,14 +61,14 @@ exports.postSignup = (req, res, next) => {
     })
     .then((result) => {
       res.redirect('/login');
-      return transport.sendMail({
-        to: email,
-        from: 'no-reply@lokkenreunion.com',
+      return emailAPI.sendTransacEmail({
+        sender: { name: 'Lokken Reunion', email: 'no-reply@lokkenreunion.com' },
+        to: [{ email: email }],
         subject: 'Successful signup at LokkenReunion.com',
-        html: `
-          <p>Thank you for signing up with LokkenReunion.com!</p>
-          <p>Come join the reunion 😄</p>
-        `,
+        textContent:
+          'Thank you for signing up at LokkenReunion.com! Come join the reunion :)',
+        htmlContent:
+          '<p>Thank you for signing up at LokkenReunion.com!</p><p>Come join the reunion 😄</p>',
       });
     })
     .catch((error) => console.log(error));
@@ -197,19 +193,16 @@ exports.postReset = (req, res, next) => {
       })
       .then((result) => {
         res.redirect('/');
-        transport.sendMail({
-          to: req.body.email,
-          from: 'no-reply@lokkenreunion.com',
-          subject: 'Password Reset',
-          html: `
-          <p>Hello,</p>
 
-          <p>You requested a password reset for your account at lokkenreunion.com</p>
-          <p>Click this <a href="https://www.lokkenreunion.com/reset/${token}">link</a> to set a new password.</p>
-          <p>Please contact <a href="mailto:admin@lokkenreunion.com">the site administrator</a> for assistance.</p>
-          <br>
-          <hr>
-          `,
+        return emailAPI.sendTransacEmail({
+          sender: {
+            name: 'Lokken Reunion',
+            email: 'no-reply@lokkenreunion.com',
+          },
+          to: [{ email: req.body.email }],
+          subject: 'Password Reset',
+          textContent: `Hello, You requested a password reset for your account at lokkenreunion.com. Click this link to set a new password: https://www.lokkenreunion.com/reset/${token}. Please contact the site administrator if you require assistance.`,
+          htmlContent: `<p>Hello,</p><p>You requested a password reset for your account at lokkenreunion.com</p><p>Click this <a href="https://www.lokkenreunion.com/reset/${token}">link</a> to set a new password.</p><p>Please contact <a href="mailto:admin@lokkenreunion.com">the site administrator</a> for assistance.</p><br><hr>`,
         });
       })
       .catch((error) => console.log(error));
