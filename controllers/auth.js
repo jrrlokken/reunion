@@ -61,14 +61,17 @@ exports.postSignup = (req, res, next) => {
     })
     .then((result) => {
       res.redirect('/login');
+      const content = `
+        <p>Thank you for signing up with LokkenReunion.com!
+        Updates will be posted as they become available.</p>
+        <a href="${process.env.BASE_URL}/login" >Come join the reunion!</a>
+      `;
       return emailAPI.sendTransacEmail({
         sender: { name: 'Lokken Reunion', email: 'no-reply@lokkenreunion.com' },
         to: [{ email: email }],
         subject: 'Successful signup at LokkenReunion.com',
-        textContent:
-          'Thank you for signing up at LokkenReunion.com! Come join the reunion :)',
-        htmlContent:
-          '<p>Thank you for signing up at LokkenReunion.com!</p><p>Come join the reunion 😄</p>',
+        textContent: `Thank you for signing up at LokkenReunion.com! Updates will be posted as they become available. Come join the reunion :)`,
+        htmlContent: content,
       });
     })
     .catch((error) => console.log(error));
