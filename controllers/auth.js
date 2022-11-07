@@ -61,10 +61,11 @@ exports.postSignup = (req, res, next) => {
     })
     .then((result) => {
       res.redirect('/login');
+	console.log(process.env.BASE_URL);
       const content = `
         <p>Thank you for signing up with LokkenReunion.com!
         Updates will be posted as they become available.</p>
-        <a href="${process.env.BASE_URL}/login" >Come join the reunion!</a>
+        <a href="${process.env.BASE_URL}login" >Come join the reunion!</a>
       `;
       return emailAPI.sendTransacEmail({
         sender: { name: 'Lokken Reunion', email: 'no-reply@lokkenreunion.com' },
