@@ -15,11 +15,14 @@
 					<h3><%= user.email %></h3>
 					<p><%= user.about_me %></p>
 				</div>
-        <div class="card__actions">
-            <a href="/edit-profile" class="btn btn-primary">Edit Profile</a>
-        </div>
-        <input type="hidden" name="_csrf" value="<%=  csrfToken %>">
-        <input type="hidden" name="userId" value="<%= user._id %>">
+                <div class="card__actions">
+                    <a href="/edit-profile" class="btn btn-primary">Edit Profile</a>
+                </div>
+                <input type="hidden" name="_csrf" value="<%=  csrfToken %>">
+                <input type="hidden" name="userId" value="<%= user._id %>">
 			</article>
+            <div class="back-button">
+                <button class="btn btn-primary" onClick="history.back()">Back</button>
+            </div>
     </main>
 <%- include('../includes/end.ejs') %>
