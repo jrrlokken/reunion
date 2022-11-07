@@ -61,6 +61,7 @@ exports.postSignup = (req, res, next) => {
     })
     .then((result) => {
       res.redirect('/login');
+	console.log(process.env.BASE_URL);
       const content = `
         <p>Thank you for signing up with LokkenReunion.com!
         Updates will be posted as they become available.
