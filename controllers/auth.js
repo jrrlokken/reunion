@@ -351,8 +351,9 @@ exports.postEditProfile = async (req, res, next) => {
   }
 
   User.findById(req.session.user._id).then((user) => {
+    const image = uploadedImages.length > 0 ? uploadedImages[0] : user.avatar;
     user.name = updatedName;
-    user.avatar = [uploadedImages[0]];
+    user.avatar = image;
     user.about_me = updatedAboutMe;
 
     return user
