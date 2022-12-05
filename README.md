@@ -2,15 +2,13 @@
 
 ### Website for the Lokken family reunions.
 
-Welcome to the Lokken Reunion!
-
 TODO:
 
 - ~~Add cloudinary support~~
 - ~~PusherJS for commenting~~
 - ~~Fix comment date/name bug~~
 - ~~Add image slideshow on landing page~~
-- PassportJS for authentication
+- Live chat with PusherJS
 
 Tech stack:
 
