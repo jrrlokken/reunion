@@ -30,6 +30,7 @@ const indexRoute = require('./routes/index');
 const reunionRoutes = require('./routes/reunion');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
+const chatRoutes = require('./routes/chat');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer);
@@ -79,6 +80,7 @@ app.use('/admin', adminRoutes);
 app.use('/reunions', reunionRoutes);
 app.use(indexRoute);
 app.use(authRoutes);
+app.use(chatRoutes);
 
 app.use('/500', errorController.get500);
 app.use(errorController.get404);
